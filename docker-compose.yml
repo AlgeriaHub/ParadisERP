@@ -17,6 +17,7 @@ services:
       ConnectionStrings__Default: "Data Source=/data/default.db"
       Platform__Enabled: "true"
       Platform__Host: "erp.paradistack.com"
+      Logging__LogLevel__Microsoft.AspNetCore: "Debug"
       Platform__ConnectionString: "Data Source=/data/platform.db"
       Platform__CompanyDataDirectory: "/data/companies"
       Jwt__Key: "4aad2ef1ade352779ed7472f4c47fa08a72a86777fbc933f8ffd8d5ded2bad98"

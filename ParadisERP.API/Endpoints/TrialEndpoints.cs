@@ -107,6 +107,6 @@ public static partial class TrialEndpoints
             {
                 return Results.BadRequest(new { error = ex.Message });
             }
-        }).AllowAnonymous();
+        }).AllowAnonymous().DisableAntiforgery();
     }
 }
