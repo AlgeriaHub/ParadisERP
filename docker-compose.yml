@@ -16,7 +16,7 @@ services:
       Database__AllowSqliteInProduction: "true"
       ConnectionStrings__Default: "Data Source=/data/default.db"
       Platform__Enabled: "true"
-      Platform__Host: "paradiserp.zena4cp.com"
+      Platform__Host: "erp.paradistack.com"
       Platform__ConnectionString: "Data Source=/data/platform.db"
       Platform__CompanyDataDirectory: "/data/companies"
       Jwt__Key: "4aad2ef1ade352779ed7472f4c47fa08a72a86777fbc933f8ffd8d5ded2bad98"
@@ -25,7 +25,6 @@ services:
       Bootstrap__AdminUsername: "admin"
       Bootstrap__AdminPassword: "ParadisERPAdmin2026!"
       Country: "DZ"
-      Platform__Host: "erp.paradistack.com"
     healthcheck:
       test: ["CMD-SHELL", "curl -fsS -H 'Host: erp.paradistack.com' http://127.0.0.1:5080/health || exit 1"]
       interval: 15s
