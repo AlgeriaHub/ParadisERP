@@ -25,8 +25,9 @@ services:
       Bootstrap__AdminUsername: "admin"
       Bootstrap__AdminPassword: "ParadisERPAdmin2026!"
       Country: "DZ"
+      Platform__Host: "erp.paradistack.com"
     healthcheck:
-      test: ["CMD-SHELL", "curl -fsS -H 'Host: paradiserp.zena4cp.com' http://127.0.0.1:5080/health || exit 1"]
+      test: ["CMD-SHELL", "curl -fsS -H 'Host: erp.paradistack.com' http://127.0.0.1:5080/health || exit 1"]
       interval: 15s
       timeout: 5s
       retries: 3

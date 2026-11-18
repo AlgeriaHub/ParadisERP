@@ -108,8 +108,8 @@ public sealed class TrialEndpointsTests : IAsyncLifetime
         var body = await response.Content.ReadFromJsonAsync<TrialSignupResponse>();
         Assert.NotNull(body);
         Assert.Equal(slug, body.Slug);
-        Assert.Equal($"{slug}.paradiserp.zena4cp.com", body.Host);
-        Assert.Equal($"https://{slug}.paradiserp.zena4cp.com/#/login", body.LoginUrl);
+        Assert.Equal($"{slug}.erp.paradistack.com", body.Host);
+        Assert.Equal($"https://{slug}.erp.paradistack.com/#/login", body.LoginUrl);
         Assert.Equal("owner@example.com", body.AdminUsername);
         Assert.False(string.IsNullOrWhiteSpace(body.BootstrapPassword));
         Assert.True(body.ExpiresAtUtc > DateTimeOffset.UtcNow);

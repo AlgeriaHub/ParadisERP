@@ -33,11 +33,13 @@ public static partial class TrialEndpoints
     [GeneratedRegex("^[a-z0-9][a-z0-9-]{1,28}[a-z0-9]$")]
     private static partial Regex SlugPattern();
 
-    public const string DefaultDomainSuffix = "paradiserp.zena4cp.com";
+    public const string DefaultDomainSuffix = "erp.paradistack.com";
 
     public static void MapTrialEndpoints(this IEndpointRouteBuilder app, Identity.PlatformOptions options)
     {
         if (!options.Enabled) return;
+
+        var domainSuffix = !string.IsNullOrWhiteSpace(options.Host) ? options.Host : DefaultDomainSuffix;
 
         // Dedicated public endpoint for self-service trial provisioning
         app.MapPost("/api/trials", async (TrialSignupRequest request, CompanyProvisioner provisioner, CancellationToken ct) =>
@@ -60,7 +62,7 @@ public static partial class TrialEndpoints
                 return Results.BadRequest(new { error = $"Invalid country code. Supported: {string.Join(", ", RegionalPresets.Countries)}." });
 
             var adminUsername = string.IsNullOrWhiteSpace(request.AdminEmail) ? "admin" : request.AdminEmail.Trim();
-            var host = $"{slug}.{DefaultDomainSuffix}";
+            var host = $"{slug}.{domainSuffix}";
 
             var trialSubscription = new SubscriptionOptions
             {
