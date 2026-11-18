@@ -312,9 +312,10 @@ builder.Services.AddSingleton<AlgeriaPos.Infrastructure.Authorization.Authorizat
 var sso = builder.Configuration.GetSection("Sso").Get<SsoOptions>() ?? new();
 if (platform.Enabled)
 {
-    if (!multiCompany || !sso.Enabled || Uri.CheckHostName(platform.Host) == UriHostNameType.Unknown
-        || tenants.Resolve(platform.Host) is not null || platform.OperatorSubjects.Length == 0)
-        throw new InvalidOperationException("The platform requires hosted companies, SSO, a separate hostname, and operator subject IDs.");
+    if (!multiCompany || Uri.CheckHostName(platform.Host) == UriHostNameType.Unknown
+        || tenants.Resolve(platform.Host) is not null
+        || (sso.Enabled && platform.OperatorSubjects.Length == 0))
+        throw new InvalidOperationException("The platform requires hosted companies, a valid separate hostname, and when SSO is enabled, operator subject IDs.");
     var platformDatabase = new Microsoft.Data.Sqlite.SqliteConnectionStringBuilder(platform.ConnectionString);
     if (string.IsNullOrWhiteSpace(platformDatabase.DataSource) || platformDatabase.DataSource == ":memory:"
         || tenants.Tenants.Any(x => x.DatabaseProvider == PosDbProviders.Sqlite && string.Equals(Path.GetFullPath(
@@ -757,6 +758,7 @@ app.Use(async (context, next) =>
     {
         if (context.Request.Path.StartsWithSegments("/api")
             && !context.Request.Path.StartsWithSegments("/api/platform")
+            && !context.Request.Path.StartsWithSegments("/api/trials")
             && !context.Request.Path.StartsWithSegments("/api/auth/sso"))
         { context.Response.StatusCode = 404; return; }
         if (context.Request.Path == "/api/auth/sso/session") { context.Response.StatusCode = 404; return; }

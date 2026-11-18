@@ -35,7 +35,11 @@ public static class SsoConfiguration
     {
         services.AddSingleton(sso);
         services.AddSingleton(platform);
-        if (!sso.Enabled) return;
+        if (!sso.Enabled)
+        {
+            services.AddAuthorization(options => options.AddPolicy(OperatorPolicy, policy => policy.RequireAssertion(_ => false)));
+            return;
+        }
         if (!platform.Enabled || !Uri.TryCreate(sso.Authority, UriKind.Absolute, out var authority)
             || (!development && authority.Scheme != "https") || string.IsNullOrWhiteSpace(sso.ClientId)
             || string.IsNullOrWhiteSpace(sso.ClientSecret))
