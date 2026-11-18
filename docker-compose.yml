@@ -1,30 +1,33 @@
-# One container on a single file database — for trying the system out on a laptop.
-# Production is SQL Server on SmarterASP.NET; see deploy/smarterasp/README.md.
 services:
-  pos:
-    build: .
+  paradierp:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    image: paradierp:latest
+    container_name: paradierp-web
+    restart: unless-stopped
     ports:
-      - "5080:5080"
+      - "127.0.0.1:5085:5080"
     volumes:
-      - pos-data:/data
+      - /opt/paradierp/data:/data
     environment:
-      # Replace before running anywhere real — at least 32 characters.
-      Jwt__Key: "change-this-to-a-long-random-secret-key-32+"
       ASPNETCORE_ENVIRONMENT: "Production"
       Database__Provider: "Sqlite"
-      ConnectionStrings__Default: "Data Source=/data/pos.db"
-      # A single file is what this compose is for, so it says so. Without it the API refuses
-      # to run on SQLite outside Development — the mistake that guard exists to catch is a
-      # production compose that forgot Database__Provider and quietly ran the whole company on
-      # a file inside the container while the server database sat there empty.
       Database__AllowSqliteInProduction: "true"
-      # The first administrator. Read only while the Users table is empty, so an upgrade needs
-      # neither line. Replace both, and remove the password once the first sign-in has worked.
+      ConnectionStrings__Default: "Data Source=/data/default.db"
+      Platform__Enabled: "true"
+      Platform__Host: "paradierp.zena4cp.com"
+      Platform__ConnectionString: "Data Source=/data/platform.db"
+      Platform__CompanyDataDirectory: "/data/companies"
+      Jwt__Key: "4aad2ef1ade352779ed7472f4c47fa08a72a86777fbc933f8ffd8d5ded2bad98"
+      DataProtection__KeysPath: "/data/keys"
+      Files__Root: "/data/files"
       Bootstrap__AdminUsername: "admin"
-      Bootstrap__AdminPassword: "change-this-first-start-password"
-      # Country preset for this shop (DZ, MA, TN, FR, SA); see docs/05-system-design.md.
+      Bootstrap__AdminPassword: "ParadiERPAdmin2026!"
       Country: "DZ"
-    restart: unless-stopped
-
-volumes:
-  pos-data:
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS -H 'Host: paradierp.zena4cp.com' http://127.0.0.1:5080/health || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
