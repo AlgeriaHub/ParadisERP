@@ -1,0 +1,21 @@
+<div class="shell">
+  <!-- Above everything, and outside the authenticated branch on purpose: a till left at the
+       login screen overnight is exactly the one that most needs to be told there is a new
+       version. Never on the print route, which draws the document and nothing else. -->
+  @if (layout() !== 'print' && layout() !== 'landing') {
+    <app-update-banner />
+  }
+  <app-language-switch-overlay />
+
+  <!-- Each layout draws its own header (REDESIGN_PLAN.md §7.1): the till its slim bar, the
+       back office its shell with the sidebar, the login and print pages none. -->
+  @if (layout() === 'till' && auth.isAuthenticated()) {
+    <app-till-header />
+  }
+
+  <main [class.padded]="layout() === 'till' && auth.isAuthenticated()">
+    <router-outlet />
+  </main>
+</div>
+
+<app-select-search />

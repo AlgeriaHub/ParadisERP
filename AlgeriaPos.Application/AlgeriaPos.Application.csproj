@@ -1,0 +1,5 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\AlgeriaPos.Domain\AlgeriaPos.Domain.csproj" />
+  </ItemGroup>
+</Project>

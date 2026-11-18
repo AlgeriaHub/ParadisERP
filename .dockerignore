@@ -1,0 +1,20 @@
+**/bin/
+**/obj/
+**/node_modules/
+**/dist/
+**/.angular/
+**/*.db
+**/*.db-shm
+**/*.db-wal
+**/appsettings.Local.json
+**/.env
+.git/
+.vs/
+.claude/
+artifacts/
+docs/
+tests/
+scripts/
+Claude outputs/
+AlgeriaPos.Tests/
+AlgeriaPos.API/wwwroot/

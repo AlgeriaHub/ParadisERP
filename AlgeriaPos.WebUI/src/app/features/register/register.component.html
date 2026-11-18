@@ -1,0 +1,651 @@
+<!-- `inert` while the payment dialog is up: the till behind it stops taking taps, stops
+     taking Tab and drops out of the screen reader's reach, which is the whole of a focus
+     trap without a keystroke of script. The toast stays outside it on purpose. -->
+<div class="register" [class.cart-open]="cartOpen()" [attr.inert]="payOpen() ? '' : null">
+  <!-- ---------- catalog ---------- -->
+  <section class="catalog card">
+    <div class="search-row">
+      <svg class="search-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="7" />
+        <line x1="16.5" y1="16.5" x2="21" y2="21" />
+      </svg>
+      <input
+        #searchBox
+        type="search"
+        class="search"
+        [placeholder]="i18n.t('register.search')"
+        [value]="search()"
+        (input)="search.set($any($event.target).value)"
+        (keyup.enter)="onSearchEnter()"
+        [attr.aria-label]="i18n.t('register.search')"
+        autocomplete="off"
+        spellcheck="false"
+      />
+      @if (search()) {
+        <!-- The field's own clear cross is a few pixels wide and Firefox draws none at all.
+             This one is a real key, positioned with a logical inset so it mirrors. -->
+        <button
+          type="button"
+          class="search-clear"
+          [attr.aria-label]="i18n.t('register.clearSearch')"
+          (click)="clearSearch()"
+        >
+          ×
+        </button>
+      }
+    </div>
+
+    <!-- No category buttons (owner, 2026-10-12): categories separated rental from sale items in
+         an older flow and are no longer used, so every product shows in one grid. -->
+    <div class="chips-row">
+      <!-- Two to five cards a row. The chosen number is written on the pressed key, so the
+           setting states itself rather than being read off which key looks darker. -->
+      <div class="cols" role="group" [attr.aria-label]="i18n.t('register.columns')">
+        <div class="cols-strip">
+          @for (n of columnChoices; track n) {
+            <button
+              type="button"
+              class="cols-key"
+              [class.active]="columns() === n"
+              [attr.aria-pressed]="columns() === n"
+              (click)="setColumns(n)"
+            >
+              {{ n }}
+            </button>
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="grid" [style.--cols]="columns()">
+      @if (!catalogReady()) {
+        <!-- The catalog is read from this device, so the wait is short — but without this the
+             "no products" notice fires on the first frame and tells the cashier something
+             untrue about their own till. -->
+        <p class="empty-grid" role="status"><strong>{{ i18n.t('common.loading') }}</strong></p>
+      } @else {
+        @for (p of filtered(); track p.id) {
+          <!-- The card is a card, not a button. Reading a price and adding a line are two
+               different intentions, and a whole tile that fires on touch puts a line on the
+               ticket every time a cashier steadies the screen or scrolls the grid. The + is
+               the only thing that adds, and it is a full fingertip wide. -->
+          <div
+            class="tile"
+            [class.out]="p.trackStock && pos.availableStock(p) <= 0"
+          >
+            @if (p.taxRate) {
+              <span class="tile-tax">{{ p.taxRate }}%</span>
+            }
+            <!-- In the order a cashier reads a card (REDESIGN_PLAN.md §12): the name, the price, what
+                 is left, the reference — and the + that adds it. -->
+            <span class="tile-name" [attr.title]="name(p)">{{ name(p) }}</span>
+            <span class="tile-price mono">{{ i18n.money(p.price) }}</span>
+            <span class="tile-foot">
+              @if (p.trackStock) {
+                @if (pos.availableStock(p) <= 0) {
+                  <!-- Out of stock is written out, the + stays as it was: what pressing it does is
+                       addProduct()'s, unchanged by the redesign (FB-1). -->
+                  <span class="tile-state">{{ i18n.t('register.outOfStock') }}</span>
+                } @else {
+                  <span class="tile-stock mono">{{ i18n.t('register.stockLeft', { n: pos.availableStock(p) }) }}</span>
+                }
+              }
+              <span class="tile-sku mono">{{ p.sku }}</span>
+            </span>
+            <button
+              type="button"
+              class="tile-add"
+              [attr.aria-label]="i18n.t('register.add') + ' — ' + name(p)"
+              [attr.title]="i18n.t('register.add')"
+              (click)="addProduct(p)"
+            >
+              +
+            </button>
+          </div>
+        } @empty {
+          <!-- Two different nothings. A search that matched nothing is the cashier's own doing
+               and offers the way back; an empty catalog is the terminal's, and says what will
+               fill it. -->
+          <div class="empty-grid">
+            @if (filtering()) {
+              <strong>{{ i18n.t('register.noResults') }}</strong>
+              <span class="muted">{{ i18n.t('register.emptyHint') }}</span>
+              <button type="button" class="btn-ghost" (click)="clearFilters()">
+                {{ i18n.t('register.clearSearch') }}
+              </button>
+            } @else {
+              <strong>{{ i18n.t('register.catalogEmpty') }}</strong>
+            }
+          </div>
+        }
+        @if (truncated()) {
+          <p class="grid-note">{{ i18n.t('register.moreResults', { n: gridLimit }) }}</p>
+        }
+      }
+    </div>
+  </section>
+
+  <!-- ---------- cart ----------
+       One element at every width. Wide, it is the column beside the catalog; narrow, the
+       same markup becomes a sheet docked to the bottom of the screen whose middle collapses.
+       Nothing is duplicated, so there is one cart in the DOM and one pay button. -->
+  <aside class="cart card">
+    <button
+      type="button"
+      class="sheet-handle"
+      [attr.aria-expanded]="cartOpen()"
+      (click)="cartOpen.set(!cartOpen())"
+    >
+      <span class="sheet-grip" aria-hidden="true"></span>
+      <span class="sheet-label">
+        {{ i18n.t('register.cart') }}@if (itemCount()) { · {{ countLabel() }}}
+      </span>
+      <span class="sheet-action">{{ i18n.t(cartOpen() ? 'register.hideCart' : 'register.showCart') }}</span>
+    </button>
+
+    <header class="cart-head">
+      <h2>{{ i18n.t('register.cart') }}</h2>
+      @if (itemCount()) {
+        <span class="cart-count muted">{{ countLabel() }}</span>
+      }
+      <button type="button" class="btn-ghost small" [disabled]="!pos.items().length" (click)="clearCart()">
+        {{ i18n.t('register.clear') }}
+      </button>
+    </header>
+
+    <div class="cart-scroll">
+      <div class="cart-body">
+        @if (!pos.items().length) {
+          <div class="empty">
+            <strong>{{ i18n.t('register.empty') }}</strong>
+            <p class="muted">{{ i18n.t('register.emptyHint') }}</p>
+          </div>
+        } @else {
+          @for (item of pos.items(); track item.productId) {
+            <div class="line">
+              <div class="line-main">
+                <span class="line-name">{{ lineName(item) }}</span>
+                <button
+                  type="button"
+                  class="x"
+                  [attr.aria-label]="i18n.t('common.delete') + ' — ' + lineName(item)"
+                  (click)="removeLine(item.productId)"
+                >
+                  ×
+                </button>
+              </div>
+              <div class="line-controls">
+                <div class="stepper">
+                  <button type="button" [attr.aria-label]="i18n.t('register.qty') + ' −'" (click)="changeQty(item.productId, -1)">−</button>
+                  <input
+                    class="mono"
+                    type="number"
+                    min="0"
+                    step="1"
+                    [attr.aria-label]="i18n.t('register.qty') + ' — ' + lineName(item)"
+                    [value]="item.qty"
+                    (change)="onQtyInput(item.productId, $event)"
+                  />
+                  <button type="button" [attr.aria-label]="i18n.t('register.qty') + ' +'" (click)="changeQty(item.productId, 1)">+</button>
+                </div>
+                <span class="line-unit muted mono">× {{ i18n.money(item.unitPrice) }}</span>
+                <span class="line-total mono num">{{ i18n.money(item.qty * item.unitPrice) }}</span>
+              </div>
+            </div>
+          }
+        }
+      </div>
+    </div>
+
+    <div class="cart-foot">
+      <div class="row cust-row">
+        <label for="cust" class="cust-label">{{ i18n.t('register.customer') }}</label>
+        <select id="cust" class="cust-select" [value]="pos.customerId() ?? ''" (change)="onCustomerChange($event)">
+          <option value="">{{ i18n.t('register.walkIn') }}</option>
+          @for (c of pos.customers(); track c.id) {
+            <option [value]="c.id">{{ c.fullName }}</option>
+          }
+        </select>
+        @if (mayCreateCustomer()) {
+          <button
+            type="button"
+            class="btn-ghost small cust-new-btn"
+            [attr.aria-label]="i18n.t('register.newCustomer')"
+            [attr.title]="i18n.t('register.newCustomer')"
+            (click)="quickCustomer.set(true)"
+          >
+            <span aria-hidden="true">+</span> {{ i18n.t('register.newCustomer') }}
+          </button>
+        }
+      </div>
+
+      <div class="row disc-vat-row" [class.is-editing]="discountEditing()">
+        @if (!discountEditing()) {
+          <div class="disc-slot">
+            @if (hasDiscount()) {
+              <div class="disc-summary">
+                <span class="disc-badge">
+                  <span class="disc-label">{{ i18n.t('register.discount') }}</span>
+                  <strong class="mono num">{{ discountSummaryText() }}</strong>
+                </span>
+                <button
+                  #discountTriggerBtn
+                  type="button"
+                  class="btn-ghost small disc-edit-btn"
+                  aria-controls="disc-editor"
+                  [attr.aria-expanded]="false"
+                  [attr.aria-label]="i18n.t('register.editDiscount')"
+                  (click)="openDiscountEditor()"
+                >
+                  {{ i18n.t('register.editDiscount') }}
+                </button>
+              </div>
+            } @else {
+              <button
+                #discountTriggerBtn
+                type="button"
+                class="btn-ghost small disc-add-btn"
+                aria-controls="disc-editor"
+                [attr.aria-expanded]="false"
+                (click)="openDiscountEditor()"
+              >
+                <span aria-hidden="true">+</span> {{ i18n.t('register.addDiscount') }}
+              </button>
+            }
+          </div>
+        } @else {
+          <div
+            id="disc-editor"
+            class="disc-editor"
+            role="group"
+            [attr.aria-label]="i18n.t('register.discount')"
+          >
+            <span class="disc-editor-label">{{ i18n.t('register.discount') }}</span>
+            <select
+              #discTypeSelect
+              id="disc-type"
+              [attr.aria-label]="i18n.t('register.discount')"
+              [(ngModel)]="discountType"
+              (ngModelChange)="applyDiscount()"
+            >
+              <option value="none">—</option>
+              <option value="percent">%</option>
+              <option value="amount">{{ i18n.currencySymbol() }}</option>
+            </select>
+            <input
+              id="disc-value"
+              type="number"
+              min="0"
+              [step]="discountType === 'amount' ? regional.moneyStep() : 1"
+              class="mono num"
+              [(ngModel)]="discountValue"
+              (ngModelChange)="applyDiscount()"
+              [disabled]="discountType === 'none'"
+              [attr.aria-label]="i18n.t('register.discount')"
+            />
+            <button
+              type="button"
+              class="x disc-remove-btn"
+              [attr.aria-label]="i18n.t('register.removeDiscount')"
+              [attr.title]="i18n.t('register.removeDiscount')"
+              (click)="removeDiscount()"
+            >
+              ×
+            </button>
+            <button
+              type="button"
+              class="btn-primary small disc-done-btn"
+              (click)="closeDiscountEditor()"
+            >
+              {{ i18n.t('register.doneDiscount') }}
+            </button>
+          </div>
+        }
+
+        <div class="taxmode-check">
+          <input
+            id="taxmode"
+            type="checkbox"
+            [checked]="pos.taxMode() === 'Taxed'"
+            (change)="pos.taxMode.set($any($event.target).checked ? 'Taxed' : 'Untaxed')"
+          />
+          <label for="taxmode">{{ i18n.t('register.taxMode') }}</label>
+        </div>
+      </div>
+
+      <dl class="totals">
+        <div>
+          <dt>{{ i18n.t('register.subtotal') }}</dt>
+          <dd class="mono num">{{ i18n.money(pos.totals().subTotalHt) }}</dd>
+        </div>
+        @for (b of pos.totals().taxBuckets; track b.rate) {
+          @if (b.rate > 0) {
+            <div>
+              <dt>{{ i18n.t('register.tax') }} {{ b.rate }}%{{ i18n.rateLabel(b.rate) ? ' · ' + i18n.rateLabel(b.rate) : '' }}</dt>
+              <dd class="mono num">{{ i18n.money(b.tax) }}</dd>
+            </div>
+          }
+        }
+        @if (pos.totals().discountTotal > 0) {
+          <div class="disc">
+            <dt>{{ i18n.t('register.discount') }}</dt>
+            <dd class="mono num">−{{ i18n.money(pos.totals().discountTotal) }}</dd>
+          </div>
+        }
+        @if (pos.taxMode() === 'Untaxed') {
+          <div class="untaxed">
+            <dt>{{ i18n.t('register.taxMode') }}</dt>
+            <dd>{{ i18n.t('register.withoutTax') }}</dd>
+          </div>
+        }
+      </dl>
+    </div>
+
+    <!-- The money block. Same ink as the app chrome, so the total and the top bar frame the
+         white work surface between them — and the figure a cashier reads aloud is the
+         loudest thing on the screen. It never collapses, at any width. -->
+    <div class="cart-pay">
+      <dl class="totals totals-grand">
+        <div class="grand">
+          <dt>{{ i18n.t('register.total') }}</dt>
+          <dd class="mono num">{{ i18n.money(pos.totals().grandTotalTtc) }}</dd>
+        </div>
+      </dl>
+
+      <button type="button" class="btn-primary pay" [disabled]="!pos.items().length" (click)="openPay()">
+        {{ i18n.t('register.pay') }}
+      </button>
+
+      @if (!connectivity.online()) {
+        <p class="offline-note">
+          <span class="state state-warn">{{ i18n.t('status.offline') }}</span>
+          <span>{{ i18n.t('sync.offlineNotice') }}</span>
+        </p>
+      }
+    </div>
+  </aside>
+</div>
+
+<!-- The customer editor of the back office, loaded only when the button is pressed: a till that
+     never creates a customer never downloads it. An overlay, so the cart underneath is untouched. -->
+@if (quickCustomer()) {
+  @defer (on immediate) {
+    <app-quick-customer (created)="customerCreated($event)" (closed)="quickCustomer.set(false)" />
+  } @loading {
+    <div class="toast" role="status">{{ i18n.t('common.loading') }}</div>
+  }
+}
+
+@if (toast()) {
+  <div class="toast" role="status">{{ toast() }}</div>
+}
+
+<!-- ---------- payment dialog ---------- -->
+@if (payOpen()) {
+  <div class="till-dialog" (click)="completed() ? newSale() : closePay()">
+    <div
+      class="modal card"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="pay-title"
+      (click)="$event.stopPropagation()"
+    >
+      @if (!completed()) {
+        <header class="modal-head">
+          <h2 id="pay-title">{{ i18n.t('pay.title') }}</h2>
+          <button type="button" class="modal-close" [attr.aria-label]="i18n.t('pay.cancel')" (click)="closePay()">×</button>
+        </header>
+
+        <div class="modal-body">
+          <div class="amount-due">
+            <span class="amount-label">{{ i18n.t('pay.due') }}</span>
+            <strong class="amount-figure mono">{{ i18n.money(due()) }}</strong>
+            @if (pos.taxMode() === 'Untaxed') {
+              <!-- Taxed or not is decided back in the cart, and this is the last screen before
+                   the money changes hands. It is said here in words rather than left to be
+                   inferred from a total that happens to look low. -->
+              <span class="badge badge-warn amount-mode">{{ i18n.t('register.withoutTax') }}</span>
+            }
+            @if (rounding() !== 0) {
+              <span class="amount-note">
+                {{ i18n.t('register.total') }} {{ i18n.money(pos.totals().grandTotalTtc) }} ·
+                {{ i18n.t('pay.rounding') }} {{ rounding() > 0 ? '+' : '' }}{{ i18n.money(rounding()) }}
+              </span>
+            }
+          </div>
+
+          @if (!splitMode()) {
+            <div class="methods" role="group" [attr.aria-label]="i18n.t('pay.method')">
+              @for (method of methods(); track method.key) {
+                <button
+                  type="button"
+                  [class.active]="payMethodKey() === method.key"
+                  [attr.aria-pressed]="payMethodKey() === method.key"
+                  (click)="setMethod(method)"
+                >
+                  {{ methodLabel(method) }}
+                </button>
+              }
+            </div>
+          }
+          @if (methods().length > 1) {
+            <button type="button" class="btn-ghost split-toggle" [attr.aria-pressed]="splitMode()" (click)="toggleSplit()">
+              {{ i18n.t(splitMode() ? 'pay.split.off' : 'pay.split.on') }}
+            </button>
+          }
+
+          @if (splitMode()) {
+            <div class="parts">
+              @for (part of parts(); track $index; let i = $index) {
+                <div class="part">
+                  <select [attr.aria-label]="i18n.t('pay.method')" [value]="part.methodKey" (change)="setPartMethod(i, $any($event.target).value)">
+                    @for (method of methods(); track method.key) {
+                      <option [value]="method.key" [selected]="method.key === part.methodKey">{{ methodLabel(method) }}</option>
+                    }
+                  </select>
+                  <input
+                    type="number"
+                    inputmode="decimal"
+                    min="0"
+                    class="mono num part-amount"
+                    [attr.aria-label]="i18n.t('pay.amount')"
+                    [step]="regional.moneyStep()"
+                    [value]="part.amount"
+                    (input)="updatePart(i, { amount: $any($event.target).value })"
+                  />
+                  <button type="button" class="part-remove" [disabled]="parts().length <= 2" [attr.aria-label]="i18n.t('common.delete')" (click)="removePart(i)">×</button>
+                  @if (part.method === 'GiftCard') {
+                    <label class="mini">
+                      <span>{{ i18n.t('pay.giftCardCode') }}</span>
+                      <input
+                        class="mono"
+                        autocomplete="off"
+                        [value]="part.reference ?? ''"
+                        (input)="updatePart(i, { reference: $any($event.target).value })"
+                      />
+                    </label>
+                    @if (cardBalance(part.reference) !== null) {
+                      <span class="part-hint muted">{{ i18n.t('pay.giftCardBalance') }} {{ i18n.money(cardBalance(part.reference)!) }}</span>
+                    }
+                  }
+                  @if (defFor(part.methodKey)?.requiresInstrumentDetails) {
+                    <!-- Cheque and the like: the three facts that make the instrument
+                         traceable, kept together so they read as one thing. -->
+                    <div class="instrument">
+                      <span class="instrument-title">{{ i18n.t('pay.instrumentDetails') }}</span>
+                      <label class="mini">
+                        <span>{{ i18n.t('pay.instrumentNumber') }}</span>
+                        <!-- A cheque number reads left to right in Arabic too: "4471 0093" was shown
+                             "0093 4471". The bank's name keeps the direction of what is typed. -->
+                        <input
+                          class="mono"
+                          dir="ltr"
+                          autocomplete="off"
+                          [value]="part.instrumentNumber ?? ''"
+                          (input)="updatePart(i, { instrumentNumber: $any($event.target).value })"
+                        />
+                      </label>
+                      <label class="mini">
+                        <span>{{ i18n.t('pay.instrumentBank') }}</span>
+                        <input
+                          dir="auto"
+                          autocomplete="off"
+                          [value]="part.instrumentBank ?? ''"
+                          (input)="updatePart(i, { instrumentBank: $any($event.target).value })"
+                        />
+                      </label>
+                      <label class="mini">
+                        <span>{{ i18n.t('pay.instrumentDueDate') }}</span>
+                        <!-- The app's day box (dd/MM/yyyy in every language), not the browser's, which wrote
+                             the day in the browser's language; the value is the same ISO yyyy-MM-dd. -->
+                        <app-date-input
+                          [ngModel]="part.instrumentDueDate ?? ''"
+                          (ngModelChange)="updatePart(i, { instrumentDueDate: $event })"
+                        />
+                      </label>
+                      <span class="part-hint state state-warn">{{ i18n.t('pay.pendingUntilCleared') }}</span>
+                    </div>
+                  }
+                  @if (part.method === 'Loyalty') {
+                    <span class="part-hint muted">{{ i18n.t('pay.loyaltyAvailable', { points: selectedCustomer()?.loyaltyPoints ?? 0 }) }} · {{ i18n.money(loyaltyValue()) }}</span>
+                  }
+                </div>
+                @if (part.method === 'Card' && integrations.settings().requireCardReference) {
+                  <label class="mini card-ref">
+                    <span>{{ i18n.t('pay.cardReference') }}</span>
+                    <input
+                      class="mono"
+                      [attr.maxlength]="maxReference"
+                      [value]="part.reference ?? ''"
+                      (input)="updatePart(i, { reference: $any($event.target).value })"
+                    />
+                  </label>
+                }
+              }
+              <button type="button" class="btn-ghost add-part" [disabled]="parts().length >= 4" (click)="addPart()">
+                {{ i18n.t('pay.split.add') }}
+              </button>
+            </div>
+            <div class="change" [class.change-left]="splitRemaining() > 0">
+              <span>{{ i18n.t('pay.split.remaining') }}</span>
+              <strong class="mono num">{{ i18n.money(splitRemaining()) }}</strong>
+            </div>
+            <div class="change change-ok">
+              <span>{{ i18n.t('pay.change') }}</span>
+              <strong class="mono num">{{ i18n.money(changeDue()) }}</strong>
+            </div>
+          } @else if (payMethod() === 'GiftCard') {
+            <div class="field">
+              <label for="card-code">{{ i18n.t('pay.giftCardCode') }}</label>
+              <input id="card-code" class="mono big" autocomplete="off" spellcheck="false" [value]="cardCode()" (input)="cardCode.set($any($event.target).value)" />
+            </div>
+            @if (cardBalance(cardCode()) !== null) {
+              <div class="change">
+                <span>{{ i18n.t('pay.giftCardBalance') }}</span>
+                <strong class="mono num">{{ i18n.money(cardBalance(cardCode())!) }}</strong>
+              </div>
+            }
+          } @else if (payMethod() === 'Loyalty') {
+            <div class="change">
+              <span>{{ i18n.t('pay.loyaltyAvailable', { points: selectedCustomer()?.loyaltyPoints ?? 0 }) }}</span>
+              <strong class="mono num">{{ i18n.money(loyaltyValue()) }}</strong>
+            </div>
+          } @else if (payMethod() === 'Cash') {
+            <div class="field">
+              <label for="received">{{ i18n.t('pay.received') }}</label>
+              <input
+                #receivedBox
+                id="received"
+                type="number"
+                inputmode="decimal"
+                min="0"
+                [step]="regional.moneyStep()"
+                class="mono num big"
+                [value]="received()"
+                (input)="onReceivedInput($event)"
+              />
+            </div>
+            <div class="quick">
+              @for (amount of quickAmounts(); track amount) {
+                <!-- The first key is the amount owed to the centime. It is the one a cashier
+                     reaches for most, so it says what it is instead of having to be told apart
+                     from the notes beside it by the shape of the number. -->
+                <button type="button" [class.exact]="isExact(amount)" (click)="setReceived(amount)">
+                  <span class="mono">{{ i18n.money(amount) }}</span>
+                  @if (isExact(amount)) {
+                    <small class="quick-tag">{{ i18n.t('pay.exact') }}</small>
+                  }
+                </button>
+              }
+            </div>
+            <div class="change change-ok">
+              <span>{{ i18n.t('pay.change') }}</span>
+              <strong class="mono num">{{ i18n.money(changeDue()) }}</strong>
+            </div>
+          }
+
+          @if (!splitMode() && payMethod() === 'Card' && integrations.settings().requireCardReference) {
+            <div class="field">
+              <label for="card-ref">{{ i18n.t('pay.cardReference') }}</label>
+              <input
+                id="card-ref"
+                class="mono"
+                autocomplete="off"
+                [attr.maxlength]="maxReference"
+                [value]="cardReference()"
+                (input)="cardReference.set($any($event.target).value)"
+              />
+              <p class="muted hint">{{ i18n.t('pay.cardReferenceHint') }}</p>
+            </div>
+          }
+
+          @if (payError()) {
+            <p class="error" role="alert">{{ payError() }}</p>
+          }
+        </div>
+
+        <div class="modal-foot">
+          <div class="actions">
+            <button type="button" class="btn-ghost" (click)="closePay()">{{ i18n.t('pay.cancel') }}</button>
+            <button type="button" class="btn-primary" [disabled]="saving()" (click)="confirmPayment()">
+              {{ saving() ? i18n.t('common.loading') : i18n.t('pay.confirm') }}
+            </button>
+          </div>
+        </div>
+      } @else {
+        <div class="modal-body done-body">
+          <div class="done">
+            <h2>{{ i18n.t('pay.done') }}</h2>
+            <p class="done-ref mono">{{ completed()!.reference }}</p>
+            @if (completed()!.changeAmount > 0) {
+              <p class="done-change">
+                {{ i18n.t('pay.change') }}
+                <strong class="mono">{{ i18n.money(completed()!.changeAmount) }}</strong>
+              </p>
+            }
+            @if (completed()!.outboxState !== 'synced') {
+              <p class="badge badge-warn">{{ i18n.t('pay.savedOffline') }}</p>
+            }
+          </div>
+
+          <div class="receipt-holder">
+            <app-receipt
+              [sale]="completed()!"
+              [store]="pos.store()"
+              [customer]="customerOf(completed()!)"
+            />
+          </div>
+
+          <app-send-receipt [sale]="completed()!" />
+        </div>
+
+        <div class="modal-foot">
+          <div class="actions">
+            <button type="button" class="btn-ghost" (click)="printReceipt()">{{ i18n.t('pay.print') }}</button>
+            <button type="button" class="btn-primary" (click)="newSale()">{{ i18n.t('pay.newSale') }}</button>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+}

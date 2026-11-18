@@ -1,0 +1,27 @@
+# Local SQL Server for verification runs — migrations from empty and the provider smoke. Daily
+# development runs on SQLite and needs none of this.
+#   docker compose -f deploy/sqlserver/compose.yml --env-file deploy/sqlserver/.env up -d
+#   docker compose -f deploy/sqlserver/compose.yml --env-file deploy/sqlserver/.env stop
+# Bound to 127.0.0.1:14333 so it neither collides with another instance's 1433 nor listens on the
+# LAN. SQL Server wants about 2 GB of memory: stop it when the run is over. Developer edition is
+# free for development and testing, never for production.
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: algeriapos-sqlserver
+    ports:
+      - "127.0.0.1:${POS_SQLSERVER_PORT:-14333}:1433"
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: Developer
+      MSSQL_SA_PASSWORD: ${POS_SQLSERVER_SA_PASSWORD:?Set POS_SQLSERVER_SA_PASSWORD}
+      MSSQL_MEMORY_LIMIT_MB: "1536"
+    volumes:
+      - algeriapos-sqlserver:/var/opt/mssql
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -C -S localhost -U sa -P \"$$MSSQL_SA_PASSWORD\" -Q 'SELECT 1' -b -o /dev/null"]
+      interval: 5s
+      timeout: 5s
+      retries: 40
+volumes:
+  algeriapos-sqlserver:

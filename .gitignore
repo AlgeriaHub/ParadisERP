@@ -1,0 +1,69 @@
+# ---- .NET ----
+bin/
+obj/
+out/
+*.user
+*.db
+*.db-shm
+*.db-wal
+
+# ---- Node / Angular ----
+node_modules/
+dist/
+.angular/
+coverage/
+npm-debug.log*
+.env
+.env.api
+appsettings.Local.json
+.claude/settings.local.json
+artifacts/platform-ui/
+
+# ---- built PWA copied into the API for single-process deployment ----
+AlgeriaPos.API/wwwroot/*
+!AlgeriaPos.API/wwwroot/.gitkeep
+
+# ---- editors / OS ----
+.vs/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Agent worktrees are local scratch, never repo content.
+.claude/worktrees/
+
+# Throwaway screenshots from driving the back office in a browser.
+artifacts/backoffice-ui/
+artifacts/books-ui/
+artifacts/rentals-ui/
+
+# Design screenshots, regenerated on demand by tests/e2e/design-shots.cjs
+artifacts/design/
+
+# Printed documents, regenerated on demand by tests/e2e/print-documents.cjs
+artifacts/print/
+
+# Local API/mock logs written while driving the built app; never part of the repository.
+artifacts/*.log
+
+# DevTools audit output (report + screenshots), reproduced by the script, never reviewed as source.
+artifacts/devtools/
+
+# ---- uploaded files (logos, contract scans): kept outside the database and the repo ----
+AlgeriaPos.API/App_Data/
+
+# PinSay
+.pinsay/*
+!.pinsay/stack.json
+!.pinsay/config.json
+!.pinsay/projects/
+.claude/skills/pinsay-init/
+.claude/skills/pinsay-feedback/
+.agents/skills/pinsay-init/
+.agents/skills/pinsay-feedback/
+.agents/pinsay-init/
+.agents/pinsay-feedback/
+.cursor/rules/pinsay-init.md
+.cursor/rules/pinsay-feedback.md
+.windsurf/rules/pinsay-init.md
+.windsurf/rules/pinsay-feedback.md

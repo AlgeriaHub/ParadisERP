@@ -1,0 +1,33 @@
+/* ---------------------------------------------------------------------------
+   The root frame only. Each layout draws its own header (REDESIGN_PLAN.md §7.1):
+   the till's is shared/till-header.component, the back office's is its shell.
+   --------------------------------------------------------------------------- */
+
+.shell {
+  display: flex;
+  flex-direction: column;
+  // dvh, not vh: on a phone the browser's own bar eats the difference, and a till screen
+  // that measures itself against vh ends up with the pay button under the address bar.
+  min-height: 100dvh;
+}
+
+main {
+  flex: 1;
+  min-height: 0;
+
+  &.padded {
+    padding: var(--sp-5);
+  }
+}
+
+@media (max-width: 1000px) {
+  main.padded {
+    padding: var(--sp-4);
+  }
+}
+
+@media (max-width: 640px) {
+  main.padded {
+    padding: var(--sp-3);
+  }
+}

@@ -1,0 +1,155 @@
+import { BuiltinLang } from '../models';
+
+/**
+ * Back-office vocabulary for the company's named rental-contract wordings (owner, PinSay #302,
+ * 2026-10-05: "enable multi contracts and enhance the creation to be as template"). Merged into
+ * `BACKOFFICE_TRANSLATIONS`.
+ *
+ * <p>The wordings are set under Company settings, Documents, beside the standard one; the contract
+ * form offers them by name. The name is never printed: the contract's title stays the contract's.</p>
+ *
+ * <p>Since 2026-10-08 a wording is a template: fields inserted into its text (`store.docs.fields.*`,
+ * features/print/contract-fields.ts) and a preview of the printed contract on a sample contract
+ * (`store.docs.preview.*`). The sample's names are said in the document language, so they are here
+ * in all three.</p>
+ */
+export const CONTRACT_WORDINGS_TRANSLATIONS: Record<BuiltinLang, Record<string, string>> = {
+  fr: {
+    'store.docs.wordings.standard': 'Contrat de location — rédaction standard',
+    'store.docs.wordings.title': 'Autres rédactions du contrat',
+    'store.docs.wordings.note':
+      "Un contrat de location imprime la rédaction standard ou l'une de celles-ci, choisie sur le contrat tant qu'il est en brouillon. Chacune compte ses propres modifications de l'année et garde son historique.",
+    'store.docs.wordings.add': 'Ajouter une rédaction',
+    'store.docs.wordings.heading': 'Contrat de location : {name}',
+    'store.docs.wordings.unnamed': 'nouvelle rédaction',
+    'store.docs.wordings.name': 'Nom ({lang})',
+    'store.docs.wordings.nameHint': "Le nom proposé sur le formulaire du contrat. Il n'est pas imprimé.",
+    'store.docs.wordings.remove': 'Retirer cette rédaction',
+    'store.docs.wordings.removeHint':
+      "Retirée à l'enregistrement, son dernier texte gardé dans l'historique. Refusé tant qu'un contrat l'imprime.",
+    'store.docs.wordings.max': 'Au plus {n} rédactions en plus de la rédaction standard.',
+    'store.docs.wordings.notSaved': 'Pas encore enregistrée',
+    'rent.form.wording': 'Rédaction du contrat',
+    'rent.form.wordingStandard': 'Rédaction standard',
+    'rent.form.wordingHint':
+      'Le texte imprimé au pied du contrat. Il est fixé avec le contrat au premier bon de sortie.',
+    'rent.page.wording': 'Rédaction',
+    'store.docs.fields.title': 'Insérer un champ',
+    'store.docs.fields.hint':
+      "Le champ se place à l'endroit du curseur et s'imprime avec la donnée du contrat ; « — » quand le contrat ne l'a pas.",
+    'store.docs.fields.tooLong': 'Pas de place pour ce champ : le texte est limité à {n} caractères.',
+    'store.docs.fields.company': 'Société',
+    'store.docs.fields.contractNumber': 'N° du contrat',
+    'store.docs.fields.signedOn': 'Date de signature',
+    'store.docs.fields.customer': 'Client',
+    'store.docs.fields.customerCode': 'Code client',
+    'store.docs.fields.signatory': 'Signataire',
+    'store.docs.fields.signatoryId': 'N° de pièce du signataire',
+    'store.docs.fields.branch': 'Succursale',
+    'store.docs.fields.site': 'Chantier',
+    'store.docs.fields.deposit': 'Caution',
+    'store.docs.fields.rentTotal': 'Total de la location',
+    'store.docs.preview.open': 'Aperçu',
+    'store.docs.preview.title': 'Aperçu du contrat imprimé',
+    'store.docs.preview.note':
+      "Contrat d'exemple : le client, les articles et les montants sont fictifs. L'en-tête est celui de la société et la rédaction celle de l'éditeur, même non enregistrée. L'aperçu n'enregistre rien et ne consomme aucune modification de l'année.",
+    'store.docs.preview.sample.customer': 'Client exemple',
+    'store.docs.preview.sample.address': 'Adresse exemple',
+    'store.docs.preview.sample.signatory': 'Signataire exemple',
+    'store.docs.preview.sample.site': 'Chantier exemple',
+    'store.docs.preview.sample.item1': "Cadre d'échafaudage",
+    'store.docs.preview.sample.item2': 'Plancher de travail',
+    'store.docs.preview.sample.item3': 'Étai métallique',
+  },
+  ar: {
+    'store.docs.wordings.standard': 'عقد الإيجار — الصيغة الأساسية',
+    'store.docs.wordings.title': 'صيغ أخرى للعقد',
+    'store.docs.wordings.note':
+      'يُطبع عقد الإيجار بالصيغة الأساسية أو بإحدى هذه الصيغ، وتُختار في العقد ما دام مسودة. لكل صيغة عدد تعديلاتها في السنة وسجلّها الخاص.',
+    'store.docs.wordings.add': 'إضافة صيغة',
+    'store.docs.wordings.heading': 'عقد الإيجار: {name}',
+    'store.docs.wordings.unnamed': 'صيغة جديدة',
+    'store.docs.wordings.name': 'الاسم ({lang})',
+    'store.docs.wordings.nameHint': 'الاسم الذي يظهر في نموذج العقد، ولا يُطبع.',
+    'store.docs.wordings.remove': 'إزالة هذه الصيغة',
+    'store.docs.wordings.removeHint':
+      'تُزال عند الحفظ ويبقى نصها الأخير في السجل. يُرفض ذلك ما دام عقدٌ يُطبع بها.',
+    'store.docs.wordings.max': '{n} صيغة على الأكثر إضافةً إلى الصيغة الأساسية.',
+    'store.docs.wordings.notSaved': 'لم تُحفظ بعد',
+    'rent.form.wording': 'صيغة العقد',
+    'rent.form.wordingStandard': 'الصيغة الأساسية',
+    'rent.form.wordingHint': 'النص المطبوع أسفل العقد، ويُثبَّت مع العقد عند أول إذن إخراج.',
+    'rent.page.wording': 'الصيغة',
+    'store.docs.fields.title': 'إدراج حقل',
+    'store.docs.fields.hint': 'يُدرَج الحقل في موضع المؤشر ويُطبع ببيانات العقد، ويُطبع «—» إن لم تكن في العقد.',
+    'store.docs.fields.tooLong': 'لا مكان لهذا الحقل: النص محدود بـ {n} حرف.',
+    'store.docs.fields.company': 'الشركة',
+    'store.docs.fields.contractNumber': 'رقم العقد',
+    'store.docs.fields.signedOn': 'تاريخ التوقيع',
+    'store.docs.fields.customer': 'الزبون',
+    'store.docs.fields.customerCode': 'رمز الزبون',
+    'store.docs.fields.signatory': 'الموقِّع',
+    'store.docs.fields.signatoryId': 'رقم بطاقة الموقِّع',
+    'store.docs.fields.branch': 'الفرع',
+    'store.docs.fields.site': 'موقع المشروع',
+    'store.docs.fields.deposit': 'الضمان',
+    'store.docs.fields.rentTotal': 'إجمالي الإيجار',
+    'store.docs.preview.open': 'معاينة',
+    'store.docs.preview.title': 'معاينة العقد المطبوع',
+    'store.docs.preview.note':
+      'عقد للتجربة: الزبون والمواد والمبالغ وهمية. الترويسة ترويسة الشركة والصيغة هي ما في المحرر ولو لم تُحفظ. المعاينة لا تحفظ شيئًا ولا تستهلك أي تعديل من تعديلات السنة.',
+    'store.docs.preview.sample.customer': 'زبون للتجربة',
+    'store.docs.preview.sample.address': 'عنوان للتجربة',
+    'store.docs.preview.sample.signatory': 'موقِّع للتجربة',
+    'store.docs.preview.sample.site': 'موقع للتجربة',
+    'store.docs.preview.sample.item1': 'إطار سقالة',
+    'store.docs.preview.sample.item2': 'لوح عمل',
+    'store.docs.preview.sample.item3': 'دعامة معدنية',
+  },
+  en: {
+    'store.docs.wordings.standard': 'Rental contract — standard wording',
+    'store.docs.wordings.title': 'Other contract wordings',
+    'store.docs.wordings.note':
+      'A rental contract prints the standard wording or one of these, chosen on the contract while it is a draft. Each counts its own changes for the year and keeps its own history.',
+    'store.docs.wordings.add': 'Add a wording',
+    'store.docs.wordings.heading': 'Rental contract: {name}',
+    'store.docs.wordings.unnamed': 'new wording',
+    'store.docs.wordings.name': 'Name ({lang})',
+    'store.docs.wordings.nameHint': 'The name the contract form offers. It is not printed.',
+    'store.docs.wordings.remove': 'Remove this wording',
+    'store.docs.wordings.removeHint':
+      'Removed when you save, its last text kept in the history. Refused while a contract prints it.',
+    'store.docs.wordings.max': 'At most {n} wordings besides the standard one.',
+    'store.docs.wordings.notSaved': 'Not saved yet',
+    'rent.form.wording': 'Contract wording',
+    'rent.form.wordingStandard': 'Standard wording',
+    'rent.form.wordingHint': 'The text printed at the foot of the contract. It is fixed with the contract at the first issue note.',
+    'rent.page.wording': 'Wording',
+    'store.docs.fields.title': 'Insert a field',
+    'store.docs.fields.hint':
+      "The field goes where the cursor is and prints as the contract's own data; \"—\" when the contract has none.",
+    'store.docs.fields.tooLong': 'No room for this field: the text is limited to {n} characters.',
+    'store.docs.fields.company': 'Company',
+    'store.docs.fields.contractNumber': 'Contract no.',
+    'store.docs.fields.signedOn': 'Signed on',
+    'store.docs.fields.customer': 'Customer',
+    'store.docs.fields.customerCode': 'Customer code',
+    'store.docs.fields.signatory': 'Signatory',
+    'store.docs.fields.signatoryId': 'Signatory ID no.',
+    'store.docs.fields.branch': 'Branch',
+    'store.docs.fields.site': 'Site',
+    'store.docs.fields.deposit': 'Deposit',
+    'store.docs.fields.rentTotal': 'Rent total',
+    'store.docs.preview.open': 'Preview',
+    'store.docs.preview.title': 'Printed contract preview',
+    'store.docs.preview.note':
+      "A sample contract: the customer, the items and the amounts are made up. The head is the company's and the wording is the one in the editor, even unsaved. Previewing saves nothing and spends none of the year's changes.",
+    'store.docs.preview.sample.customer': 'Sample customer',
+    'store.docs.preview.sample.address': 'Sample address',
+    'store.docs.preview.sample.signatory': 'Sample signatory',
+    'store.docs.preview.sample.site': 'Sample site',
+    'store.docs.preview.sample.item1': 'Scaffold frame',
+    'store.docs.preview.sample.item2': 'Work platform',
+    'store.docs.preview.sample.item3': 'Steel prop',
+  },
+};

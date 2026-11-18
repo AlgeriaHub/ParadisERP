@@ -1,0 +1,124 @@
+<div class="platform">
+  <header>
+    <div><h1>{{ text().title }}</h1><p>{{ text().intro }}</p></div>
+    <div class="tools">
+      <select #langSelect [ngModel]="i18n.lang()" (ngModelChange)="onLangChange($event, langSelect)" aria-label="Language">
+        @for (lang of langs; track lang.code) { <option [value]="lang.code">{{ lang.label }}</option> }
+      </select>
+      @if (name()) { <span>{{ name() }}</span><button type="button" class="btn-ghost" (click)="logout()">{{ text().logout }}</button> }
+    </div>
+  </header>
+  @if (error()) { <p class="notice danger" role="alert">{{ error() }}</p> }
+  @if (saved()) { <p class="notice ok" role="status">{{ text().saved }}</p> }
+  @if (needsLogin()) { <button type="button" class="btn-primary" (click)="signIn()">{{ text().signIn }}</button> }
+  @if (busy() && !name() && !needsLogin()) {
+    <p class="loading" role="status">
+      <span class="loading__word">{{ text().loading }}</span>
+      <span class="loading__rows" aria-hidden="true"></span>
+    </p>
+  }
+  @if (name() && !needsLogin()) {
+    <div class="workspace">
+      <aside>
+        <!-- The sticky box is inside the column, not the column itself: a sticky grid item
+             stops stretching to the row, and the tinted rail would end halfway down a detail
+             panel that runs to several screens. -->
+        <div class="aside-inner">
+        <label for="company-search">{{ text().search }}</label>
+        <input id="company-search" type="search" [ngModel]="query()" (ngModelChange)="query.set($event)" />
+        <div class="company-list">
+          @for (company of filtered(); track company.id) {
+            <button type="button" class="company" [class.selected]="selected()?.id === company.id" [attr.aria-pressed]="selected()?.id === company.id" [disabled]="busy()" (click)="select(company)">
+              <strong>{{ company.id }}</strong><span>{{ company.hosts[0] }}</span>
+              @if (company.state === 'Archived') {
+                <small class="state-danger">{{ text().archived }}</small>
+              } @else {
+                <small [class]="'state-' + tone(company)">{{ i18n.t('subscription.status.' + company.access.status) }}</small>
+              }
+            </button>
+          } @empty {
+            @if (busy()) {
+              <p class="loading" role="status"><span class="loading__word">{{ text().loading }}</span></p>
+            } @else {
+              <p class="muted">{{ text().empty }}</p>
+            }
+          }
+        </div>
+        <div class="aside-actions">
+          <button type="button" class="btn-primary" [disabled]="busy()" (click)="startCreate()">{{ text().newCompany }}</button>
+          <button type="button" class="btn-ghost" [disabled]="busy()" (click)="reload()">{{ text().refresh }}</button>
+        </div>
+        </div>
+      </aside>
+      <section class="detail">
+        @if (creating()) {
+          <app-company-create [countries]="presetCodes()" (finished)="companyCreated($event)" (cancelled)="creating.set(false)" (failed)="packFailed($event)" />
+        } @else {
+        @if (selected(); as company) {
+          <h2>{{ company.id }}</h2>
+          <p class="meta">
+            <span>{{ company.hosts.join(', ') }}</span>
+            <span>{{ company.source === 'Portal' ? text().fromPortal : text().fromConfiguration }}</span>
+            @if (company.state === 'Archived') {
+              <strong class="archived">{{ text().archived }}</strong>
+            }
+          </p>
+          @if (form; as f) {
+            <section class="access subscription">
+              <h3>{{ text().subscriptionSection }}</h3>
+              <form (ngSubmit)="save()">
+                <fieldset [disabled]="busy()">
+                  <div class="fields">
+                    <label>{{ text().plan }}<input name="plan" [(ngModel)]="f.plan" maxlength="100" required /></label>
+                    <label>{{ text().status }}<select name="status" [(ngModel)]="f.status">@for (status of statuses; track status) { <option [value]="status">{{ i18n.t('subscription.status.' + status) }}</option> }</select></label>
+                    <label>{{ text().expiry }}<input name="expiry" type="datetime-local" [(ngModel)]="expiry" [required]="f.status === 'Active' || f.status === 'Trial'" /></label>
+                    <label>{{ text().grace }}<input name="grace" type="number" [(ngModel)]="f.graceDays" min="0" max="30" step="1" required /></label>
+                  </div>
+                  <p>{{ text().limits }}</p>
+                  <div class="fields limits">
+                    <label>{{ i18n.t('backoffice.tabs.users') }}<input name="users" type="number" min="1" step="1" [(ngModel)]="f.maxUsers" /></label>
+                    <label>{{ i18n.t('backoffice.tabs.branches') }}<input name="branches" type="number" min="1" step="1" [(ngModel)]="f.maxBranches" /></label>
+                    <label>{{ i18n.t('backoffice.tabs.devices') }}<input name="devices" type="number" min="1" step="1" [(ngModel)]="f.maxDevices" /></label>
+                  </div>
+                  <label>{{ text().reason }}<input name="reason" [(ngModel)]="reason" maxlength="500" required /></label>
+                  <p class="field-note">{{ text().reasonHint }}</p>
+                  <button type="submit" class="btn-primary" [disabled]="!reason.trim()">{{ text().save }}</button>
+                </fieldset>
+              </form>
+            </section>
+          }
+          <section class="access hosting">
+            <app-company-hosting [company]="company" (changed)="hostingChanged()" (failed)="packFailed($event)" />
+          </section>
+          <section class="access regional">
+            <h3>{{ text().regionalTitle }}</h3>
+            <app-regional-editor [current]="company.regional" [presets]="presets()" [languagePacks]="packChoices()" [busy]="busy()" (saved)="saveRegional($event)" />
+          </section>
+          <section class="access integrations">
+            <h3>{{ text().integrationsTitle }}</h3>
+            <app-integrations-editor [companyId]="company.id" [busy]="busy()" (saved)="integrationsSaved()" (failed)="packFailed($event)" />
+          </section>
+          <section class="access">
+            <h3>{{ text().identities }}</h3><p class="muted">{{ text().identityHint }}</p>
+            <form (ngSubmit)="link()"><fieldset [disabled]="busy()">
+              <div class="fields"><label>{{ text().subject }}<input name="subject" [(ngModel)]="subject" maxlength="200" required /></label>
+              <label>{{ text().account }}<select name="user" [(ngModel)]="userId" required>@for (user of users(); track user.id) { <option [value]="user.id">{{ user.username }} ({{ user.role }})</option> }</select></label></div>
+              <button type="submit" class="btn-ghost" [disabled]="!subject.trim() || !userId">{{ text().link }}</button>
+            </fieldset></form>
+            @for (identity of identities(); track identity.id) {
+              <div class="identity"><span><strong>{{ username(identity.userId) }}</strong><small>{{ identity.subject }}</small></span><button type="button" class="btn-danger" [disabled]="busy()" (click)="unlink(identity)">{{ text().unlink }}</button></div>
+            } @empty { <p class="muted">{{ text().noLinks }}</p> }
+          </section>
+          <section class="history"><h3>{{ text().history }}</h3>
+            @for (entry of audit(); track entry.id) { <div class="entry"><time>{{ i18n.dateTime(entry.createdAtUtc) }}</time><p>{{ auditReason(entry) }}</p><small>{{ entry.actorSubject }}</small></div> }
+            @empty { <p class="muted">{{ text().noHistory }}</p> }
+          </section>
+        } @else { <p class="empty">{{ text().choose }}</p> }
+        }
+      </section>
+    </div>
+    <div class="languages">
+      <app-language-packs [packs]="packs()" [busy]="busy()" (changed)="packsChanged()" (failed)="packFailed($event)" />
+    </div>
+  }
+</div>

@@ -1,0 +1,402 @@
+/* ---------------------------------------------------------------------------
+   The sheet itself: the frame, the head, the parties, the tables, the foot and
+   the signatures — everything a document draws on paper, and nothing about the
+   tab around it. Loaded twice, never global:
+
+   - by print.scss, on the print route (view encapsulation off there, so it
+     reaches every document component on the page);
+   - by contract-preview.scss, nested under that component's own host, so the
+     contract preview in Company settings draws the real paper while not one
+     rule of it reaches the back office around the dialog.
+
+   Black on white, tabular figures, every state a word, logical properties only:
+   see print.scss for why. The page-size, toolbar, report and @media print rules
+   stay there — a preview is never printed from the settings page.
+   --------------------------------------------------------------------------- */
+
+.print-page {
+  --paper-ink: #000;
+  --paper-ink-2: #444;
+  --paper-rule: #000;
+  --paper-rule-soft: #999;
+  --paper-fill: #f2f2f2;
+
+  color: var(--paper-ink);
+  background: #fff;
+  font-size: 15px;
+  line-height: 1.4;
+  /* The company's chosen face, exactly as the app body reads it (styles.scss): the paper is
+     the screen's face in black, not a second face. `--font-ui` is set by UiFontService; unset
+     means the system stack, whose Arabic order below is the app's own. */
+  font-family: var(--font-ui, var(--font));
+  font-variant-numeric: tabular-nums;
+}
+
+.print-page[dir='rtl'] {
+  font-family: var(--font-ui, "Noto Sans Arabic", Tahoma, "Segoe UI", system-ui, sans-serif);
+}
+
+/* ---------- one sheet ---------- */
+
+.print-sheet {
+  max-width: 190mm;
+  margin-inline: auto;
+  padding: 10mm 8mm;
+  background: #fff;
+}
+
+/* The title column is capped at half the sheet: a long line in it — a branch with its address —
+   wraps there instead of squeezing the company block until every identifier breaks, which put an
+   A5 voucher's signature on a second sheet per copy. */
+.print-head {
+  display: grid;
+  grid-template-columns: 1fr fit-content(50%);
+  gap: var(--sp-5) var(--sp-6);
+  align-items: start;
+  padding-block-end: var(--sp-4);
+  border-block-end: 2px solid var(--paper-rule);
+  margin-block-end: var(--sp-5);
+}
+
+.print-company {
+  font-size: var(--fs-sm);
+  line-height: 1.35;
+}
+
+/* The company logo, at the inline start of the company block (the start edge in either
+   direction). Only a sheet with a logo becomes a grid, so a company without one keeps exactly the
+   head it had. The logo sits beside the name and address; the identifiers run under both, the
+   full width of the block, so a narrow A5 head never breaks a NIF across lines. 18 mm is about
+   the name and two lines beside it; the width follows the drawing, capped for a wide wordmark. */
+.print-company--logo {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: var(--sp-4);
+  align-items: start;
+}
+
+.print-company--logo .print-ids {
+  grid-column: 1 / -1;
+}
+
+.print-logo {
+  display: block;
+  block-size: 18mm;
+  inline-size: auto;
+  max-inline-size: 45mm;
+  object-fit: contain;
+  object-position: center;
+}
+
+.print-company__text {
+  min-inline-size: 0;
+}
+
+.print-company .print-company__name {
+  display: block;
+  font-size: var(--fs-lg);
+  font-weight: 600;
+  line-height: var(--lh-tight);
+  margin-block-end: var(--sp-2);
+}
+
+.print-company .print-ids {
+  margin-block-start: var(--sp-2);
+  color: var(--paper-ink-2);
+}
+
+/* A label and its value are two runs; the separator is drawn rather than typed so it lands on
+   the right side of the pair under RTL as well. */
+.print-company .print-line__label::after,
+.print-title__meta .print-line__label::after {
+  content: ' : ';
+}
+
+.print-company .print-ids span {
+  display: inline-block;
+  margin-inline-end: var(--sp-4);
+  white-space: nowrap;
+}
+
+.print-title {
+  text-align: end;
+}
+
+.print-title h1 {
+  margin: 0;
+  color: var(--paper-ink);
+  font-size: var(--fs-xl);
+  font-weight: 600;
+  line-height: var(--lh-tight);
+}
+
+/* The title in a second language: the same ink and weight, a step down, so the two read as one
+   heading and the document language still leads. */
+.print-title .print-title__alt {
+  display: block;
+  color: var(--paper-ink);
+  font-size: var(--fs-lg);
+  font-weight: 600;
+  line-height: var(--lh-tight);
+}
+
+.print-title .print-title__sub {
+  display: block;
+  color: var(--paper-ink-2);
+  font-size: var(--fs-sm);
+}
+
+.print-title .print-title__number {
+  display: block;
+  font-size: var(--fs-md);
+  font-weight: 700;
+  margin-block-start: var(--sp-2);
+}
+
+.print-title .print-title__meta {
+  display: block;
+  font-size: var(--fs-sm);
+  color: var(--paper-ink-2);
+}
+
+.print-copy {
+  display: inline-block;
+  margin-block-start: var(--sp-2);
+  padding: 0 var(--sp-3);
+  border: 1px solid var(--paper-rule);
+  font-size: var(--fs-meta);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* ---------- blocks ---------- */
+
+.print-parties {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: var(--sp-5);
+  margin-block-end: var(--sp-5);
+}
+
+.print-block {
+  padding: var(--sp-3) var(--sp-4);
+  border: 1px solid var(--paper-rule-soft);
+  font-size: var(--fs-sm);
+  line-height: 1.4;
+  break-inside: avoid;
+}
+
+.print-block__title {
+  display: block;
+  font-size: var(--fs-meta);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--paper-ink-2);
+  margin-block-end: var(--sp-1);
+}
+
+.print-block .print-line__label {
+  color: var(--paper-ink-2);
+}
+
+.print-block .print-line__label::after {
+  content: ' : ';
+}
+
+.print-block .print-line--lead {
+  font-size: var(--fs-base);
+  font-weight: 600;
+}
+
+.print-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2) var(--sp-6);
+  margin: 0 0 var(--sp-4);
+  padding: 0;
+  list-style: none;
+  font-size: var(--fs-sm);
+}
+
+.print-meta .print-line__label {
+  color: var(--paper-ink-2);
+}
+
+.print-meta .print-line__label::after {
+  content: ' : ';
+}
+
+.print-sentence {
+  margin: var(--sp-3) 0;
+  font-size: var(--fs-sm);
+}
+
+.print-sentence--strong {
+  font-weight: 600;
+  font-size: var(--fs-base);
+}
+
+.print-notice {
+  margin: var(--sp-4) 0;
+  padding: var(--sp-3) var(--sp-4);
+  border: 1px solid var(--paper-rule);
+  font-size: var(--fs-sm);
+}
+
+.print-notice strong {
+  display: block;
+  font-size: var(--fs-base);
+}
+
+/* The rules a contract states are a short list, not a paragraph block. */
+.print-notice p {
+  margin: var(--sp-1) 0 0;
+}
+
+/* ---------- tables ---------- */
+
+.print-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-block: var(--sp-4);
+  font-size: var(--fs-sm);
+}
+
+.print-table caption {
+  text-align: start;
+  font-weight: 600;
+  padding-block-end: var(--sp-2);
+}
+
+.print-table th,
+.print-table td {
+  padding: var(--sp-2) var(--sp-3);
+  border-block-end: 1px solid var(--paper-rule-soft);
+  text-align: start;
+  vertical-align: top;
+}
+
+.print-table thead {
+  display: table-header-group;
+}
+
+.print-table thead th {
+  border-block-end: 1px solid var(--paper-rule);
+  background: var(--paper-fill);
+  font-size: var(--fs-meta);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.print-table tr {
+  break-inside: avoid;
+}
+
+.print-table .num {
+  text-align: end;
+  white-space: nowrap;
+}
+
+.print-table tfoot td {
+  border-block-end: 0;
+}
+
+/* A totalling row reads the same wherever it sits: a statement's closing balance is in its
+   tfoot, a contract's deposit in its tbody, and both are the line the reader looks for. */
+.print-table .print-total td {
+  font-weight: 700;
+  font-size: var(--fs-md);
+  border-block-start: 2px solid var(--paper-rule);
+}
+
+.print-table .print-soft {
+  color: var(--paper-ink-2);
+  font-size: var(--fs-meta);
+}
+
+/* A soft note after the cell's own text ("Salaire de base · Base") keeps a space from it: in a
+   full-width cell the two sit on one line and would otherwise read as one word. */
+.print-table td > * + .print-soft {
+  margin-inline-start: var(--sp-3);
+}
+
+.print-table--compact {
+  max-width: 28rem;
+  margin-inline-start: auto;
+}
+
+.print-page[dir='rtl'] .print-table--compact {
+  margin-inline-start: auto;
+}
+
+/* An accessory sits under its parent. A blank inline run rather than padding, because padding
+   on the first cell would move the column edge and not the text under RTL. */
+.print-indent {
+  display: inline-block;
+  inline-size: var(--sp-5);
+}
+
+/* ---------- foot ---------- */
+
+.print-foot {
+  margin-block-start: var(--sp-6);
+  padding-block-start: var(--sp-4);
+  border-block-start: 1px solid var(--paper-rule-soft);
+  font-size: var(--fs-meta);
+  color: var(--paper-ink-2);
+  white-space: pre-line;
+}
+
+/* The paper's last line: where the document ends, never alone on a page. */
+.print-end {
+  margin-block-start: var(--sp-5);
+  text-align: center;
+  font-size: 10px;
+  color: var(--paper-ink-2);
+  break-before: avoid;
+}
+
+.print-signatures {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: var(--sp-6);
+  margin-block-start: var(--sp-6);
+  break-inside: avoid;
+  /* Never a page of signatures alone (owner, 2026-11-09: a contract's third sheet held only the two signature
+     lines): when they do not fit, the last lines before them go over with them. */
+  break-before: avoid;
+}
+
+.print-signature {
+  min-height: 5.5rem;
+  padding-block-start: var(--sp-2);
+  border-block-start: 1px solid var(--paper-rule);
+  font-size: var(--fs-meta);
+  color: var(--paper-ink-2);
+}
+
+/* A phone shows the sheet before it is printed. A4 has room for six columns of money and a
+   390 px screen does not, so on a narrow screen only: tighter cells, figures that may drop
+   their currency to a second line, the 16 px gutter, and a sheet that scrolls on its own
+   rather than pushing the page — or, on a French sheet under an Arabic page, hiding the
+   last column where no scroll can reach it. Paper is untouched. */
+@media screen and (max-width: 600px) {
+  .print-sheet {
+    padding: var(--sp-5);
+    overflow-x: auto;
+  }
+
+  .print-table {
+    font-size: var(--fs-meta);
+  }
+
+  .print-table th,
+  .print-table td {
+    padding: var(--sp-1) var(--sp-2);
+  }
+
+  .print-table .num {
+    white-space: normal;
+  }
+}

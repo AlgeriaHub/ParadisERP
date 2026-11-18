@@ -1,0 +1,300 @@
+/* ---------------------------------------------------------------------------
+   Paper. Loaded by the print route only (view encapsulation off on PrintPage),
+   so nothing here reaches the till or the back office.
+
+   Black on white, because every printer prints that and a receipt sheet with a
+   teal heading is a screen pretending. Money and quantities are tabular figures
+   (`mono` / `num`, the design system's own classes); every state is a word;
+   logical properties only, so the Arabic sheet is the French one mirrored under
+   `dir="rtl"` on the document root — not on <html>, which stays the clerk's.
+
+   Page size is not set here: PrintPageComponent injects `@page` at runtime for
+   the kind it draws (A4, A5), because an @page rule cannot be scoped.
+
+   The sheet every document draws is in _paper.scss, loaded first so that the
+   variants below (A5, dense, landscape, the report tables) still come after the
+   rules they adjust. The contract preview in Company settings loads the same
+   partial under its own host; this file stays the print route's alone.
+   --------------------------------------------------------------------------- */
+
+@use 'paper';
+
+/* The tab is the page: the sheet fills it even while the document is short. */
+.print-page {
+  min-height: 100vh;
+}
+
+/* ---------- the no-print toolbar ---------- */
+
+.print-bar {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-3) var(--sp-4);
+  padding: var(--sp-3) var(--sp-5);
+  background: var(--surface-2);
+  border-block-end: 1px solid var(--border);
+  color: var(--text);
+  font-size: var(--fs-sm);
+}
+
+.print-bar label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.print-bar select,
+.print-bar input {
+  min-height: var(--control-h-sm);
+  padding-inline: var(--sp-3);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+}
+
+.print-bar input[type='number'],
+.print-bar input[data-latin-number] {
+  width: 4.5rem;
+}
+
+.print-bar .spacer {
+  flex: 1;
+}
+
+.print-bar .print-note {
+  color: var(--muted);
+}
+
+/* A5 is the voucher: the same sheet a step smaller, so two copies with a signature line each
+   fit one A5 page apiece (verified with page.pdf — at the A4 rhythm each copy ran over). */
+.print-sheet--a5 {
+  max-width: 134mm;
+  font-size: 13px;
+}
+
+.print-sheet--a5 .print-head {
+  padding-block-end: var(--sp-3);
+  margin-block-end: var(--sp-4);
+}
+
+.print-sheet--a5 .print-parties {
+  gap: var(--sp-3);
+  margin-block-end: var(--sp-3);
+}
+
+.print-sheet--a5 .print-table {
+  margin-block: var(--sp-3);
+}
+
+.print-sheet--a5 .print-notice {
+  margin: var(--sp-3) 0;
+}
+
+.print-sheet--a5 .print-signatures {
+  margin-block-start: var(--sp-4);
+}
+
+.print-sheet--a5 .print-signature {
+  min-height: 4rem;
+}
+
+.print-sheet--a5 .print-foot {
+  margin-block-start: var(--sp-4);
+  padding-block-start: var(--sp-3);
+}
+
+/* The payslip: A4 at a tighter rhythm, because it is the one document printed once per person
+   and an overrun of twenty pixels is a wasted sheet per head on payday (measured with page.pdf,
+   the same way the A5 voucher was). Nothing is dropped and no type shrinks — the signature block
+   and the space around the tables come in. */
+.print-sheet--dense .print-head {
+  padding-block-end: var(--sp-3);
+  margin-block-end: var(--sp-3);
+}
+
+.print-sheet--dense .print-parties {
+  margin-block-end: var(--sp-3);
+}
+
+.print-sheet--dense .print-table {
+  margin-block: var(--sp-3);
+}
+
+/* Rows a step tighter (2026-10-05): the French sheet still ran a few pixels past A4 with two
+   elements, and every allowance or overtime line adds a row. The type keeps its size. */
+.print-sheet--dense .print-table th,
+.print-sheet--dense .print-table td {
+  padding-block: var(--sp-1);
+}
+
+.print-sheet--dense .print-notice {
+  margin: var(--sp-3) 0;
+}
+
+.print-sheet--dense .print-sentence {
+  margin: var(--sp-2) 0;
+}
+
+.print-sheet--dense .print-signatures {
+  margin-block-start: var(--sp-4);
+  gap: var(--sp-5);
+}
+
+.print-sheet--dense .print-signature {
+  min-height: 3.75rem;
+}
+
+.print-sheet--dense .print-foot {
+  margin-block-start: var(--sp-4);
+  padding-block-start: var(--sp-3);
+}
+
+.print-sheet--break {
+  break-before: page;
+}
+
+/* The landscape sheet (the ageing board). Only the width changes: the same frame, the same
+   type scale one step down, so the two reports do not read as two designs. */
+.print-page--landscape .print-sheet {
+  max-width: 277mm;
+  font-size: 13px;
+}
+
+/* The ageing board: ten columns of money on a landscape sheet. Smaller type and tighter cells
+   are what make it fit; nothing is dropped to make room. */
+.print-table--wide {
+  font-size: var(--fs-meta);
+}
+
+.print-table--wide th,
+.print-table--wide td {
+  padding: var(--sp-1) var(--sp-2);
+}
+
+/* A statement can run to hundreds of rows; the head repeats (table-header-group above) and the
+   rhythm tightens so a month of movements is not five sheets. */
+.print-table--statement th,
+.print-table--statement td {
+  padding: var(--sp-1) var(--sp-2);
+}
+
+/* ---------- reports (print-reports.ts) ---------- */
+
+/* A report's headline figures: a row of labelled boxes under the head, the paper's version of the
+   screen's metric cards. Ruled, not filled, so they print on any printer; a state is a word in its
+   own box, never a tint. */
+.print-figures {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  margin: 0 0 var(--sp-4);
+  border: 1px solid var(--paper-rule);
+  break-inside: avoid;
+}
+
+.print-figures > div {
+  padding: var(--sp-2) var(--sp-3);
+  border-inline-start: 1px solid var(--paper-rule-soft);
+}
+
+.print-figures > div:first-child {
+  border-inline-start: 0;
+}
+
+.print-figures dt {
+  font-size: var(--fs-meta);
+  color: var(--paper-ink-2);
+}
+
+.print-figures dd {
+  margin: 0;
+  font-size: var(--fs-md);
+  font-weight: 700;
+}
+
+.print-figures .print-figures__word {
+  font-size: var(--fs-meta);
+  font-weight: 400;
+  color: var(--paper-ink-2);
+}
+
+/* Beside a block in .print-parties: the figures stack instead of running across. */
+.print-figures--block {
+  grid-template-columns: 1fr;
+  margin: 0;
+}
+
+.print-figures--block > div {
+  border-inline-start: 0;
+}
+
+.print-figures--block > div + div {
+  border-block-start: 1px solid var(--paper-rule-soft);
+}
+
+/* The journal: one tbody per entry, its head row set apart and kept with its lines. */
+.print-table--journal .print-entry {
+  break-inside: avoid;
+}
+
+.print-table--journal .print-entry__head td {
+  padding-block-start: var(--sp-3);
+  border-block-end: 1px solid var(--paper-rule-soft);
+  font-weight: 600;
+}
+
+.print-table--journal .print-entry__head .print-soft {
+  font-weight: 400;
+}
+
+.print-table--journal .print-entry__head td > * + .print-soft {
+  margin-inline-start: var(--sp-3);
+}
+
+.print-table--journal tbody tr:not(.print-entry__head) td:first-child {
+  padding-inline-start: var(--sp-5);
+}
+
+/* A strip at the foot of every printed page: the document number so a loose sheet can be
+   put back. `position: fixed` repeats on each page in Chromium — to verify against the PDF
+   assertion (docs/07 §4.2); a fallback is a tfoot row per table. Off screen it would sit
+   over the toolbar, so it prints only. */
+.print-strip {
+  display: none;
+}
+
+@media print {
+  .print-page {
+    min-height: 0;
+  }
+
+  .print-bar,
+  .no-print {
+    display: none !important;
+  }
+
+  .print-sheet {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .print-strip {
+    display: block;
+    position: fixed;
+    inset-block-end: 0;
+    inset-inline: 0;
+    font-size: 10px;
+    color: var(--paper-ink-2);
+    text-align: center;
+  }
+
+  .print-sheet {
+    padding-block-end: 5mm;
+  }
+}

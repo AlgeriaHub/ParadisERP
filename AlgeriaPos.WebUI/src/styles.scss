@@ -1,0 +1,1022 @@
+/* ---------------------------------------------------------------------------
+   Global styles. Logical properties (inline-start/end, margin-inline) are used
+   throughout so the Arabic RTL layout is a mirror of the LTR one with no
+   separate stylesheet.
+   --------------------------------------------------------------------------- */
+@import "fonts";
+// Dark mode and the alternate themes (src/_theme.scss).
+@import "theme";
+
+:root {
+  // Paradis design (owner, 2026-11-12): indigo brand, section tones, pill buttons, flat cards with large corners.
+  --sx: 1;
+
+  // Brand scale (indigo). A theme (src/_theme.scss) replaces this scale with its own hue.
+  --primary-50: #eef2ff;
+  --primary-100: #e0e7ff;
+  --primary-200: #c7d2fe;
+  --primary-300: #a5b4fc;
+  --primary-400: #818cf8;
+  --primary-500: #6366f1;
+  --primary-600: #4f46e5;
+  --primary-700: #4338ca;
+  --primary-800: #3730a3;
+  --primary-900: #312e81;
+  --primary-950: #1e1b4b;
+
+  // Background and Surfaces
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --surface-2: #f1f5f9;
+  --surface-hover: #f8fafc;
+  --surface-tint: var(--primary-50);
+  --border: #e2e8f0;
+  --border-strong: #cbd5e1;
+  --hard: rgba(15, 23, 42, 0.12);
+  --text: #0f172a;
+  --text-2: #334155;
+  --muted: #64748b;
+  --primary: var(--primary-700);
+  --on-primary: #ffffff;
+  --primary-hover: var(--primary-800);
+  --primary-active: var(--primary-900);
+  --primary-dark: var(--primary-800);
+  --primary-soft: var(--primary-50);
+  --link: var(--primary-700);
+  --accent: var(--primary-600);
+  --on-accent: #ffffff;
+  --ink: var(--primary-950);
+  --ink-2: var(--primary-900);
+  --on-ink: #ffffff;
+  --on-ink-muted: var(--primary-200);
+  --on-ink-line: rgba(255, 255, 255, 0.12);
+  --ink-accent: var(--primary-300);
+  --on-ink-accent: var(--primary-950);
+
+  // Preserved Semantic Colors
+  --ok: #047857;
+  --ok-soft: #ecfdf5;
+  --warn: #b45309;
+  --warn-soft: #fffbeb;
+  --danger: #b91c1c;
+  --danger-soft: #fef2f2;
+  --danger-fill: #dc2626;
+  --danger-fill-hover: #b91c1c;
+
+  // Fourth state hue / Info / Resting
+  --info: var(--primary-800);
+  --info-soft: var(--primary-50);
+  --neutral: #475569;
+  --neutral-soft: #f8fafc;
+
+  // Spacing scale
+  --sp-1: 0.25rem;
+  --sp-2: 0.375rem;
+  --sp-3: 0.5rem;
+  --sp-4: 0.75rem;
+  --sp-5: 1rem;
+  --sp-6: 1.5rem;
+  --sp-7: 2rem;
+
+  // Corners
+  --radius: 0.75rem;        // small boxes, icon buttons, menu panels, notices
+  --radius-sm: 0.5rem;      // tags, menu items
+  --radius-lg: 1.5rem;      // dialogs
+  --radius-card: 1.5rem;    // cards and panels
+  --radius-field: 0.75rem;  // inputs, selects
+  --radius-pill: 999px;     // status pills, count pills
+  --radius-btn: 999px;      // buttons are pills
+
+  // Clean 1px outlines and soft layered elevation shadows
+  --line: 1px;
+  --shadow: 0 1px 2px rgba(15, 23, 42, 0.03);       // cards are flat: the border carries them
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.05);
+  --shadow-pop: 0 10px 15px -3px rgba(15, 23, 42, 0.1), 0 4px 6px -4px rgba(15, 23, 42, 0.1);
+  --shadow-hover: 0 4px 12px -2px rgba(15, 23, 42, 0.08);
+  --shadow-lift: 0 16px 40px -16px rgba(49, 46, 129, 0.28);
+  --shadow-modal: 0 20px 25px -5px rgba(15, 23, 42, 0.1), 0 16px 40px -16px rgba(49, 46, 129, 0.28);
+
+  // Layering
+  --z-topbar: 20;
+  --z-dock: 30;
+  --z-modal: 50;
+  --z-toast: 60;
+
+  // Height of the app chrome
+  --topbar-h: 64px;
+
+  // Motion lengths
+  --t-fast: 0.15s;
+  --t-slide: 0.22s;
+
+  // Type steps
+  --fs-micro: 0.6875rem; // 11px
+  --fs-meta: 0.78rem;    // 12.5px
+  --fs-sm: 0.875rem;     // 14px
+  --fs-base: 0.9375rem;  // 15px
+  --fs-md: 1.0625rem;    // 17px
+  --fs-lg: 1.25rem;      // 20px
+  --fs-xl: 1.5rem;       // 24px
+
+  --fs-total: clamp(1.75rem, 2.6vw, 2.125rem);
+  --fs-due: clamp(2rem, 7vw, 2.75rem);
+
+  --lh-tight: 1.2;
+
+  // Control heights
+  --control-h: 2.75rem;
+  --control-h-sm: 2.5rem;
+
+  // Type roles
+  --fs-page: var(--fs-lg);
+  --fs-section: var(--fs-md);
+  --fs-card: var(--fs-base);
+  --fs-table: var(--fs-sm);
+
+  // Table rows
+  --row-h: 2.75rem;
+  --row-h-dense: 2.25rem;
+
+  // Back-office shell widths
+  --sidebar-w: 17rem;
+  --sidebar-w-collapsed: 4.75rem;
+  --form-max: 52rem;
+  --read-max: 48rem;
+
+  // Typography: open-licensed faces only, including the offline app shell.
+  --font: 'Readex Pro', 'Cairo', 'Segoe UI', Tahoma, system-ui, sans-serif;
+  --font-display: var(--font-ui, var(--font));
+  --font-mono: 'IBM Plex Mono', var(--font-ui, var(--font)), ui-monospace, monospace;
+
+  // Section tone: a module's accent. A .tone-* class (src/_tones.scss) replaces these on an element and
+  // everything inside follows; without one the tone is the brand.
+  --tone-50: var(--primary-50);
+  --tone-100: var(--primary-100);
+  --tone-200: var(--primary-200);
+  --tone-300: var(--primary-300);
+  --tone-500: var(--primary-500);
+  --tone-600: var(--primary-600);
+  --tone-700: var(--primary-700);
+  --tone-800: var(--primary-800);
+  --tone-ink: var(--tone-700);    // text in the tone, on a wash of it
+  --tone-fill: var(--tone-700);   // a fill that carries white text (4.5:1 on every tone)
+  --tone-fill-2: var(--tone-800); // the far end of that fill's gradient
+  --on-tone: #ffffff;
+}
+
+html[dir='rtl'] {
+  --sx: -1;
+}
+
+@import "tones";
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  // --font-ui is set by UiFontService from the country profile; falls back to --font.
+  font-family: var(--font-ui, var(--font));
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-tap-highlight-color: transparent;
+
+  &.drawer-open {
+    overflow: hidden;
+  }
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.22s;
+  animation-timing-function: ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0 0 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  color: var(--text);
+  line-height: var(--lh-tight);
+}
+
+h1 {
+  font-size: var(--fs-xl);
+  font-weight: 700;
+}
+
+h2 {
+  font-size: var(--fs-lg);
+}
+
+h3 {
+  font-size: var(--fs-md);
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  border: var(--line) solid transparent;
+  border-radius: var(--radius);
+  padding: 0.5rem 0.95rem;
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 600;
+  transition: background var(--t-fast) ease, border-color var(--t-fast) ease,
+    box-shadow var(--t-fast) ease, transform var(--t-fast) ease;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-primary,
+.btn-ghost,
+.btn-accent,
+.btn-danger,
+.btn-danger-solid {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-3);
+  border-radius: var(--radius-btn);
+  padding: 0.5rem 1.25rem;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  line-height: 1.5;
+  transition: background var(--t-fast) ease, border-color var(--t-fast) ease,
+    color var(--t-fast) ease, box-shadow var(--t-fast) ease;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: var(--on-primary);
+  border: var(--line) solid var(--primary);
+  box-shadow: var(--shadow-sm);
+
+  &:hover:not(:disabled) {
+    background: var(--primary-hover);
+    border-color: var(--primary-hover);
+  }
+
+  &:active:not(:disabled) {
+    background: var(--primary-active);
+    border-color: var(--primary-active);
+  }
+}
+
+/* A link styled as a button (navigation, such as "open the till") takes the button's box: the
+   padding, corner and outline the `button` element gets from the base rule above. */
+a.btn-primary,
+a.btn-ghost,
+a.btn-accent,
+a.btn-danger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  min-block-size: var(--control-h-sm);
+  padding: 0.5rem 1.25rem;
+  border-radius: var(--radius-btn);
+  text-decoration: none;
+  transition: background var(--t-fast) ease, border-color var(--t-fast) ease,
+    color var(--t-fast) ease, box-shadow var(--t-fast) ease;
+}
+
+.btn-accent {
+  background: var(--accent);
+  color: var(--on-accent);
+  border: var(--line) solid var(--accent);
+  box-shadow: var(--shadow-sm);
+
+  &:hover:not(:disabled) {
+    filter: brightness(0.92);
+  }
+}
+
+.btn-ghost {
+  background: var(--surface);
+  border: var(--line) solid var(--border-strong);
+  color: var(--text);
+
+  &:hover:not(:disabled) {
+    background: var(--primary-soft);
+    border-color: var(--primary-300);
+    color: var(--primary-dark);
+  }
+}
+
+.btn-danger,
+.btn-danger-solid {
+  background: var(--danger-fill);
+  color: var(--on-primary);
+  border: var(--line) solid var(--danger-fill);
+  box-shadow: var(--shadow-sm);
+
+  &:hover:not(:disabled) {
+    background: var(--danger-fill-hover);
+    border-color: var(--danger-fill-hover);
+  }
+}
+
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+  padding: 0.625rem 0.875rem;
+  border: var(--line) solid var(--border-strong);
+  border-radius: var(--radius-field);
+  background: var(--surface);
+  font-size: var(--fs-sm);
+  box-shadow: var(--shadow-sm);
+  inline-size: 100%;
+  transition: border-color var(--t-fast) ease, box-shadow var(--t-fast) ease,
+    background var(--t-fast) ease;
+
+  &::placeholder {
+    color: var(--muted);
+    opacity: 1;
+  }
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent);
+  outline: none;
+}
+
+input[type='checkbox'],
+input[type='radio'] {
+  inline-size: auto;
+  padding: 0;
+  box-shadow: none;
+  accent-color: var(--primary);
+}
+
+button:focus-visible,
+a:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (pointer: coarse) {
+  button,
+  input,
+  select {
+    min-height: 44px;
+  }
+}
+
+label {
+  display: block;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--text);
+  margin-block-end: 0.375rem;
+}
+
+.card {
+  background: var(--surface);
+  border: var(--line) solid var(--border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow);
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.mono {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+.badge,
+.state {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  min-block-size: 1.5rem;
+  padding: 0.125rem 0.625rem;
+  border-radius: var(--radius-pill);
+  border: var(--line) solid transparent;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.badge::before,
+.state::before {
+  content: "";
+  inline-size: 6px;
+  block-size: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  flex: none;
+}
+
+.state-ok,
+.badge-ok {
+  background: var(--ok-soft);
+  color: var(--ok);
+  border-color: color-mix(in srgb, currentColor 22%, transparent);
+}
+
+.state-warn,
+.badge-warn {
+  background: var(--warn-soft);
+  color: var(--warn);
+  border-color: color-mix(in srgb, currentColor 22%, transparent);
+}
+
+.state-danger,
+.badge-danger {
+  background: var(--danger-soft);
+  color: var(--danger);
+  border-color: color-mix(in srgb, currentColor 22%, transparent);
+}
+
+.state-info,
+.badge-info {
+  background: var(--info-soft);
+  color: var(--info);
+  border-color: color-mix(in srgb, currentColor 22%, transparent);
+}
+
+.state-neutral,
+.badge-neutral {
+  background: var(--neutral-soft);
+  color: var(--neutral);
+  border-color: var(--border);
+}
+
+/* Visible to a screen reader, not to the eye. Used where a control's shape already says
+   what it is on screen but a name is still owed to assistive technology. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+table {
+  inline-size: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  text-align: start;
+  border-block-end: 1px solid var(--border);
+  vertical-align: middle;
+}
+
+th {
+  padding: 0.75rem 1.25rem;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: none;
+  background: var(--tone-50);
+  color: var(--tone-ink);
+  border-block-end: 1px solid var(--tone-100);
+  white-space: nowrap;
+}
+
+td {
+  padding: 0.875rem 1.25rem;
+}
+
+tbody tr {
+  transition: background var(--t-fast) ease;
+
+  &:last-child td {
+    border-block-end: 0;
+  }
+}
+
+.num {
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+@media screen {
+  .mono,
+  .num {
+    font-family: var(--font-mono);
+  }
+
+  /* A column heading stays in the interface face even over a money column. */
+  th.num {
+    font-family: inherit;
+  }
+
+  table:not(.print-table, .lines) th {
+    background: var(--tone-50);
+    color: var(--tone-ink);
+    font-weight: 700;
+    border-block-end: 1px solid var(--tone-100);
+  }
+
+  table:not(.print-table, .lines) tbody tr:hover td {
+    background: color-mix(in srgb, var(--tone-50) 60%, transparent);
+  }
+}
+
+/* A table that turns into a list of cards on a phone. Opt in by putting .table-cards on the
+   scroll wrapper and a data-label on every cell: below the breakpoint the header row is
+   dropped and each cell carries its own label beside its value. */
+@media (max-width: 720px) {
+  .table-cards table,
+  .table-cards thead,
+  .table-cards tbody,
+  .table-cards tr,
+  .table-cards th,
+  .table-cards td {
+    display: block;
+  }
+
+  .table-cards thead {
+    display: none;
+  }
+
+  .table-cards tr {
+    border: var(--line) solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+    padding: var(--sp-3) var(--sp-4);
+    margin-block-end: var(--sp-3);
+  }
+
+  .table-cards td {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--sp-4);
+    border: none;
+    padding: 0.2rem 0;
+    text-align: end;
+  }
+
+  .table-cards td::before {
+    content: attr(data-label);
+    color: var(--muted);
+    font-size: var(--fs-meta);
+    font-weight: 600;
+    text-align: start;
+    flex: none;
+  }
+}
+
+/* --- shared form/tab utilities --------------------------------------------- */
+
+.tabs {
+  display: inline-flex;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  border: var(--line) solid var(--tone-100);
+  border-radius: var(--radius-pill);
+  background: var(--tone-50);
+  max-inline-size: 100%;
+}
+
+.tabs button {
+  min-block-size: 2.25rem;
+  padding-inline: 1rem;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--muted);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transform: none;
+  box-shadow: none;
+
+  &:hover:not(:disabled) {
+    color: var(--text);
+    background: transparent;
+    transform: none;
+    box-shadow: none;
+  }
+
+  &.active,
+  &[aria-pressed='true'],
+  &[aria-selected='true'] {
+    background: linear-gradient(135deg, var(--tone-fill), var(--tone-fill-2));
+    color: var(--on-tone);
+    box-shadow: var(--shadow-sm);
+  }
+}
+
+.notice {
+  margin: 0;
+  padding: var(--sp-3) var(--sp-5);
+  border-radius: var(--radius);
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+  border: var(--line) solid var(--border);
+  color: var(--text);
+  background: var(--surface-2);
+}
+
+.notice.warn {
+  background: var(--warn-soft);
+  border-color: color-mix(in srgb, var(--warn) 25%, transparent);
+  color: var(--text);
+}
+
+.notice.danger {
+  background: var(--danger-soft);
+  border-color: color-mix(in srgb, var(--danger) 25%, transparent);
+  color: var(--text);
+}
+
+.notice.ok {
+  background: var(--ok-soft);
+  border-color: color-mix(in srgb, var(--ok) 25%, transparent);
+  color: var(--text);
+}
+
+.notice.info {
+  background: var(--info-soft);
+  border-color: color-mix(in srgb, var(--info) 25%, transparent);
+  color: var(--text);
+}
+
+/* --- dialogs --------------------------------------------------------------- */
+
+.till-dialog {
+  position: fixed;
+  inset: 0;
+  background: color-mix(in srgb, var(--primary-950) 55%, transparent);
+  display: grid;
+  place-items: center;
+  padding: var(--sp-5);
+  z-index: var(--z-modal);
+}
+
+@keyframes modal-pop {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.till-dialog .modal {
+  inline-size: min(30rem, 100%);
+  max-height: min(92dvh, 48rem);
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  background: var(--surface);
+  border: var(--line) solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-modal);
+  overflow: hidden;
+  animation: modal-pop 220ms cubic-bezier(0.2, 0, 0, 1) both;
+}
+
+.till-dialog .modal-head {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-4) var(--sp-5);
+  border-block-end: 1px solid var(--border);
+
+  h2 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+}
+
+.till-dialog .modal-ref {
+  margin-inline-start: auto;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.till-dialog .modal-close {
+  margin-inline-start: auto;
+  display: grid;
+  place-items: center;
+  flex: none;
+  inline-size: var(--control-h-sm);
+  block-size: var(--control-h-sm);
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-size: var(--fs-xl);
+  line-height: 1;
+  padding: 0;
+  border-radius: var(--radius-sm);
+
+  &:hover {
+    background: var(--danger-soft);
+    color: var(--danger);
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+.till-dialog .modal-body {
+  overflow-y: auto;
+  padding: var(--sp-5);
+  display: grid;
+  gap: var(--sp-4);
+  align-content: start;
+}
+
+.till-dialog .modal-foot {
+  padding: var(--sp-4) var(--sp-5);
+  border-block-start: var(--line) solid var(--border);
+  background: var(--surface-2);
+}
+
+.till-dialog .actions {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: var(--sp-3);
+
+  button {
+    min-height: var(--control-h);
+    padding: var(--sp-3);
+    font-size: var(--fs-md);
+  }
+
+  .btn-primary {
+    font-weight: 700;
+  }
+}
+
+.till-dialog .field label {
+  margin-block-end: var(--sp-1);
+}
+
+.till-dialog .field .hint {
+  margin: var(--sp-1) 0 0;
+  font-size: var(--fs-meta);
+  line-height: 1.45;
+}
+
+.till-dialog .change {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--sp-3);
+  background: var(--surface-2);
+  border: var(--line) solid var(--border-strong);
+  border-radius: var(--radius);
+  padding: var(--sp-4);
+  font-size: var(--fs-sm);
+
+  strong {
+    font-family: var(--font-mono);
+    font-size: var(--fs-lg);
+    font-weight: 700;
+  }
+}
+
+.till-dialog .change-ok {
+  background: var(--ok-soft);
+  color: var(--ok);
+  border-color: var(--ok);
+
+  strong {
+    color: var(--ok);
+  }
+}
+
+.till-dialog .change-left {
+  background: var(--warn-soft);
+  color: var(--warn);
+  border-color: var(--warn);
+
+  strong {
+    color: var(--warn);
+  }
+}
+
+.till-dialog .done {
+  background: var(--ok-soft);
+  border: var(--line) solid var(--ok);
+  border-radius: var(--radius-lg);
+  padding: var(--sp-5);
+  text-align: center;
+  display: grid;
+  gap: var(--sp-2);
+  justify-items: center;
+
+  h2 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: var(--fs-lg);
+    color: var(--ok);
+  }
+}
+
+.till-dialog .done-ref {
+  margin: 0;
+  font-size: var(--fs-md);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.till-dialog .receipt-holder {
+  display: grid;
+  justify-items: center;
+  max-height: 46vh;
+  overflow-y: auto;
+  background: var(--bg);
+  border: var(--line) solid var(--border-strong);
+  border-radius: var(--radius);
+  padding: var(--sp-5);
+}
+
+@media (max-width: 640px) {
+  .till-dialog {
+    padding: 0;
+    place-items: end stretch;
+  }
+
+  .till-dialog .modal {
+    inline-size: 100%;
+    max-height: 94dvh;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    border-width: 2px 0 0;
+  }
+
+  .till-dialog .modal-body {
+    padding: var(--sp-4);
+  }
+
+  .till-dialog .modal-head,
+  .till-dialog .modal-foot {
+    padding-inline: var(--sp-4);
+  }
+
+  .till-dialog .actions {
+    grid-template-columns: 1fr 1.2fr;
+  }
+
+  .till-dialog .receipt-holder {
+    max-height: 40vh;
+    padding: var(--sp-2);
+  }
+}
+
+/* --- print ------------------------------------------------------------------
+   Two kinds of paper leave this app. The till receipt is an 80 mm strip printed
+   in place, from inside its dialog; every other document is A4 (or A5) and is
+   printed from its own tab by the /print route, or by a back-office screen's own
+   Print button.
+   --------------------------------------------------------------------------- */
+
+@media print {
+  @page {
+    size: A4;
+    margin: 14mm 12mm;
+  }
+
+  body:has(#receipt-print) * {
+    visibility: hidden;
+  }
+
+  body:has(#receipt-print) #receipt-print,
+  body:has(#receipt-print) #receipt-print * {
+    visibility: visible;
+  }
+
+  body:has(#receipt-print) #receipt-print {
+    position: absolute;
+    inset-inline-start: 0;
+    top: 0;
+    width: 76mm;
+    font-size: 11px;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Global components: menus and action buttons.
+   --------------------------------------------------------------------------- */
+
+/* An item of an app-menu (ui/menu.component.ts): a row, not a button-shaped box. */
+.app-menu-item {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  inline-size: 100%;
+  block-size: 2.5rem;
+  min-block-size: 2.5rem;
+  padding-inline: 0.75rem;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text);
+  text-align: start;
+  text-decoration: none;
+  white-space: nowrap;
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background var(--t-fast) ease, color var(--t-fast) ease;
+}
+
+.app-menu-item:hover:not(:disabled),
+.app-menu-item:focus-visible {
+  background: var(--bg);
+  color: var(--text);
+}
+
+.app-menu-item.is-current {
+  background: var(--primary-soft);
+  color: var(--primary-dark);
+  font-weight: 600;
+}
+
+.app-menu-item.is-danger {
+  color: var(--danger);
+
+  &:hover:not(:disabled) {
+    background: var(--danger-soft);
+    color: var(--danger);
+  }
+}
+
+.app-menu-separator {
+  margin: var(--sp-2) 4px;
+  border: 0;
+  border-block-start: var(--line) solid var(--border);
+}
+
+.ui-more {
+  min-block-size: var(--control-h-sm);
+  min-inline-size: var(--control-h-sm);
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: var(--line) solid var(--border);
+  border-radius: var(--radius-btn);
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 1.1rem;
+  line-height: 1;
+  font-weight: 600;
+
+  &:hover,
+  &[aria-expanded='true'] {
+    border-color: var(--primary-300);
+    background: var(--primary-soft);
+    color: var(--primary-dark);
+  }
+}

@@ -1,0 +1,230 @@
+<div class="login-wrap">
+  <!-- The brand half on var(--primary) gradient -->
+  <aside class="aside">
+    <!-- decoration: soft shapes in three section tones and a dot pattern -->
+    <span class="shape shape--a tone-sales" aria-hidden="true"></span>
+    <span class="shape shape--b tone-rentals" aria-hidden="true"></span>
+    <span class="shape shape--c tone-stock" aria-hidden="true"></span>
+    <span class="dots" aria-hidden="true"></span>
+
+    <div class="brand">
+      <span class="logo">{{ i18n.countryCode() }}</span>
+      <span class="brand-text">
+        <strong>{{ i18n.t('app.title') }}</strong>
+      </span>
+    </div>
+
+    <div class="aside-body">
+      <!-- Said once: in a language where the product name already is "point of sale" (T1), the
+           subtitle would repeat it. -->
+      @if (i18n.t('app.subtitle') !== i18n.t('app.title')) {
+        <h2 class="aside-heading">{{ i18n.t('app.subtitle') }}</h2>
+      }
+      <ul class="points">
+        <li class="point tone-sales">
+          <span class="point__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M13 3L4 14h7l-1 7 9-11h-7l1-7z" />
+            </svg>
+          </span>
+          <span>{{ i18n.t('login.point.offline') }}</span>
+        </li>
+        <li class="point tone-rentals">
+          <span class="point__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M7 3h7l5 5v13H7z M14 3v5h5 M10 13h6 M10 17h6" />
+            </svg>
+          </span>
+          <span>{{ i18n.t('login.point.documents') }}</span>
+        </li>
+        <li class="point tone-finance">
+          <span class="point__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 21h18 M6 21V10 M12 21V4 M18 21v-7" />
+            </svg>
+          </span>
+          <span>{{ i18n.t('login.point.books') }}</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="aside-state">
+      <span class="state" [class.state-ok]="connectivity.online()" [class.state-warn]="!connectivity.online()">
+        {{ connectivity.online() ? i18n.t('status.online') : i18n.t('status.offline') }}
+      </span>
+      @if (!connectivity.online() && !canUnlockOffline()) {
+        <p class="aside-note">{{ i18n.t('login.needFirstSync') }}</p>
+      }
+    </div>
+  </aside>
+
+  <!-- The form half on var(--bg) -->
+  <div class="form-half">
+    <div class="form-top">
+      <select class="lang" [value]="i18n.lang()" (change)="onLangChange($event)" aria-label="Language">
+        @for (l of i18n.langs(); track l.code) {
+          <option [value]="l.code" [selected]="l.code === i18n.lang()">{{ l.label }}</option>
+        }
+      </select>
+    </div>
+
+    <div class="login-card">
+      <form class="panel" (ngSubmit)="submit()">
+        <div class="head">
+          <div class="head-text">
+            <h1>{{ i18n.t('login.title') }}</h1>
+          </div>
+        </div>
+
+        @if (canUnlockOffline() && step() === 'credentials') {
+          <div class="tabs" role="group" [attr.aria-label]="i18n.t('login.title')">
+            <button
+              type="button"
+              [class.active]="mode() === 'online'"
+              [attr.aria-pressed]="mode() === 'online'"
+              (click)="setMode('online')"
+            >
+              {{ i18n.t('login.onlineMode') }}
+            </button>
+            <button
+              type="button"
+              [class.active]="mode() === 'offline'"
+              [attr.aria-pressed]="mode() === 'offline'"
+              (click)="setMode('offline')"
+            >
+              {{ i18n.t('login.offlineMode') }}
+            </button>
+          </div>
+        }
+
+        @if (mode() === 'online' && step() === 'code') {
+          <!-- Two-step login (owner, 2026-11-11): the password was right, now the authenticator's code. -->
+          <p class="muted hint" data-two-factor>{{ i18n.t('login.twoFactor.intro') }}</p>
+          <div class="field">
+            <label for="two-factor-code">{{ i18n.t('login.twoFactor.code') }}</label>
+            <input
+              id="two-factor-code"
+              name="twoFactorCode"
+              [(ngModel)]="twoFactorCode"
+              class="mono code"
+              inputmode="numeric"
+              autocomplete="one-time-code"
+              maxlength="11"
+              spellcheck="false"
+              aria-describedby="two-factor-hint"
+              required
+            />
+            <small id="two-factor-hint" class="muted">{{ i18n.t('login.twoFactor.recoveryHint') }}</small>
+          </div>
+          <label class="check">
+            <input type="checkbox" name="trustDevice" [(ngModel)]="trustDevice" />
+            <span>{{ i18n.t('login.twoFactor.trust') }}</span>
+          </label>
+          <button type="button" class="shared-toggle" (click)="backToCredentials()">{{ i18n.t('login.twoFactor.back') }}</button>
+        } @else if (mode() === 'online') {
+          @if (ssoEnabled()) {
+            <button type="button" class="btn-primary sso" [disabled]="busy()" (click)="startSso()">{{ i18n.t('login.sso') }}</button>
+          }
+          <div class="field">
+            <label for="server">{{ i18n.t('login.server') }}</label>
+            <input
+              id="server"
+              name="server"
+              [(ngModel)]="apiBaseUrl"
+              placeholder="http://192.168.1.10:5080"
+              autocomplete="off"
+              spellcheck="false"
+              inputmode="url"
+            />
+          </div>
+          <div class="field">
+            <!-- The Login ID the server drew for the account (2026-10-05); an older account's username
+                 is accepted in the same field. -->
+            <label for="username">{{ i18n.t('login.username') }}</label>
+            <input
+              id="username"
+              name="username"
+              [(ngModel)]="username"
+              autocomplete="username"
+              aria-describedby="username-hint"
+              required
+            />
+            <p id="username-hint" class="hint">{{ i18n.t('login.usernameHint') }}</p>
+          </div>
+          <div class="field">
+            <label for="password">{{ i18n.t('login.password') }}</label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              [(ngModel)]="password"
+              autocomplete="current-password"
+              required
+            />
+          </div>
+        } @else {
+          <p class="muted hint">{{ i18n.t('login.offlineHint') }}</p>
+          <div class="field">
+            <label for="user">{{ i18n.t('login.selectUser') }}</label>
+            <select id="user" name="user" [(ngModel)]="selectedUserId">
+              @for (u of offlineUsers(); track u.id) {
+                <option [value]="u.id">{{ u.fullName || u.username }}</option>
+              }
+            </select>
+          </div>
+          <div class="field">
+            <label for="pin">{{ i18n.t('login.pin') }}</label>
+            <input
+              id="pin"
+              name="pin"
+              type="password"
+              inputmode="numeric"
+              maxlength="8"
+              autocomplete="off"
+              [(ngModel)]="pin"
+              class="pin mono"
+            />
+          </div>
+        }
+
+        <!-- No till code online (owner, 2026-10-05): a cashier opens their own till, everyone else the
+             back office. A shared counter till is the one case that needs its code, behind a toggle.
+             Offline, the PIN opens the till this computer last opened, named here in words. -->
+        @if (step() === 'code') {
+          <!-- The till was settled by the first step: nothing to choose here. -->
+        } @else if (mode() === 'online') {
+          <button
+            type="button"
+            class="shared-toggle"
+            [attr.aria-expanded]="sharedOpen()"
+            aria-controls="shared-till"
+            (click)="toggleShared()"
+          >
+            {{ i18n.t('login.sharedTill') }}
+          </button>
+          @if (sharedOpen()) {
+            <div class="field" id="shared-till">
+              <label for="device">{{ i18n.t('login.device') }}</label>
+              <input id="device" name="device" [(ngModel)]="sharedCode" maxlength="8" class="mono" aria-describedby="device-hint" />
+              <small id="device-hint" class="muted">{{ i18n.t('login.sharedTillHint') }}</small>
+            </div>
+          }
+        } @else if (offlineTill()) {
+          <p class="muted till-note">{{ i18n.t('login.offlineTill', { code: offlineTill() }) }}</p>
+        } @else {
+          <p class="error" role="alert">{{ i18n.t('login.error.offlineNeedsTill') }}</p>
+        }
+
+        @if (error()) {
+          <p class="error" role="alert">{{ error() }}</p>
+        } @else if (signedOutIdle()) {
+          <p class="muted idle-note" role="status">{{ i18n.t('login.idleSignedOut') }}</p>
+        }
+
+        <button type="submit" class="btn-primary submit" [disabled]="busy()">
+          {{ busy() ? i18n.t('common.loading') : i18n.t(step() === 'code' ? 'login.twoFactor.submit' : 'login.submit') }}
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

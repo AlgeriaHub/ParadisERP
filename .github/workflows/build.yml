@@ -1,0 +1,221 @@
+name: build
+
+on:
+  push:
+  pull_request:
+
+# The job token reads the repository and nothing else (security review, 2026-10-10).
+permissions:
+  contents: read
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    # The whole suite runs in about half an hour; a test that hangs must not hold the runner (and the
+    # month's Actions minutes) for the default six hours.
+    timeout-minutes: 60
+    # The suite runs on SQLite, which lets one writer in at a time; the [SqlServerFact] tests are
+    # the ones about two writers meeting, and they need the production engine to mean anything.
+    services:
+      sqlserver:
+        image: mcr.microsoft.com/mssql/server:2022-latest
+        env:
+          ACCEPT_EULA: "Y"
+          MSSQL_PID: Developer
+          MSSQL_SA_PASSWORD: Ci-only-Passw0rd
+        ports:
+          - 1433:1433
+        options: >-
+          --health-cmd="/opt/mssql-tools18/bin/sqlcmd -C -S localhost -U sa -P Ci-only-Passw0rd -Q 'SELECT 1' -b -o /dev/null"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=30
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-dotnet@67a3573c9a986a3f9c594539f4ab511d57bb3ce9 # v4
+        with:
+          dotnet-version: 8.0.x
+      - run: dotnet restore AlgeriaPos.sln
+      - run: dotnet build AlgeriaPos.sln --configuration Release --no-restore
+      # Every test host watches its configuration files, and the suite starts hundreds of them: past the
+      # runner's default of 128 inotify instances each new host failed to start (every run red from
+      # 2026-11-01). The limits are raised, and the hosts no longer watch files they never reload.
+      - run: sudo sysctl -w fs.inotify.max_user_instances=8192 fs.inotify.max_user_watches=524288
+      - run: dotnet test AlgeriaPos.Tests --configuration Release --no-build
+        env:
+          ALGERIAPOS_TEST_SQLSERVER: Server=127.0.0.1,1433;User Id=sa;Password=Ci-only-Passw0rd;TrustServerCertificate=True
+          DOTNET_hostBuilder__reloadConfigOnChange: "false"
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 20
+      - run: node tests/e2e/saas-api.cjs
+        env:
+          BUILD_CONFIGURATION: Release
+      - run: node tests/e2e/sso-platform.cjs
+        env:
+          BUILD_CONFIGURATION: Release
+      - run: node tests/e2e/loyalty-giftcards.cjs
+        env:
+          BUILD_CONFIGURATION: Release
+
+  web-ui:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: AlgeriaPos.WebUI
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: AlgeriaPos.WebUI/package-lock.json
+      - run: npm ci
+      - run: npm run build
+      - run: npx ng test --watch=false --browsers=ChromeHeadlessNoSandbox
+
+  e2e-offline-cycle:
+    runs-on: ubuntu-latest
+    # Since 622aec7 (2026-10-14) no script carries a default password: the mock API and the drives read the
+    # administrator's from ADMIN_PASSWORD. A CI-only value; the mock accepts whatever it is given.
+    env:
+      ADMIN_PASSWORD: ci-only-admin-password
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm ci
+        working-directory: AlgeriaPos.WebUI
+      - run: npm run build
+        working-directory: AlgeriaPos.WebUI
+      # The real PWA build talks to a Node mock of the API contract, not the .NET API, so
+      # this job only needs Node — see scripts/mock-api/server.js.
+      - run: node scripts/mock-api/server.js & sleep 1
+      - run: node tests/e2e/offline-cycle.js
+      - run: node tests/e2e/platform-ui.cjs
+      # Starts its own mock on another port, with the card reference required.
+      - run: node tests/e2e/card-reference.cjs
+
+  docker-image:
+    runs-on: ubuntu-latest
+    # SQL Server is production (it replaced MySQL on 2026-10-04), and the image is otherwise
+    # only proven on SQLite — so without this every schema change would reach a real server for
+    # the first time on the shop's own. One build, two runs: SQLite for the image's own shape,
+    # SQL Server for the migrations and the routes. The API creates pos_ci itself.
+    services:
+      sqlserver:
+        image: mcr.microsoft.com/mssql/server:2022-latest
+        env:
+          ACCEPT_EULA: "Y"
+          MSSQL_PID: Developer
+          MSSQL_SA_PASSWORD: Ci-only-Passw0rd
+        ports:
+          - 1433:1433
+        options: >-
+          --health-cmd="/opt/mssql-tools18/bin/sqlcmd -C -S localhost -U sa -P Ci-only-Passw0rd -Q 'SELECT 1' -b -o /dev/null"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=30
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 20
+      # print-documents.cjs drives a real browser against the running image; the other checks
+      # in this job are curl and plain-node, so the browser is installed here and nowhere else.
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: docker build -t algeria-pos:ci .
+
+      # The container must serve the PWA's scripts (not the HTML fallback), migrate its
+      # volume-backed database as the unprivileged user, and accept the login of the
+      # administrator the bootstrap variables named. Why each variable is here:
+      #
+      #   Bootstrap__Admin*                  outside Development the image no longer seeds
+      #                                      a shared demo login; this is the path a real first
+      #                                      start takes, so CI exercises that one.
+      #   Database__Provider,
+      #   ConnectionStrings__Default         the image no longer bakes a connection string —
+      #                                      baking one is how a deployment ends up running on
+      #                                      a database nobody is backing up.
+      #   Database__AllowSqliteInProduction  and, having stopped baking it, Production refuses
+      #                                      a file database unless it is asked for by name.
+      - name: the image on SQLite
+        run: |
+          docker run -d --name pos -p 5080:5080 \
+            -e Jwt__Key=ci-only-signing-key-0123456789abcdef \
+            -e Bootstrap__AdminUsername=ci-admin \
+            -e Bootstrap__AdminPassword=ci-only-bootstrap-password \
+            -e Database__Provider=Sqlite \
+            -e "ConnectionStrings__Default=Data Source=/data/pos.db" \
+            -e Database__AllowSqliteInProduction=true \
+            algeria-pos:ci
+          for i in $(seq 1 30); do curl -fs http://127.0.0.1:5080/health && break; sleep 2; done
+          main=$(curl -fs http://127.0.0.1:5080/ | grep -o 'main-[A-Z0-9]*\.js' | head -1)
+          curl -fsI "http://127.0.0.1:5080/$main" | grep -i 'content-type: text/javascript'
+          # The two files a till must never cache, or it runs yesterday's bundle for ever.
+          curl -fsI http://127.0.0.1:5080/index.html | grep -i 'cache-control: no-cache'
+          curl -fsI http://127.0.0.1:5080/ngsw.json | grep -i 'cache-control: no-cache'
+          curl -fs -X POST -H 'Content-Type: application/json' \
+            -d '{"username":"ci-admin","password":"ci-only-bootstrap-password","deviceCode":"C01"}' \
+            http://127.0.0.1:5080/api/auth/login | grep -q '"token"'
+          # The demo administrator must not exist on this path at all.
+          test "$(curl -s -o /dev/null -w '%{http_code}' -X POST -H 'Content-Type: application/json' \
+            -d '{"username":"admin","password":"ci-only-bootstrap-password","deviceCode":"C01"}' \
+            http://127.0.0.1:5080/api/auth/login)" = "401"
+          docker exec pos ls /data/pos.db
+          # The startup line naming the database this process actually opened. It is the only
+          # way an operator can tell they are on the wrong one, so CI fails if it is dropped.
+          docker logs pos 2>&1 | grep -F 'provider Sqlite'
+          docker logs pos 2>&1 | grep -F 'Data Source=/data/pos.db'
+          # curl in the image, which is what the HEALTHCHECK runs.
+          docker exec pos curl -fsS http://127.0.0.1:5080/health | grep -q '"status":"Healthy"'
+      - if: failure()
+        run: docker logs pos
+
+      # The SQL Server migration set, applied from empty, then the phase 1-5 routes driven over
+      # HTTP. Seeded with the demo company on purpose: provider-smoke sells, hires and invoices,
+      # and a bootstrap-only database has no catalogue to do it with.
+      - name: the image on SQL Server
+        run: |
+          docker run -d --name pos-sqlserver --network host \
+            -e Jwt__Key=ci-only-signing-key-0123456789abcdef \
+            -e ASPNETCORE_URLS=http://0.0.0.0:5125 \
+            -e Database__Provider=SqlServer \
+            -e "ConnectionStrings__Default=Server=127.0.0.1,1433;Database=pos_ci;User Id=sa;Password=Ci-only-Passw0rd;TrustServerCertificate=True" \
+            -e Bootstrap__SeedDemoData=true \
+            -e Bootstrap__AdminPassword=ci-only-demo-password \
+            -e RateLimits__Enabled=false \
+            algeria-pos:ci
+          for i in $(seq 1 60); do curl -fs http://127.0.0.1:5125/health && break; sleep 2; done
+          curl -fs http://127.0.0.1:5125/health | grep -q '"status":"Healthy"'
+          docker logs pos-sqlserver 2>&1 | grep -F 'provider SqlServer'
+          docker logs pos-sqlserver 2>&1 | grep -F 'Database=pos_ci'
+      # The demo administrator's password, which the start above was given (a demo database refuses to
+      # start without one since 622aec7, 2026-10-14). The image runs as Production, where the request limits
+      # would stop the smoke's burst part-way; they are off for this container only, as in saas-api.cjs.
+      - name: provider-smoke against SQL Server
+        run: PROVIDER="SQL Server" BASE=http://127.0.0.1:5125 node tests/e2e/provider-smoke.cjs
+        env:
+          ADMIN_PASSWORD: ci-only-demo-password
+      # After provider-smoke, not after platform-ui: the documents can only be measured on a
+      # database that holds an invoice, a voucher and a contract that has been issued and
+      # returned, and provider-smoke is what leaves exactly that behind. Kinds it did not
+      # create are SKIPped, not failed.
+      - name: printed documents against SQL Server
+        run: BASE=http://127.0.0.1:5125 node tests/e2e/print-documents.cjs
+        env:
+          POS_PASSWORD: ci-only-demo-password
+      - if: failure()
+        run: docker logs pos-sqlserver
+      - if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: print-documents
+          path: artifacts/print/
+          if-no-files-found: ignore

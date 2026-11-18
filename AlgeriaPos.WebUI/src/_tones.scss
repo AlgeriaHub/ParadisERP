@@ -1,0 +1,127 @@
+/* ---------------------------------------------------------------------------
+   Section tones (owner, 2026-11-12, after ParadisPlatform): each back-office
+   module wears a fixed accent on its menu icon, page icon, toolbar wash, card
+   headers, table headers, count pills, active tab and stat tiles. Buttons,
+   links, inputs, status pills and pagination stay in the brand colour. The
+   module → tone map is src/app/core/nav-tones.ts; class names are never built
+   at run time. Colour literals are allowed here because this file is a token
+   block like :root.
+   --------------------------------------------------------------------------- */
+
+.tone-brand {
+  --tone-50: var(--primary-50);
+  --tone-100: var(--primary-100);
+  --tone-200: var(--primary-200);
+  --tone-300: var(--primary-300);
+  --tone-500: var(--primary-500);
+  --tone-600: var(--primary-600);
+  --tone-700: var(--primary-700);
+  --tone-800: var(--primary-800);
+}
+
+// blue: sales, customers
+.tone-sales {
+  --tone-50: #eff6ff;
+  --tone-100: #dbeafe;
+  --tone-200: #bfdbfe;
+  --tone-300: #93c5fd;
+  --tone-500: #3b82f6;
+  --tone-600: #2563eb;
+  --tone-700: #1d4ed8;
+  --tone-800: #1e40af;
+}
+
+// violet: rentals
+.tone-rentals {
+  --tone-50: #f5f3ff;
+  --tone-100: #ede9fe;
+  --tone-200: #ddd6fe;
+  --tone-300: #c4b5fd;
+  --tone-500: #8b5cf6;
+  --tone-600: #7c3aed;
+  --tone-700: #6d28d9;
+  --tone-800: #5b21b6;
+}
+
+// emerald: finance
+.tone-finance {
+  --tone-50: #ecfdf5;
+  --tone-100: #d1fae5;
+  --tone-200: #a7f3d0;
+  --tone-300: #6ee7b7;
+  --tone-500: #10b981;
+  --tone-600: #059669;
+  --tone-700: #047857;
+  --tone-800: #065f46;
+}
+
+// orange: inventory, manufacturing, maintenance
+.tone-stock {
+  --tone-50: #fff7ed;
+  --tone-100: #ffedd5;
+  --tone-200: #fed7aa;
+  --tone-300: #fdba74;
+  --tone-500: #f97316;
+  --tone-600: #ea580c;
+  --tone-700: #c2410c;
+  --tone-800: #9a3412;
+}
+
+// rose: employees
+.tone-people {
+  --tone-50: #fff1f2;
+  --tone-100: #ffe4e6;
+  --tone-200: #fecdd3;
+  --tone-300: #fda4af;
+  --tone-500: #f43f5e;
+  --tone-600: #e11d48;
+  --tone-700: #be123c;
+  --tone-800: #9f1239;
+}
+
+// slate: administration
+.tone-admin {
+  --tone-50: #f8fafc;
+  --tone-100: #f1f5f9;
+  --tone-200: #e2e8f0;
+  --tone-300: #cbd5e1;
+  --tone-500: #64748b;
+  --tone-600: #475569;
+  --tone-700: #334155;
+  --tone-800: #1e293b;
+}
+
+// Re-derived on the element that carries the class: a var() in :root would keep the brand's value.
+.tone-brand,
+.tone-sales,
+.tone-rentals,
+.tone-finance,
+.tone-stock,
+.tone-people,
+.tone-admin {
+  --tone-ink: var(--tone-700);
+  --tone-fill: var(--tone-700);
+  --tone-fill-2: var(--tone-800);
+}
+
+// Dark mode: the washes are the tone mixed into the dark surface, text in the tone is its light step.
+// The fills keep their dark steps, so white text on them stays 4.5:1.
+html[data-mode='dark'],
+html[data-mode='dark'] .tone-brand,
+html[data-mode='dark'] .tone-sales,
+html[data-mode='dark'] .tone-rentals,
+html[data-mode='dark'] .tone-finance,
+html[data-mode='dark'] .tone-stock,
+html[data-mode='dark'] .tone-people,
+html[data-mode='dark'] .tone-admin {
+  --tone-50: color-mix(in srgb, var(--tone-500) 12%, var(--surface));
+  --tone-100: color-mix(in srgb, var(--tone-500) 22%, var(--surface));
+  --tone-200: color-mix(in srgb, var(--tone-500) 36%, var(--surface));
+  --tone-ink: var(--tone-300);
+}
+
+// Slate on a dark surface: its 700 would vanish into the ground.
+html[data-mode='dark'] .tone-admin {
+  --tone-fill: #64748b;
+  --tone-fill-2: #475569;
+}

@@ -1,0 +1,375 @@
+/* ---------------------------------------------------------------------------
+   The back-office shell (Paradis redesign, owner 2026-11-12):
+   - The menu on the inline-start side for the full height.
+   - The main column with a white, slightly translucent 64px top bar.
+   - The page scrolls with the window.
+   --------------------------------------------------------------------------- */
+
+.app {
+  display: flex;
+  min-block-size: 100dvh;
+}
+
+/* above the bar and a page's sticky action bar: the floating panel overlaps them */
+.shell-sidebar {
+  position: sticky;
+  inset-block-start: 0;
+  align-self: flex-start;
+  flex: none;
+  block-size: 100dvh;
+  z-index: calc(var(--z-dock) + 1);
+}
+
+.main-col {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.bar {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: var(--z-topbar);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  flex: none;
+  block-size: var(--topbar-h);
+  padding-inline: 2rem;
+  color: var(--text);
+  border-block-end: 1px solid var(--border);
+}
+
+/* The frosted ground is a layer of its own: backdrop-filter on .bar itself would make the bar the containing
+   block of the fixed menus opened from it (ui/menu.component.ts places them from viewport coordinates). */
+.bar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: color-mix(in srgb, var(--surface) 90%, transparent);
+  backdrop-filter: blur(8px);
+}
+
+.bar__menu,
+.bar__toggle {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  inline-size: 2.5rem;
+  block-size: 2.5rem;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--muted);
+}
+
+.bar__menu:hover,
+.bar__toggle:hover {
+  background: var(--bg);
+  color: var(--text);
+  transform: none;
+  box-shadow: none;
+}
+
+/* phones only, 44px */
+.bar__menu {
+  display: none;
+  inline-size: 2.75rem;
+  block-size: 2.75rem;
+  color: var(--text);
+}
+
+.bar__toggle-icon {
+  inline-size: 18px;
+  block-size: 18px;
+  stroke: currentColor;
+}
+
+/* shrinks ten times faster than the rest */
+.bar__search {
+  flex: 0 10 18rem;
+  min-inline-size: 11rem;
+}
+
+.bar__spacer {
+  flex: 1;
+}
+
+.bar__branch,
+.bar__conn,
+.bar__lang {
+  display: inline-flex;
+  align-items: center;
+}
+
+.bar__branch {
+  flex: 0 1 auto;
+  min-inline-size: 0;
+}
+
+.bar__conn,
+.bar__lang,
+.bar__user {
+  flex: none;
+}
+
+.bar__branch ::ng-deep app-menu {
+  min-inline-size: 0;
+  max-inline-size: 100%;
+}
+
+.bar__branch ::ng-deep .wb__trigger {
+  min-inline-size: 0;
+  max-inline-size: 100%;
+  min-block-size: 2.5rem;
+  padding: 0 0.875rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-btn);
+  background: var(--bg);
+  color: var(--text);
+  font-size: var(--fs-sm);
+  box-shadow: none;
+  overflow: hidden;
+}
+
+.bar__branch ::ng-deep .wb__trigger:hover {
+  background: var(--surface);
+  border-color: var(--border-strong);
+  color: var(--text);
+  transform: none;
+  box-shadow: none;
+}
+
+.bar__branch ::ng-deep .wb__text {
+  min-inline-size: 0;
+  max-inline-size: 100%;
+}
+
+.bar__branch ::ng-deep .wb__text strong {
+  min-inline-size: 0;
+}
+
+.bar__branch ::ng-deep .wb__label,
+.bar__branch ::ng-deep .wb__chevron {
+  flex: none;
+}
+
+/* context text, not a control */
+.bar__branch ::ng-deep .wb__plain {
+  font-size: var(--fs-sm);
+  color: var(--muted);
+}
+
+:host ::ng-deep .bar__user-trigger {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.1875rem;
+  padding-inline-end: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-btn);
+  background: var(--bg);
+  cursor: pointer;
+}
+
+:host ::ng-deep .bar__user-trigger:hover {
+  background: var(--surface);
+  transform: none;
+  box-shadow: none;
+}
+
+.user {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  min-inline-size: 0;
+}
+
+.avatar {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  inline-size: 2rem;
+  block-size: 2rem;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 1;
+  user-select: none;
+  overflow: hidden;
+}
+
+.avatar img {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+}
+
+.user__text {
+  display: grid;
+  min-inline-size: 0;
+  text-align: start;
+}
+
+.user__text strong {
+  max-inline-size: 11rem;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.user__text small {
+  font-size: 11px;
+  line-height: 1.25;
+  color: var(--muted);
+}
+
+.who {
+  display: grid;
+  margin: 0 0 var(--sp-1);
+  padding: var(--sp-2) var(--sp-4) var(--sp-3);
+  border-block-end: 1px solid var(--border);
+  font-size: var(--fs-sm);
+  color: var(--text);
+
+  span {
+    color: var(--muted);
+    font-size: var(--fs-meta);
+  }
+}
+
+.work {
+  flex: 1;
+  min-inline-size: 0;
+  padding: 2rem;
+  background: var(--bg);
+}
+
+.drawer {
+  margin: 0;
+  inset-inline-start: 0;
+  inset-inline-end: auto;
+  block-size: 100dvh;
+  max-block-size: 100dvh;
+  inline-size: min(88vw, var(--sidebar-w));
+  max-inline-size: none;
+  padding: 0;
+  border: 0;
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: var(--shadow-modal);
+  overflow: hidden;
+}
+
+.drawer::backdrop {
+  background: color-mix(in srgb, var(--primary-950) 40%, transparent);
+}
+
+.drawer__branch {
+  display: block;
+  min-inline-size: 0;
+  inline-size: 100%;
+
+  ::ng-deep app-menu {
+    display: flex;
+    inline-size: 100%;
+  }
+
+  ::ng-deep .wb__trigger {
+    inline-size: 100%;
+    min-block-size: 2.75rem;
+    justify-content: space-between;
+    padding: 0 0.875rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--bg);
+    box-shadow: none;
+    font-size: var(--fs-sm);
+  }
+
+  ::ng-deep .wb__text {
+    inline-size: 100%;
+    justify-content: space-between;
+    max-inline-size: 100%;
+  }
+
+  ::ng-deep .wb__plain {
+    min-block-size: 2.75rem;
+    align-items: center;
+    padding: 0 0.875rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--bg);
+    color: var(--muted);
+    font-size: var(--fs-sm);
+  }
+}
+
+@media (max-width: 999.98px) {
+  .bar {
+    padding-inline: 1.5rem;
+    gap: var(--sp-3);
+  }
+
+  .bar__toggle,
+  .bar__search {
+    display: none;
+  }
+
+  .work {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .shell-sidebar {
+    display: none;
+  }
+
+  .bar__menu {
+    display: inline-grid;
+  }
+
+  .bar__branch,
+  .bar__lang {
+    display: none;
+  }
+
+  .bar {
+    padding-inline: 1rem;
+  }
+}
+
+@media (max-width: 639.98px) {
+  .user__text {
+    display: none;
+  }
+
+  :host ::ng-deep .bar__user-trigger {
+    padding-inline-end: 0.1875rem;
+  }
+
+  .work {
+    padding: 1rem 1rem 1.5rem;
+  }
+}
+
+@media print {
+  .bar,
+  .shell-sidebar,
+  .drawer {
+    display: none !important;
+  }
+
+  .work {
+    padding: 0;
+  }
+}

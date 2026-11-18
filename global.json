@@ -1,0 +1,6 @@
+{
+  "//": "Microsoft.Build.NoTargets is an MSBuild SDK, not a NuGet package: it is pinned here, not with a PackageReference. Installing it from the IDE's NuGet window fails with 'package type MSBuildSdk is not supported'.",
+  "msbuild-sdks": {
+    "Microsoft.Build.NoTargets": "3.7.56"
+  }
+}

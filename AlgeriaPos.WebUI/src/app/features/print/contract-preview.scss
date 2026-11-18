@@ -1,0 +1,35 @@
+@use 'sass:meta';
+
+/* ---------------------------------------------------------------------------
+   The contract preview in Company settings: the real paper, kept to this host.
+
+   The sheet's rules are the print route's own (_paper.scss), nested under
+   `:host ::ng-deep` so they reach the document components drawn inside this
+   one — which carry their own encapsulation — and nothing outside it. The print
+   route's toolbar, page-size, report and @media print rules are not loaded: a
+   preview is read on screen, never printed from here.
+   --------------------------------------------------------------------------- */
+
+:host ::ng-deep {
+  @include meta.load-css('paper');
+}
+
+/* The sheet lies on a recessed ground, so the white page reads as a page inside the white dialog.
+   A wide sheet scrolls inside the frame rather than widening the dialog. */
+:host {
+  display: block;
+  padding: var(--sp-4);
+  border-radius: var(--radius-field);
+  background: var(--surface-2);
+  overflow-x: auto;
+}
+
+/* On the print route the sheet fills its own tab; here it is as tall as its content. */
+:host ::ng-deep .print-page {
+  min-height: 0;
+  background: transparent;
+}
+
+:host ::ng-deep .print-sheet {
+  border: 1px solid var(--border);
+}

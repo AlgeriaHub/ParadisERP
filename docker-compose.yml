@@ -1,0 +1,30 @@
+# One container on a single file database — for trying the system out on a laptop.
+# Production is SQL Server on SmarterASP.NET; see deploy/smarterasp/README.md.
+services:
+  pos:
+    build: .
+    ports:
+      - "5080:5080"
+    volumes:
+      - pos-data:/data
+    environment:
+      # Replace before running anywhere real — at least 32 characters.
+      Jwt__Key: "change-this-to-a-long-random-secret-key-32+"
+      ASPNETCORE_ENVIRONMENT: "Production"
+      Database__Provider: "Sqlite"
+      ConnectionStrings__Default: "Data Source=/data/pos.db"
+      # A single file is what this compose is for, so it says so. Without it the API refuses
+      # to run on SQLite outside Development — the mistake that guard exists to catch is a
+      # production compose that forgot Database__Provider and quietly ran the whole company on
+      # a file inside the container while the server database sat there empty.
+      Database__AllowSqliteInProduction: "true"
+      # The first administrator. Read only while the Users table is empty, so an upgrade needs
+      # neither line. Replace both, and remove the password once the first sign-in has worked.
+      Bootstrap__AdminUsername: "admin"
+      Bootstrap__AdminPassword: "change-this-first-start-password"
+      # Country preset for this shop (DZ, MA, TN, FR, SA); see docs/05-system-design.md.
+      Country: "DZ"
+    restart: unless-stopped
+
+volumes:
+  pos-data:

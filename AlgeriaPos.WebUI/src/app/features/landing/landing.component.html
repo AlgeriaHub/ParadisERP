@@ -1,0 +1,170 @@
+<div class="landing">
+  <header class="landing__header">
+    <a class="landing__brand" href="#top" aria-label="ParadiERP">
+      <span class="landing__mark" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span>ParadiERP</span>
+    </a>
+
+    <nav class="landing__nav" [attr.aria-label]="i18n.t('landing.openMenu')">
+      <a href="#product">{{ i18n.t('landing.nav.product') }}</a>
+      <a href="#workflow">{{ i18n.t('landing.nav.workflow') }}</a>
+      <a href="#reliability">{{ i18n.t('landing.nav.security') }}</a>
+    </nav>
+
+    <div class="landing__utilities">
+      <div class="landing__langs" [attr.aria-label]="i18n.t('landing.language')">
+        @for (lang of languages; track lang.code) {
+          <button type="button" [class.is-current]="i18n.lang() === lang.code" (click)="changeLanguage(lang.code)">{{ lang.code }}</button>
+        }
+      </div>
+      <button type="button" class="landing__trial-btn" (click)="openTrialModal()">{{ i18n.t('landing.trial.button') }}</button>
+      <a class="landing__sign-in" routerLink="/login">{{ i18n.t('landing.signIn') }}</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="landing__hero">
+      <div class="landing__hero-copy">
+        <p class="landing__kicker">{{ i18n.t('landing.hero.kicker') }}</p>
+        <h1>{{ i18n.t('landing.hero.title') }}</h1>
+        <p class="landing__lede">{{ i18n.t('landing.hero.body') }}</p>
+        <div class="landing__actions">
+          <button type="button" class="landing__button landing__button--solid" (click)="openTrialModal()">{{ i18n.t('landing.trial.button') }}</button>
+          <a class="landing__button landing__button--outline" routerLink="/login">{{ i18n.t('landing.hero.primary') }}</a>
+          <a class="landing__button landing__button--text" href="#workflow">{{ i18n.t('landing.hero.secondary') }}</a>
+        </div>
+      </div>
+
+      <aside class="operations-board" [attr.aria-label]="i18n.t('landing.board.label')">
+        <div class="operations-board__head">
+          <div>
+            <p>{{ i18n.t('landing.board.live') }}</p>
+            <strong>{{ i18n.t('landing.board.branch') }}</strong>
+          </div>
+          <span class="operations-board__pulse" aria-hidden="true"></span>
+        </div>
+        <div class="operations-board__metrics">
+          <article><small>{{ i18n.t('landing.board.sales') }}</small><strong>148</strong><span>+12%</span></article>
+          <article><small>{{ i18n.t('landing.board.stock') }}</small><strong>07</strong><span class="is-warm">3 urgent</span></article>
+          <article><small>{{ i18n.t('landing.board.rentals') }}</small><strong>04</strong><span>Before 18:00</span></article>
+          <article><small>{{ i18n.t('landing.board.cash') }}</small><strong>1,84M</strong><span>DZD</span></article>
+        </div>
+        <div class="operations-board__status"><span>✓</span><div><strong>{{ i18n.t('landing.board.ready') }}</strong><p>{{ i18n.t('landing.board.readyText') }}</p></div></div>
+      </aside>
+    </section>
+
+    <section id="product" class="landing__intro">
+      <div><h2>{{ i18n.t('landing.section.title') }}</h2></div>
+      <p>{{ i18n.t('landing.section.body') }}</p>
+    </section>
+
+    <section class="landing__features">
+      <article class="landing__feature"><span class="landing__glyph">↗</span><h3>{{ i18n.t('landing.feature.till.title') }}</h3><p>{{ i18n.t('landing.feature.till.body') }}</p></article>
+      <article class="landing__feature"><span class="landing__glyph">□</span><h3>{{ i18n.t('landing.feature.stock.title') }}</h3><p>{{ i18n.t('landing.feature.stock.body') }}</p></article>
+      <article class="landing__feature"><span class="landing__glyph">⌁</span><h3>{{ i18n.t('landing.feature.operations.title') }}</h3><p>{{ i18n.t('landing.feature.operations.body') }}</p></article>
+    </section>
+
+    <section id="workflow" class="landing__flow">
+      <div class="landing__flow-copy"><h2>{{ i18n.t('landing.flow.title') }}</h2><p>{{ i18n.t('landing.flow.body') }}</p></div>
+      <ol>
+        <li><span>01</span><strong>{{ i18n.t('landing.flow.step1') }}</strong></li>
+        <li><span>02</span><strong>{{ i18n.t('landing.flow.step2') }}</strong></li>
+        <li><span>03</span><strong>{{ i18n.t('landing.flow.step3') }}</strong></li>
+      </ol>
+    </section>
+
+    <section id="reliability" class="landing__reliability">
+      <h2>{{ i18n.t('landing.reliability.title') }}</h2>
+      <div>
+        <article><span>◌</span><h3>{{ i18n.t('landing.reliability.offline.title') }}</h3><p>{{ i18n.t('landing.reliability.offline.body') }}</p></article>
+        <article><span>⌘</span><h3>{{ i18n.t('landing.reliability.scope.title') }}</h3><p>{{ i18n.t('landing.reliability.scope.body') }}</p></article>
+        <article><span>ا</span><h3>{{ i18n.t('landing.reliability.languages.title') }}</h3><p>{{ i18n.t('landing.reliability.languages.body') }}</p></article>
+      </div>
+    </section>
+
+    <section class="landing__closing">
+      <div><h2>{{ i18n.t('landing.cta.title') }}</h2><p>{{ i18n.t('landing.cta.body') }}</p></div>
+      <div class="landing__closing-actions">
+        <button type="button" class="landing__button landing__button--solid" (click)="openTrialModal()">{{ i18n.t('landing.trial.button') }}</button>
+        <a class="landing__button landing__button--light" routerLink="/login">{{ i18n.t('landing.cta.action') }}</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="landing__footer"><span class="landing__brand"><span class="landing__mark" aria-hidden="true"><i></i><i></i><i></i></span>ParadiERP</span><p>{{ i18n.t('landing.footer') }}</p></footer>
+
+  @if (showTrialModal()) {
+    <div class="landing__modal-backdrop" (click)="closeTrialModal()">
+      <div class="landing__modal" (click)="$event.stopPropagation()">
+        <button type="button" class="landing__modal-close" (click)="closeTrialModal()" [attr.aria-label]="i18n.t('landing.trial.close')">×</button>
+
+        @if (!trialResult()) {
+          <div class="landing__modal-header">
+            <h2>{{ i18n.t('landing.trial.modalTitle') }}</h2>
+            <p>{{ i18n.t('landing.trial.modalDesc') }}</p>
+          </div>
+
+          @if (errorMessage()) {
+            <div class="landing__alert is-danger">{{ errorMessage() }}</div>
+          }
+
+          <form (ngSubmit)="submitTrial()" class="landing__trial-form">
+            <div class="landing__field">
+              <label for="trialStore">{{ i18n.t('landing.trial.storeName') }}</label>
+              <input id="trialStore" type="text" [ngModel]="storeName" (ngModelChange)="onStoreNameInput($event)" name="storeName" [placeholder]="i18n.t('landing.trial.storeNamePlaceholder')" autofocus />
+            </div>
+
+            <div class="landing__field">
+              <label for="trialSlug">{{ i18n.t('landing.trial.slug') }}</label>
+              <div class="landing__slug-input">
+                <input id="trialSlug" type="text" [ngModel]="slug" (ngModelChange)="onSlugInput($event)" name="slug" placeholder="my-shop" required />
+                <span class="landing__slug-suffix">.paradierp.zena4cp.com</span>
+              </div>
+            </div>
+
+            <div class="landing__field">
+              <label for="trialEmail">{{ i18n.t('landing.trial.adminEmail') }}</label>
+              <input id="trialEmail" type="text" [(ngModel)]="adminEmail" name="adminEmail" placeholder="admin" />
+            </div>
+
+            <div class="landing__field">
+              <label for="trialCountry">{{ i18n.t('landing.trial.country') }}</label>
+              <select id="trialCountry" [(ngModel)]="country" name="country">
+                @for (c of countries; track c.code) {
+                  <option [value]="c.code">{{ c.label }}</option>
+                }
+              </select>
+            </div>
+
+            <button type="submit" class="landing__button landing__button--solid landing__button--full" [disabled]="loading()">
+              {{ loading() ? i18n.t('landing.trial.submitting') : i18n.t('landing.trial.submit') }}
+            </button>
+          </form>
+        } @else {
+          <div class="landing__modal-header">
+            <span class="landing__success-mark" aria-hidden="true">✓</span>
+            <h2>{{ i18n.t('landing.trial.successTitle') }}</h2>
+          </div>
+
+          <div class="landing__trial-result">
+            <div class="landing__result-row">
+              <small>{{ i18n.t('landing.trial.successHost') }}</small>
+              <a [href]="trialResult()!.loginUrl" target="_blank" rel="noopener" class="landing__host-link">{{ trialResult()!.host }}</a>
+            </div>
+
+            <div class="landing__result-row">
+              <small>{{ i18n.t('landing.trial.successPassword') }}</small>
+              <code class="landing__password-badge">{{ trialResult()!.bootstrapPassword }}</code>
+            </div>
+
+            <p class="landing__warning-text">{{ i18n.t('landing.trial.successWarning') }}</p>
+
+            <a [href]="trialResult()!.loginUrl" class="landing__button landing__button--solid landing__button--full">
+              {{ i18n.t('landing.trial.openLogin') }} ↗
+            </a>
+          </div>
+        }
+      </div>
+    </div>
+  }
+</div>

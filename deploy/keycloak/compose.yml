@@ -1,0 +1,18 @@
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.7.3
+    command: ["start-dev", "--import-realm"]
+    ports:
+      - "127.0.0.1:8180:8080"
+    environment:
+      KC_HOSTNAME: http://localhost:8180
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD:?Set KEYCLOAK_ADMIN_PASSWORD}
+      POS_CLIENT_SECRET: ${POS_CLIENT_SECRET:?Set POS_CLIENT_SECRET}
+      POS_OPERATOR_PASSWORD: ${POS_OPERATOR_PASSWORD:?Set POS_OPERATOR_PASSWORD}
+      POS_OWNER_PASSWORD: ${POS_OWNER_PASSWORD:?Set POS_OWNER_PASSWORD}
+    volumes:
+      - keycloak-dev:/opt/keycloak/data
+      - ./pos-realm.json:/opt/keycloak/data/import/pos-realm.json:ro
+volumes:
+  keycloak-dev:
