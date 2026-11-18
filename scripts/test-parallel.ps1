@@ -25,7 +25,7 @@ param(
 
 $ErrorActionPreference = 'Stop'
 $root = Split-Path -Parent $PSScriptRoot
-$project = Join-Path $root 'ParadiERP.Tests/ParadiERP.Tests.csproj'
+$project = Join-Path $root 'ParadisERP.Tests/ParadisERP.Tests.csproj'
 $results = Join-Path ([IO.Path]::GetTempPath()) ("algeriapos-tests-" + [Guid]::NewGuid().ToString('n').Substring(0, 8))
 New-Item -ItemType Directory -Path $results | Out-Null
 
@@ -38,8 +38,8 @@ if (-not $NoBuild) {
 # Balanced on the host tests' time (2026-11-12): about 8 minutes of them in each group.
 $groupA = 'Security', 'Hr', 'Stock', 'Suppliers', 'Receivables', 'Ledger'
 $groupB = 'Customers', 'Treasury', 'Persistence'
-function Any([string[]]$names) { ($names | ForEach-Object { "FullyQualifiedName~ParadiERP.Tests.$_." }) -join '|' }
-function None([string[]]$names) { ($names | ForEach-Object { "FullyQualifiedName!~ParadiERP.Tests.$_." }) -join '&' }
+function Any([string[]]$names) { ($names | ForEach-Object { "FullyQualifiedName~ParadisERP.Tests.$_." }) -join '|' }
+function None([string[]]$names) { ($names | ForEach-Object { "FullyQualifiedName!~ParadisERP.Tests.$_." }) -join '&' }
 
 $groups = if ($Processes -eq 1) { [ordered]@{ all = $null } } else {
     [ordered]@{
@@ -74,3 +74,4 @@ foreach ($job in $jobs) {
 }
 Write-Host ("==> {0:mm\:ss} in all" -f ((Get-Date) - $started))
 if ($failed) { exit 1 }
+

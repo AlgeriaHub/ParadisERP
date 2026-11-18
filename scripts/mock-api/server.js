@@ -5,9 +5,9 @@ const testPassword = requiredPassword();
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
-const bcrypt = require('../../ParadiERP.WebUI/node_modules/bcryptjs');
+const bcrypt = require('../../ParadisERP.WebUI/node_modules/bcryptjs');
 
-const DIST = require('path').resolve(__dirname, '../../ParadiERP.WebUI/dist/paradierp-web-ui/browser');
+const DIST = require('path').resolve(__dirname, '../../ParadisERP.WebUI/dist/ParadisERP-web-ui/browser');
 
 let counter = 0;
 const next = () => ++counter;
@@ -233,3 +233,4 @@ const CASHIER_CAPABILITIES = process.env.MOCK_CASHIER_CAPABILITIES ? JSON.parse(
 
 const PORT = Number(process.env.MOCK_PORT || 5099);
 server.listen(PORT, () => console.log(`mock api on http://localhost:${PORT}`));
+

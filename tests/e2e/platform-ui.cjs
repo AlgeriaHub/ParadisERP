@@ -120,3 +120,4 @@ const { createPreviewServer } = require('../../scripts/mock-api/platform-preview
     await new Promise(resolve => server.close(resolve));
   }
 })().catch(error => { console.error(error.message); process.exitCode = 1; });
+

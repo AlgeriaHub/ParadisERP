@@ -18,7 +18,7 @@ async function main(){
  const site=await req(`/api/customers/${customer.id}/sites`,{name:'Synthetic site'});
  const contract=await req('/api/rentals/contracts',{customerId:customer.id,branchId:branch.id,siteId:site.id,lines:[{productId:product.id,qty:1,durationDays:30,rentUnitPrice:100,damageUnitPrice:2000}]});
  await req(`/api/rentals/contracts/${contract.id}/issue-notes`,{branchId:branch.id,customerTransport:true,issuedAtUtc:'2026-10-14T06:00:00Z',lines:[{contractLineId:contract.lines[0].id,qty:1}]});
- const web=path.join(root,'ParadiERP.WebUI/dist/paradierp-web-ui/browser');
+ const web=path.join(root,'ParadisERP.WebUI/dist/ParadisERP-web-ui/browser');
  const server=http.createServer(async(r,s)=>{
   if(r.url.startsWith('/api/')||r.url==='/health'){
    const chunks=[];for await(const chunk of r)chunks.push(chunk);
@@ -71,3 +71,4 @@ async function main(){
  }finally{await browser.close();await new Promise(resolve=>server.close(resolve));}
 }
 main().catch(e=>{console.error(e);process.exitCode=1;});
+

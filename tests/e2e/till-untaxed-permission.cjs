@@ -5,7 +5,7 @@ requiredPassword();
 // after each sale; the sale reaches the server taxed. A cashier who may keeps today's untaxed start. Runs the
 // built PWA against the mock API twice, once for each answer. Screenshots (fr, ar) go to SHOTS when set.
 //
-//   ADMIN_PASSWORD=... node tests/e2e/till-untaxed-permission.cjs   (after `npm run build` in ParadiERP.WebUI)
+//   ADMIN_PASSWORD=... node tests/e2e/till-untaxed-permission.cjs   (after `npm run build` in ParadisERP.WebUI)
 const { spawn } = require('node:child_process');
 const path = require('node:path');
 const { chromium } = require('playwright');
@@ -108,3 +108,4 @@ async function run(label, capabilities, expectLocked) {
   console.log(failures ? `\n${failures} CHECK(S) FAILED` : '\nALL CHECKS PASSED');
   process.exit(failures ? 1 : 0);
 })();
+

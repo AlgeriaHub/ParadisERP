@@ -9,7 +9,7 @@ const stage = process.argv[2] || 'before'; // 'before' or 'after'
 const out = path.join(root, 'artifacts/ui-redesign-checkpoint', stage);
 fs.mkdirSync(out, { recursive: true });
 
-const webDist = path.join(root, 'ParadiERP.WebUI/dist/paradierp-web-ui/browser');
+const webDist = path.join(root, 'ParadisERP.WebUI/dist/ParadisERP-web-ui/browser');
 
 const permissions = [
   'admin.access',
@@ -299,3 +299,4 @@ main().catch((err) => {
   console.error('Error capturing screenshots:', err);
   process.exit(1);
 });
+

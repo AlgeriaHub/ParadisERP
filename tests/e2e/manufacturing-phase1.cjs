@@ -156,7 +156,7 @@ async function seed() {
 }
 
 function serve() {
-  const web = path.join(root, 'ParadiERP.WebUI/dist/paradierp-web-ui/browser');
+  const web = path.join(root, 'ParadisERP.WebUI/dist/ParadisERP-web-ui/browser');
   const server = http.createServer(async (r, s) => {
     if (r.url.startsWith('/api/') || r.url === '/health') {
       const chunks = [];
@@ -259,3 +259,4 @@ async function main() {
 }
 
 main().catch((e) => { console.error(e); process.exitCode = 1; });
+

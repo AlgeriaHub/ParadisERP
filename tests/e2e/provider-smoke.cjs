@@ -1821,3 +1821,4 @@ async function logoAsDataUrl(link, token) {
   console.log(failures === 0 ? `\nALL CHECKS PASSED (${PROVIDER})` : `\n${failures} CHECK(S) FAILED`);
   process.exit(failures === 0 ? 0 : 1);
 })();
+

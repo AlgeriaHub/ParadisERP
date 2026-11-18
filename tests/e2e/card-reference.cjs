@@ -124,3 +124,4 @@ async function waitFor(predicate, timeoutMs = 15000) {
   console.log(failures ? `\n${failures} CHECK(S) FAILED` : '\nALL CHECKS PASSED');
   process.exit(failures ? 1 : 0);
 })();
+

@@ -1,4 +1,4 @@
-// Real API test for gift cards and loyalty points. Run after: dotnet build ParadiERP.API
+// Real API test for gift cards and loyalty points. Run after: dotnet build ParadisERP.API
 // Starts a single-shop API on a temporary SQLite database with the demo seed.
 const assert = require('node:assert/strict');
 const { spawn } = require('node:child_process');
@@ -17,7 +17,7 @@ const net = require('node:net');
   await new Promise(resolve => socket.close(resolve));
   const base = `http://127.0.0.1:${port}`;
   const configuration = process.env.BUILD_CONFIGURATION || 'Debug';
-  const dll = path.resolve(__dirname, `../../ParadiERP.API/bin/${configuration}/net8.0/ParadiERP.API.dll`);
+  const dll = path.resolve(__dirname, `../../ParadisERP.API/bin/${configuration}/net8.0/ParadisERP.API.dll`);
   const server = spawn('dotnet', [dll], {
     cwd: temp, windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'],
     // RateLimits off: this script fires its checks back to back from one address (limits have their own tests).
@@ -177,3 +177,4 @@ const net = require('node:net');
       await rm(temp, { recursive: true, force: true });
   }
 })().catch(error => { console.error(error.stack || error.message); process.exitCode = 1; });
+

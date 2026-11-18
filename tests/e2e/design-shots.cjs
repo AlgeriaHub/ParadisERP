@@ -123,3 +123,4 @@ const OUT = process.env.OUT || path.join(process.cwd(), 'artifacts', 'design');
   await browser.close();
   console.log('\n' + taken.length + ' screenshot(s) in ' + OUT);
 })();
+

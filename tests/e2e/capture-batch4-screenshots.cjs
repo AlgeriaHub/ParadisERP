@@ -1,9 +1,9 @@
 // Captures Batch 4 screenshots for the Phase 4 redesign review: the till (point of sale, #/register).
 //
-//   SHOT_SET=before WEB_DIST=ParadiERP.WebUI/dist/before/browser node tests/e2e/capture-batch4-screenshots.cjs
+//   SHOT_SET=before WEB_DIST=ParadisERP.WebUI/dist/before/browser node tests/e2e/capture-batch4-screenshots.cjs
 //   SHOT_SET=after node tests/e2e/capture-batch4-screenshots.cjs
 //
-// Serves an already-built bundle (WEB_DIST, default ParadiERP.WebUI/dist/paradierp-web-ui/browser;
+// Serves an already-built bundle (WEB_DIST, default ParadisERP.WebUI/dist/ParadisERP-web-ui/browser;
 // a relative path is read against the repo root) on 127.0.0.1:5214, answers every /api call from the
 // mocks below, signs in through #/login as a cashier whose till is C01 (a till session, not an office
 // one) and writes PNGs to artifacts/ui-redesign-checkpoint/batch4/<SHOT_SET>. It never builds anything.
@@ -34,7 +34,7 @@ if (!/^[\w.-]+$/.test(SHOT_SET)) {
   process.exit(2);
 }
 const out = path.join(root, 'artifacts/ui-redesign-checkpoint/batch4', SHOT_SET);
-const webDist = path.resolve(root, process.env.WEB_DIST || 'ParadiERP.WebUI/dist/paradierp-web-ui/browser');
+const webDist = path.resolve(root, process.env.WEB_DIST || 'ParadisERP.WebUI/dist/ParadisERP-web-ui/browser');
 
 const PORT = 5214;
 const BASE = `http://127.0.0.1:${PORT}`;
@@ -752,3 +752,4 @@ main().catch((err) => {
   console.error(err);
   process.exit(1);
 });
+

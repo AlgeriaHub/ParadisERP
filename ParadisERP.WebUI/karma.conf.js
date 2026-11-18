@@ -18,7 +18,7 @@ module.exports = function (config) {
     },
     jasmineHtmlReporter: { suppressAll: true },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/paradierp-web-ui'),
+      dir: require('path').join(__dirname, './coverage/paradiserp-web-ui'),
       subdir: '.',
       reporters: [{ type: 'html' }, { type: 'text-summary' }],
     },

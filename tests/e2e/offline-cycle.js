@@ -299,3 +299,4 @@ const BASE = 'http://localhost:5099';
       paymentMethod: 'Cash', status: 'Completed', refundOfSaleId: null, note: null, lines: [], payments: [] };
   }
 })();
+

@@ -2,7 +2,7 @@
 const http = require('node:http');
 const fs = require('node:fs');
 const path = require('node:path');
-const root = path.resolve(__dirname, '../../ParadiERP.WebUI/dist/paradierp-web-ui/browser');
+const root = path.resolve(__dirname, '../../ParadisERP.WebUI/dist/ParadisERP-web-ui/browser');
 const text = (ar, fr, en) => ({ ar, fr, en });
 const algeria = () => ({
   countryCode: 'DZ', currencyCode: 'DZD', currencyDecimals: 2, currencySymbols: text('دج', 'DA', 'DA'), currencySymbolFirst: false,
@@ -128,3 +128,4 @@ module.exports = { createPreviewServer };
 if (require.main === module) {
   createPreviewServer().listen(5097, '127.0.0.1', () => console.log('Platform visual fixture: http://127.0.0.1:5097/#/platform'));
 }
+

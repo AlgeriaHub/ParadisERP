@@ -56,3 +56,4 @@ async function main() {
   } finally { await request('/api/rentals/settings',settings,200,'PUT'); }
 }
 main().catch(e=>{console.error(e.message);process.exitCode=1;});
+

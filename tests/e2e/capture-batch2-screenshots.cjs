@@ -14,7 +14,7 @@ const root = path.resolve(__dirname, '../..');
 const out = path.join(root, 'artifacts/ui-redesign-checkpoint/batch2');
 fs.mkdirSync(out, { recursive: true });
 
-const webDist = path.join(root, 'ParadiERP.WebUI/dist/paradierp-web-ui/browser');
+const webDist = path.join(root, 'ParadisERP.WebUI/dist/ParadisERP-web-ui/browser');
 
 const permissions = [
   'admin.access',
@@ -681,3 +681,4 @@ main().catch((err) => {
   console.error(err);
   process.exit(1);
 });
+

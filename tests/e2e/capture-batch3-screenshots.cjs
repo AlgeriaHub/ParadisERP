@@ -1,9 +1,9 @@
 // Captures Batch 3 screenshots for the Phase 4 redesign review (employees, payroll, reports, admin).
 //
-//   SHOT_SET=before WEB_DIST=ParadiERP.WebUI/dist/before/browser node tests/e2e/capture-batch3-screenshots.cjs
+//   SHOT_SET=before WEB_DIST=ParadisERP.WebUI/dist/before/browser node tests/e2e/capture-batch3-screenshots.cjs
 //   SHOT_SET=after node tests/e2e/capture-batch3-screenshots.cjs
 //
-// Serves an already-built bundle (WEB_DIST, default ParadiERP.WebUI/dist/paradierp-web-ui/browser;
+// Serves an already-built bundle (WEB_DIST, default ParadisERP.WebUI/dist/ParadisERP-web-ui/browser;
 // a relative path is read against the repo root) on 127.0.0.1:5212, answers every /api call from the
 // mocks below, signs in through #/login and writes full-page PNGs to
 // artifacts/ui-redesign-checkpoint/batch3/<SHOT_SET>. It never builds anything.
@@ -41,7 +41,7 @@ const ONLY = (process.env.SHOTS_ONLY || '').split(',').map((x) => x.trim()).filt
 const chosen = (shot) => ONLY.length === 0 || ONLY.some((prefix) => shot.file.startsWith(prefix));
 const APPEARANCE = (process.env.APPEARANCE || '').trim() || null;
 if (APPEARANCE) JSON.parse(APPEARANCE);
-const webDist = path.resolve(root, process.env.WEB_DIST || 'ParadiERP.WebUI/dist/paradierp-web-ui/browser');
+const webDist = path.resolve(root, process.env.WEB_DIST || 'ParadisERP.WebUI/dist/ParadisERP-web-ui/browser');
 
 const PORT = 5212;
 const BASE = `http://127.0.0.1:${PORT}`;
@@ -1461,3 +1461,4 @@ main().catch((err) => {
   console.error(err);
   process.exit(1);
 });
+

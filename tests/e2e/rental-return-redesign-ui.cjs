@@ -84,7 +84,7 @@ async function main() {
   console.log('STARTING RENTAL RETURN REDESIGN E2E BROWSER TEST SUITE');
   console.log('======================================================\n');
 
-  const webDist = path.join(root, 'ParadiERP.WebUI/dist/paradierp-web-ui/browser');
+  const webDist = path.join(root, 'ParadisERP.WebUI/dist/ParadisERP-web-ui/browser');
   if (!fs.existsSync(webDist)) {
     throw new Error('Production Angular build not found. Run npm run build first.');
   }
@@ -545,3 +545,4 @@ main().catch((err) => {
   console.error('\nE2E EXECUTION ERROR:', err);
   process.exit(1);
 });
+

@@ -279,3 +279,4 @@ function urlFor(kind, id, lang, extra = {}) {
   console.log(`\n${failures === 0 ? 'all checks passed' : failures + ' check(s) failed'}${skipped ? `, ${skipped} skipped` : ''}`);
   process.exit(failures === 0 ? 0 : 1);
 })();
+

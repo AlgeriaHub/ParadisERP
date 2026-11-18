@@ -5,3 +5,4 @@ function requiredPassword(name = 'ADMIN_PASSWORD') {
   return value;
 }
 module.exports = { requiredPassword };
+
