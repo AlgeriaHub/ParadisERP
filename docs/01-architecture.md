@@ -16,12 +16,12 @@ The solution follows the layered structure used by the Riaya, CarRental, and Afa
 
 | Project | Responsibility |
 |---|---|
-| `ParadiERP.Domain` | Entities and enums with no dependency on outer layers. |
-| `ParadiERP.Application` | Transport-neutral application contracts and future use cases. |
-| `ParadiERP.Infrastructure` | EF Core persistence, seeding, token generation, and sync. |
-| `ParadiERP.API` | Composition root, authentication, middleware, and HTTP endpoints. |
-| `ParadiERP.WebUI` | Angular PWA, IndexedDB replica, offline outbox, and register UI. |
-| `ParadiERP.Tests` | Backend tests and dependency-boundary guards. |
+| `ParadisERP.Domain` | Entities and enums with no dependency on outer layers. |
+| `ParadisERP.Application` | Transport-neutral application contracts and future use cases. |
+| `ParadisERP.Infrastructure` | EF Core persistence, seeding, token generation, and sync. |
+| `ParadisERP.API` | Composition root, authentication, middleware, and HTTP endpoints. |
+| `ParadisERP.WebUI` | Angular PWA, IndexedDB replica, offline outbox, and register UI. |
+| `ParadisERP.Tests` | Backend tests and dependency-boundary guards. |
 
 ## Dependency direction
 

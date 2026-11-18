@@ -1,18 +1,18 @@
-# ParadiERP — Questions for Our Accountant
+# ParadisERP — Questions for Our Accountant
 
-*Prepared 2026-10-31 from a review of the ParadiERP system as it is today. Nothing in the system was changed for this review.*
+*Prepared 2026-10-31 from a review of the ParadisERP system as it is today. Nothing in the system was changed for this review.*
 
 ## How to use this document
 
 This is the list of accounting decisions I need your help with. It covers the whole system, not only manufacturing: sales, purchases, stock, rentals, payroll, cash and bank, tax, the books and closing.
 
-Each question says what ParadiERP does **today**, why I'm asking, an example in dinars, a few possible answers, and what we suggest. **Our suggestions are only suggestions.** They are not confirmed Algerian accounting or tax rules. Anything about VAT (TVA), stamp duty, CNAS, IRG or the SCF is marked *(To be confirmed by the accountant.)* There is a space under each question for your answer.
+Each question says what ParadisERP does **today**, why I'm asking, an example in dinars, a few possible answers, and what we suggest. **Our suggestions are only suggestions.** They are not confirmed Algerian accounting or tax rules. Anything about VAT (TVA), stamp duty, CNAS, IRG or the SCF is marked *(To be confirmed by the accountant.)* There is a space under each question for your answer.
 
 **Priority:** *Critical* = affects money, stock value, tax or the financial statements now, or blocks something we want to switch on. *Important* = should be settled soon. *Later* = can wait.
 
 **Account numbers** are the ones the system uses today (for example 411 = what customers owe us, 401 = what we owe suppliers, 310 = goods in stock, 4457 = VAT we collect, 530 = cash, 512 = bank). Our own team checked the chart against the SCF on 1 Nov 2026 and will move the few accounts found under the wrong heading; if an account still looks wrong to you, please say so.
 
-**IDs:** questions already sent to you earlier keep their numbers (C-01 to C-18, AD-1 to AD-12, D9, D11, D13, D43, D45, D47, P0.2, P0.3, P0.4c). Where the same decision was asked twice, it appears once and lists the other numbers it answers. A separate decision tracker lists every question with a place to record your answer. Five earlier questions are no longer asked here: GL-01 (ParadiERP is the official books), and D33, C-04, REN-18 and PAY-02 (account numbers, checked by our own team against the SCF on 1 Nov 2026); the tracker keeps their record.
+**IDs:** questions already sent to you earlier keep their numbers (C-01 to C-18, AD-1 to AD-12, D9, D11, D13, D43, D45, D47, P0.2, P0.3, P0.4c). Where the same decision was asked twice, it appears once and lists the other numbers it answers. A separate decision tracker lists every question with a place to record your answer. Five earlier questions are no longer asked here: GL-01 (ParadisERP is the official books), and D33, C-04, REN-18 and PAY-02 (account numbers, checked by our own team against the SCF on 1 Nov 2026); the tracker keeps their record.
 
 There are 158 questions: 43 critical, 87 important, 28 later (REN-03 is now asked together with D45). Where the owner has already decided, the question says so at the top (**Status** and **Owner's decision**) and asks you only about the part the law decides. The 14 questions in the list below are the ones to start with.
 
@@ -20,7 +20,7 @@ There are 158 questions: 43 critical, 87 important, 28 later (REN-03 is now aske
 
 These are settled on our side, so we are not asking you about them. Where the law still has a say, the question below asks only about that part.
 
-- **ParadiERP is the company's official accounting system.** All the books are kept in it.
+- **ParadisERP is the company's official accounting system.** All the books are kept in it.
 - **The chart of accounts** is reviewed by our own team against the SCF, including the account numbers for manufacturing, rental income and payroll (D33, C-04, REN-18, PAY-02; owner, 1 Nov 2026).
 - **Taxed and untaxed sales** are both recorded in the system; we ask only which untaxed sales the law allows (TAX-01).
 - **Equipment hire carries VAT** (REN-01); we ask only the rate.
@@ -44,7 +44,7 @@ These are settled on our side, so we are not asking you about them. Where the la
 | 6 | REN-02 | With rent booked on day one, is an adjustment needed at month end or year end? | Contracts across 31 December move income between years. |
 | 7 | PAY-01 | Please check our payroll against CNAS and IRG rules: what must be declared and paid, and how should it appear in the books? | Payslips stay as they are; we need to be sure we are compliant. |
 | 8 | C-01 | How should stock be valued: last purchase price, weighted average or FIFO? | The owner is keeping this decision open and would like your view. |
-| 9 | CLO-08 | What is our fiscal year, and where does the year's result go at year end? | ParadiERP keeps the official books, so the year must be closed in it. |
+| 9 | CLO-08 | What is our fiscal year, and where does the year's result go at year end? | ParadisERP keeps the official books, so the year must be closed in it. |
 | 10 | COR-E01 | When a mistake is found in a closed month, do we correct it in the current month or in the month itself? | The owner has decided months are locked; we need the dating rule for corrections. |
 | 11 | COR-06 | Do we need a credit note for every refund, or is the refund receipt enough for private customers? | Decides which paper each refund needs. |
 | 12 | SAL-17 | When may an expired gift-card balance be taken to income, and is VAT due when the card is used? | The owner has set the policy; the expiry rule needs you. |
@@ -57,7 +57,7 @@ These are settled on our side, so we are not asking you about them. Where the la
 
 **Question:** When we sell a service at the till or on an invoice (delivery, labour, installation), should the income stay in account 700 (merchandise sales) or go to a separate service-income account?
 
-**What ParadiERP does today:** Every till sale and every invoice line that is not rental posts its income to **700** "Merchandise sales", whether it is a stocked product or a service. A product with stock tracking turned off is treated as a service only in the sense that no cost is posted for it. Account **706** already exists in our chart but is used for **rental income** (hire charges). 707 is maintenance charged to the customer, 708 late-return income. This is the open "service income (keep 700, or name a service account such as 706)" item from the sign-off tab.
+**What ParadisERP does today:** Every till sale and every invoice line that is not rental posts its income to **700** "Merchandise sales", whether it is a stocked product or a service. A product with stock tracking turned off is treated as a service only in the sense that no cost is posted for it. Account **706** already exists in our chart but is used for **rental income** (hire charges). 707 is maintenance charged to the customer, 708 late-return income. This is the open "service income (keep 700, or name a service account such as 706)" item from the sign-off tab.
 
 **Why I'm asking:** If services sit in 700, the income statement shows them as sales of goods, and the gross margin on goods looks better than it is (services have no cost of goods). If we add an account, we must do it before more history builds up, because an account cannot be recoded once something has posted to it.
 
@@ -84,7 +84,7 @@ These are settled on our side, so we are not asking you about them. Where the la
 
 **Owner's decision (31 Oct 2026):** We never stop a sale because a product has no cost. The sale goes through, the product is flagged so its cost can be fixed later, and the reports show that the margin for those sales is incomplete.
 
-**What ParadiERP does today:** The sale is allowed. When a product's cost is zero, no cost of sale is posted (nothing on 600 / 310) while the quantity still leaves stock. Each such sale line is now flagged, and a report (Reports › Sales without a cost) lists them by product for any period: the sales before tax, how many sales, and, once the cost has been entered, what those quantities would have cost. That figure is shown only; nothing is posted for past sales.
+**What ParadisERP does today:** The sale is allowed. When a product's cost is zero, no cost of sale is posted (nothing on 600 / 310) while the quantity still leaves stock. Each such sale line is now flagged, and a report (Reports › Sales without a cost) lists them by product for any period: the sales before tax, how many sales, and, once the cost has been entered, what those quantities would have cost. That figure is shown only; nothing is posted for past sales.
 
 **Question for you:** once a missing cost has been entered, should we post the cost of the past sales (Dr 600 / Cr 310) in the month the cost is entered, or leave them as they are and rely on the report? **(To be confirmed by the accountant.)**
 
@@ -104,7 +104,7 @@ These are settled on our side, so we are not asking you about them. Where the la
 
 **Question:** When the cashier gives a discount on a line or on the whole ticket, should the sale be booked at the net price, or at the full price with the discount in its own account?
 
-**What ParadiERP does today:** Line discounts and whole-ticket discounts are spread over the lines before the sale is saved. The sale is posted **net** to 700. The total discount is kept on the sale for reports only; no account receives it.
+**What ParadisERP does today:** Line discounts and whole-ticket discounts are spread over the lines before the sale is saved. The sale is posted **net** to 700. The total discount is kept on the sale for reports only; no account receives it.
 
 **Why I'm asking:** If you need to see "discounts granted" as a figure in the accounts (for example account 709), we must change the posting before the year's figures build up.
 
@@ -130,7 +130,7 @@ These are settled on our side, so we are not asking you about them. Where the la
 
 **Question:** When a cash total is rounded (for example 1,003 DA becomes 1,000 DA), where should the small difference go, and is it right to keep it out of the tax calculation?
 
-**What ParadiERP does today:** Rounding applies only to sales paid fully in cash, and only if the company sets a rounding step (it is off by default). The difference posts to **758** "Rounding differences" in both directions (gain or loss). It is kept out of the sales figure and out of the tax. Anything larger than one rounding step goes to **471** (suspense) as an error to investigate. A refund is never rounded: it pays back the full unrounded amount of the returned lines.
+**What ParadisERP does today:** Rounding applies only to sales paid fully in cash, and only if the company sets a rounding step (it is off by default). The difference posts to **758** "Rounding differences" in both directions (gain or loss). It is kept out of the sales figure and out of the tax. Anything larger than one rounding step goes to **471** (suspense) as an error to investigate. A refund is never rounded: it pays back the full unrounded amount of the returned lines.
 
 **Why I'm asking:** 758 is an income account; rounding losses may belong in an expense account. And a refund that pays back 1,003 DA on a sale where the customer handed over 1,000 DA leaves a small loss.
 
@@ -154,7 +154,7 @@ These are settled on our side, so we are not asking you about them. Where the la
 
 **Question:** When a customer takes goods on account at the till, by when must he pay, and must that debt appear in the debt-ageing report?
 
-**What ParadiERP does today:** A sale on account immediately puts the amount on the customer's account (Dr **411**, what customers owe us). But a due date exists only on an invoice. The ageing report (current, 1–30, 31–60, 61–90, over 90 days) is built from invoices only; a credit sale that was never invoiced is shown only as an "uninvoiced" gap beside the customer's ledger balance. Customers have no payment-terms field.
+**What ParadisERP does today:** A sale on account immediately puts the amount on the customer's account (Dr **411**, what customers owe us). But a due date exists only on an invoice. The ageing report (current, 1–30, 31–60, 61–90, over 90 days) is built from invoices only; a credit sale that was never invoiced is shown only as an "uninvoiced" gap beside the customer's ledger balance. Customers have no payment-terms field.
 
 **Why I'm asking:** An uninvoiced debt can never become "overdue", so nobody chases it, and your provision for doubtful debts (SAL-18) has no age to work from.
 
@@ -179,7 +179,7 @@ These are settled on our side, so we are not asking you about them. Where the la
 
 **Question:** For a till sale, when must we issue a proper invoice (facture), which date must it carry, and must invoice numbers restart each year or follow any other rule?
 
-**What ParadiERP does today:**
+**What ParadisERP does today:**
 - The till prints a receipt (ticket). An invoice can be raised later in the back office "over" a sale. It copies the sale's lines and posts nothing (the sale already posted the income and tax).
 - The back-office screen only offers sales paid **on account or part on account**. A sale paid fully in cash or by card cannot be invoiced from the screen (the server would accept it).
 - The invoice date is typed by the user and can differ from the sale date; the income and tax stay on the sale date.
@@ -208,7 +208,7 @@ These are settled on our side, so we are not asking you about them. Where the la
 
 **Question:** Should debts of company customers and of private persons be kept in separate accounts (sub-accounts of 411), or is one account 411 with a detail per customer enough?
 
-**What ParadiERP does today:** Each customer is marked Person, Company or Unspecified (older records). All of them share one account **411**; each ledger line carries the customer, so a statement per customer and a balance per customer come straight from the ledger. Invoices freeze the buyer's name, address and fiscal identifiers at issue.
+**What ParadisERP does today:** Each customer is marked Person, Company or Unspecified (older records). All of them share one account **411**; each ledger line carries the customer, so a statement per customer and a balance per customer come straight from the ledger. Invoices freeze the buyer's name, address and fiscal identifiers at issue.
 
 **Why I'm asking:** If your trial balance or annual statements need the split, it is easiest to add it now.
 
@@ -233,7 +233,7 @@ These are settled on our side, so we are not asking you about them. Where the la
 
 **Question:** When a customer pays without saying which invoice it is for, should the system apply the money to his oldest invoices automatically?
 
-**What ParadiERP does today:** A receipt voucher (سند قبض) can be split over several invoices by the clerk, or left unallocated. Unallocated money reduces the customer's balance in 411 correctly, but his invoices stay "open" in the ageing report, so the ageing shows more overdue debt than the customer really owes. There is no automatic allocation.
+**What ParadisERP does today:** A receipt voucher (سند قبض) can be split over several invoices by the clerk, or left unallocated. Unallocated money reduces the customer's balance in 411 correctly, but his invoices stay "open" in the ageing report, so the ageing shows more overdue debt than the customer really owes. There is no automatic allocation.
 
 **Why I'm asking:** The ageing report and dunning would chase a customer who has already paid.
 
@@ -258,7 +258,7 @@ These are settled on our side, so we are not asking you about them. Where the la
 
 **Question:** When a customer buys and pays in several instalments, how should we record the plan, and can we charge interest or late fees?
 
-**What ParadiERP does today:** No instalment plan exists. An invoice has one due date. The customer can pay any part at any time with receipt vouchers, and the full sale is income on the sale day. No interest or late-payment charge exists for sales (late income 708 is for rentals only).
+**What ParadisERP does today:** No instalment plan exists. An invoice has one due date. The customer can pay any part at any time with receipt vouchers, and the full sale is income on the sale day. No interest or late-payment charge exists for sales (late income 708 is for rentals only).
 
 **Why I'm asking:** With one due date, an instalment plan is either all "overdue" or all "not due", so the ageing is wrong; and if a price includes credit charges, part of it may not be sales income.
 
@@ -283,7 +283,7 @@ These are settled on our side, so we are not asking you about them. Where the la
 
 **Question:** When a customer pays in advance for goods we will deliver later, should the advance go to a customer-advances account (419) or simply reduce his account 411?
 
-**What ParadiERP does today:** There are no sales orders. An advance is taken as a receipt voucher not linked to any invoice, so it credits **411** and the customer shows a credit balance. Account **419** "Customer deposits" exists in the chart but nothing posts to it (the rental deposit feature is switched off). For manufacturing orders, decision D45 already proposes 419 (Dr 530/512 / Cr 419, then Dr 419 / Cr 411 at delivery).
+**What ParadisERP does today:** There are no sales orders. An advance is taken as a receipt voucher not linked to any invoice, so it credits **411** and the customer shows a credit balance. Account **419** "Customer deposits" exists in the chart but nothing posts to it (the rental deposit feature is switched off). For manufacturing orders, decision D45 already proposes 419 (Dr 530/512 / Cr 419, then Dr 419 / Cr 411 at delivery).
 
 **Why I'm asking:** Mixing advances into 411 hides how much the company owes customers for goods not yet delivered, which the balance sheet should show as a liability. The tax on advances is a separate point (see TAX — tax on advances, D45).
 
@@ -309,7 +309,7 @@ These are settled on our side, so we are not asking you about them. Where the la
 
 **Question:** If a customer cancels after paying an advance, how do we record a refund, and how do we record an advance the company keeps (fully or partly) as compensation?
 
-**What ParadiERP does today:** A refund is a payment voucher (سند صرف) to the customer: it needs a manager's approval, is capped at what the customer's account holds in his favour, and posts Dr 411 / Cr 530 or 512 when paid. Keeping all or part of an advance as compensation is **not built**: the credit would sit on 411 until someone corrects it.
+**What ParadisERP does today:** A refund is a payment voucher (سند صرف) to the customer: it needs a manager's approval, is capped at what the customer's account holds in his favour, and posts Dr 411 / Cr 530 or 512 when paid. Keeping all or part of an advance as compensation is **not built**: the credit would sit on 411 until someone corrects it.
 
 **Why I'm asking:** A kept advance is income of some kind; leaving it on 411 overstates what we owe the customer.
 
@@ -342,7 +342,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** A till that loses its connection keeps selling and sends its sales later. Should those sales be booked on the day they were made, or on the day they reach the server?
 
-**What ParadiERP does today:** The sale is booked on the date and time the till recorded (the device's clock). Only a date in the future is replaced by the arrival time. A sale more than 31 days old is accepted with a warning. Nothing stops it from landing in a month that was already closed or declared; there is no period lock in the ledger. Stock, cash box, customer balance and the accounting entry all take the sale date.
+**What ParadisERP does today:** The sale is booked on the date and time the till recorded (the device's clock). Only a date in the future is replaced by the arrival time. A sale more than 31 days old is accepted with a warning. Nothing stops it from landing in a month that was already closed or declared; there is no period lock in the ledger. Stock, cash box, customer balance and the accounting entry all take the sale date.
 
 **Why I'm asking:** A late sale changes the sales and tax of a month already declared. Closing a month is covered elsewhere (see TAX/GL — closed-period corrections); here we need the booking date rule.
 
@@ -367,7 +367,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** If a customer pays at branch A for an invoice raised at branch B, which branch's accounts should show the payment?
 
-**What ParadiERP does today:** Only a company-wide user (admin) can do it; a branch manager or cashier cannot (the owner's rule for this is still open). When an admin does it, the cash goes into branch A's box and 411 is credited **at branch A**, while the debt sits on 411 **at branch B**. No inter-branch entry (181) is made, so branch A shows the customer in credit and branch B shows him still owing, although the company total is right.
+**What ParadisERP does today:** Only a company-wide user (admin) can do it; a branch manager or cashier cannot (the owner's rule for this is still open). When an admin does it, the cash goes into branch A's box and 411 is credited **at branch A**, while the debt sits on 411 **at branch B**. No inter-branch entry (181) is made, so branch A shows the customer in credit and branch B shows him still owing, although the company total is right.
 
 **Why I'm asking:** Branch reports and branch balance sheets show a debt that has been paid and a credit that does not exist.
 
@@ -392,7 +392,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** How should loyalty points be recorded: as a discount when they are spent, or as a liability when they are earned?
 
-**What ParadiERP does today:** Earning points posts **nothing**. Spending points as a payment posts the full sale to 700 and Dr **4182** "Loyalty liability" for the value of the points. Because nothing is ever credited to 4182, the account becomes a debit balance (it looks like an asset) that grows with every redemption. A refund takes back the points the sale earned.
+**What ParadisERP does today:** Earning points posts **nothing**. Spending points as a payment posts the full sale to 700 and Dr **4182** "Loyalty liability" for the value of the points. Because nothing is ever credited to 4182, the account becomes a debit balance (it looks like an asset) that grows with every redemption. A refund takes back the points the sale earned.
 
 **Why I'm asking:** The account 4182 is wrong today, and points that customers hold are a promise the company may have to honour.
 
@@ -421,7 +421,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Owner's decision (31 Oct 2026):** Money received for a gift card is a debt to the card holder, not income. It becomes income when the card is used. An unused balance stays a debt; it becomes income only when the law and the card's terms allow it.
 
-**What ParadiERP does now (1 Nov 2026):** cards are sold for cash at a branch. The sale of a card books Dr 530 cash / Cr 4181 (the debt to the holder) and the cash goes into that branch's box. A paid top-up is booked the same way; part of a balance handed back in cash is booked the other way; a correction of a mistake books nothing. When the card is spent, the sale it pays for takes it off 4181 and books the income and the VAT. No VAT is booked when the card is sold, and nothing expires into income.
+**What ParadisERP does now (1 Nov 2026):** cards are sold for cash at a branch. The sale of a card books Dr 530 cash / Cr 4181 (the debt to the holder) and the cash goes into that branch's box. A paid top-up is booked the same way; part of a balance handed back in cash is booked the other way; a correction of a mistake books nothing. When the card is spent, the sale it pays for takes it off 4181 and books the income and the VAT. No VAT is booked when the card is sold, and nothing expires into income.
 
 **Question:** When a card expires with money still on it, when (if ever) may we take that balance to income, and to which account? And is the VAT due when the card is used (not when it is sold)?
 
@@ -448,7 +448,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** How should we record a customer debt we no longer expect to collect: a provision first, then a final write-off? And what happens to the tax already paid on it?
 
-**What ParadiERP does today:** Not built. There is no provision and no write-off. The only tool that reduces a customer's debt is a hand-made credit note, which also cancels the sale income and the tax, which is not what a bad debt is.
+**What ParadisERP does today:** Not built. There is no provision and no write-off. The only tool that reduces a customer's debt is a hand-made credit note, which also cancels the sale income and the tax, which is not what a bad debt is.
 
 **Why I'm asking:** Without a proper write-off, staff may use credit notes, which would wrongly reduce declared sales and tax.
 
@@ -475,7 +475,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** Is it acceptable that the receiving note (the paper that says "these goods arrived") is our only purchase document, or must the system also record the supplier's invoice itself — its number, its date, the amount before tax, the tax and the total?
 
-**What ParadiERP does today:** Goods enter only through a receiving note: the branch that receives, the product, the quantity, an optional unit purchase price, an optional supplier and an optional free-text reference. It posts stock up, account 310 (goods in stock), against account 401 (what we owe suppliers), for quantity × purchase price, dated the moment it is saved. There are no purchase orders and no supplier invoices; the owner left them out on purpose on 2026-10-10 ("not in this step"). The screen takes one product per note, so an invoice with 15 lines becomes 15 receiving notes.
+**What ParadisERP does today:** Goods enter only through a receiving note: the branch that receives, the product, the quantity, an optional unit purchase price, an optional supplier and an optional free-text reference. It posts stock up, account 310 (goods in stock), against account 401 (what we owe suppliers), for quantity × purchase price, dated the moment it is saved. There are no purchase orders and no supplier invoices; the owner left them out on purpose on 2026-10-10 ("not in this step"). The screen takes one product per note, so an invoice with 15 lines becomes 15 receiving notes.
 
 **Why I'm asking:** The supplier's invoice is the legal paper behind the purchase and behind any VAT we deduct. Today the amount we owe a supplier rests only on our own count and the price the clerk typed, and the invoice date, number and tax are not kept.
 
@@ -500,7 +500,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** Should the purchase price on a receiving note always be the price before tax, so that stock and the cost of what we sell are always valued before tax?
 
-**What ParadiERP does today:** The field is labelled "Unit purchase price" ("Prix d'achat unitaire", "سعر الشراء للوحدة"). Nothing says whether it is before or after tax, and the system records no tax on a purchase. Whatever is typed becomes both the stock value and the product's cost, which every later sale uses as its cost of sales. The costing sign-off sheet proposes "purchases enter stock at invoice cost before tax" (D43, §5 of `costing-accountant-signoff.md`); it is not signed yet.
+**What ParadisERP does today:** The field is labelled "Unit purchase price" ("Prix d'achat unitaire", "سعر الشراء للوحدة"). Nothing says whether it is before or after tax, and the system records no tax on a purchase. Whatever is typed becomes both the stock value and the product's cost, which every later sale uses as its cost of sales. The costing sign-off sheet proposes "purchases enter stock at invoice cost before tax" (D43, §5 of `costing-accountant-signoff.md`); it is not signed yet.
 
 **Why I'm asking:** If one clerk types 1,250 DA (before tax) and another 1,487.50 DA (with tax) for the same product, stock and cost of sales are overstated by 19 % on the second note, profit is understated, and the tax we could deduct is buried in stock.
 
@@ -525,7 +525,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** When a supplier invoices 100 units but only 95 arrive, what should we record, and where does the missing part wait until the supplier sends the goods or a credit note?
 
-**What ParadiERP does today:** The receiving note records only the quantity the clerk types, normally what arrived. Nothing records the invoiced quantity, so the 5 missing units appear nowhere: not as a claim on the supplier, not as a difference to follow up. Purchase orders and invoice matching are not built.
+**What ParadisERP does today:** The receiving note records only the quantity the clerk types, normally what arrived. Nothing records the invoiced quantity, so the 5 missing units appear nowhere: not as a claim on the supplier, not as a difference to follow up. Purchase orders and invoice matching are not built.
 
 **Why I'm asking:** The supplier's statement will say we owe for 100 and ours will say 95. The difference is only found when someone compares the two statements, often months later.
 
@@ -550,7 +550,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** When a supplier corrects the price after delivery (a credit note for a lower price, or an extra invoice for a higher one), how should the correction reach the supplier's balance, the stock value and the cost of the goods we already sold?
 
-**What ParadiERP does today:** Not built. There is no supplier credit note or supplier debit note. The tools that exist all do something else: an opening-balance correction (meant only for the go-live balance, it posts against 890), reversing the whole receiving entry in the ledger (which fixes 401 in the books but not the stock quantity or the supplier's balance on their card — see findings), or typing a new cost on the product (which changes only the cost of future sales and posts nothing).
+**What ParadisERP does today:** Not built. There is no supplier credit note or supplier debit note. The tools that exist all do something else: an opening-balance correction (meant only for the go-live balance, it posts against 890), reversing the whole receiving entry in the ledger (which fixes 401 in the books but not the stock quantity or the supplier's balance on their card — see findings), or typing a new cost on the product (which changes only the cost of future sales and posts nothing).
 
 **Why I'm asking:** Price corrections and year-end rebates are normal with suppliers. Without a way to record them, the supplier's balance will not match their statement and the stock cost will be wrong.
 
@@ -575,7 +575,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** How should goods we send back to a supplier be recorded?
 
-**What ParadiERP does today:** Not built. The only way to take goods off stock by hand is a stock adjustment, which posts account 657 (stock losses) against 310 and does not touch the supplier. A return entered that way shows as a loss, and the supplier still appears to be owed the full amount.
+**What ParadisERP does today:** Not built. The only way to take goods off stock by hand is a stock adjustment, which posts account 657 (stock losses) against 310 and does not touch the supplier. A return entered that way shows as a loss, and the supplier still appears to be owed the full amount.
 
 **Why I'm asking:** Defective goods go back regularly. Recorded as a loss, profit is understated and the supplier's balance is overstated.
 
@@ -599,7 +599,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** Should every receiving note have to name a supplier, with one "various suppliers" or "cash purchases" supplier for one-off shops?
 
-**What ParadiERP does today:** The supplier is optional. Without one, the note still adds the amount to 401 (what we owe suppliers), but owed to nobody. A supplier payment voucher must name a supplier, so nothing can ever pay that amount off; it stays in 401 for good.
+**What ParadisERP does today:** The supplier is optional. Without one, the note still adds the amount to 401 (what we owe suppliers), but owed to nobody. A supplier payment voucher must name a supplier, so nothing can ever pay that amount off; it stays in 401 for good.
 
 **Why I'm asking:** 401 grows with debts that belong to no one, and if the branch also pays the shop through an expense voucher, the same goods are counted twice (stock and expense).
 
@@ -623,7 +623,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** When we pay a supplier before the goods arrive, should the advance stay on 401 (the supplier's balance goes below zero) or go to a separate account for advances to suppliers?
 
-**What ParadiERP does today:** A supplier payment voucher may pay more than we owe. It lowers 401 for that supplier, whose balance then goes negative (the supplier owes us). There is no separate advances account.
+**What ParadisERP does today:** A supplier payment voucher may pay more than we owe. It lowers 401 for that supplier, whose balance then goes negative (the supplier owes us). There is no separate advances account.
 
 **Why I'm asking:** On the balance sheet, 401 then shows what we owe suppliers minus what suppliers owe us, as one net figure.
 
@@ -648,7 +648,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** Should transport, customs duties and handling paid to bring goods in be added to the stock cost of those goods, or recorded as expenses of the month?
 
-**What ParadiERP does today:** Not built as part of stock cost. Such costs can only be paid with an expense voucher (transport goes to 624, purchase to 6068, other to 658). The voucher is not linked to a receiving note and does not change the product's cost.
+**What ParadisERP does today:** Not built as part of stock cost. Such costs can only be paid with an expense voucher (transport goes to 624, purchase to 6068, other to 658). The voucher is not linked to a receiving note and does not change the product's cost.
 
 **Why I'm asking:** If these costs are large, leaving them out makes the stock and the margin on each product look better than they are; adding them needs a rule for how to spread them.
 
@@ -673,7 +673,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** When a branch buys goods to sell or rent and pays cash, must they always come in through a receiving note (stock) and never through an expense voucher "purchase" (an expense, not stock)? Where is the line?
 
-**What ParadiERP does today:** An expense voucher with the category "purchase" posts account 6068 (purchases not stocked) against the cash box and moves no stock. A receiving note posts 310 against 401 and adds the quantity. Nothing stops the same goods from going through both.
+**What ParadisERP does today:** An expense voucher with the category "purchase" posts account 6068 (purchases not stocked) against the cash box and moves no stock. A receiving note posts 310 against 401 and adds the quantity. Nothing stops the same goods from going through both.
 
 **Why I'm asking:** Goods paid by expense voucher are not in stock, so the shop sells goods the system says it never had, and the expense is counted at purchase while a cost of sale is also posted at sale.
 
@@ -697,7 +697,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** How should we record a discount printed on the supplier's invoice, and a discount the supplier gives for paying early or in cash?
 
-**What ParadiERP does today:** Not built. The receiving note takes one unit price. A payment voucher pays one amount. If the supplier accepts less than we owe, the difference stays on the supplier's balance with no proper way to clear it.
+**What ParadisERP does today:** Not built. The receiving note takes one unit price. A payment voucher pays one amount. If the supplier accepts less than we owe, the difference stays on the supplier's balance with no proper way to clear it.
 
 **Why I'm asking:** An unexplained balance on a supplier we no longer owe makes the statement wrong and 401 overstated.
 
@@ -721,7 +721,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** When a receiving note was entered wrong (wrong quantity, price or supplier), how should it be corrected so that the books, the stock and the supplier's balance all follow?
 
-**What ParadiERP does today:** There is no "cancel" or "correct" for a receiving note. The accounting screen lets an authorised user reverse any ledger entry with a reason, including a receiving entry, but that changes only the ledger: the stock quantity stays, the product's cost stays as the wrong note set it, and the balance on the supplier's card stays (the supplier statement then shows a difference between the card and the books).
+**What ParadisERP does today:** There is no "cancel" or "correct" for a receiving note. The accounting screen lets an authorised user reverse any ledger entry with a reason, including a receiving entry, but that changes only the ledger: the stock quantity stays, the product's cost stays as the wrong note set it, and the balance on the supplier's card stays (the supplier statement then shows a difference between the card and the books).
 
 **Why I'm asking:** Typing mistakes happen every week. The only correction available today leaves stock and the supplier's balance wrong.
 
@@ -749,7 +749,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** When we buy the same product at different prices, how should the system calculate its stock value and the cost of each sale?
 
-**What ParadiERP does today:** One cost per product for the whole company. It is replaced by the price on each receiving note, at any branch, or typed by hand on the product: in effect the last purchase price. Every sale posts cost of sales, account 600, against stock, 310, at that cost when the sale reaches the server. There is no average, no FIFO and no cost layers; stock movements carry no unit cost, and there is no valued stock list (the stock report shows quantities only).
+**What ParadisERP does today:** One cost per product for the whole company. It is replaced by the price on each receiving note, at any branch, or typed by hand on the product: in effect the last purchase price. Every sale posts cost of sales, account 600, against stock, 310, at that cost when the sale reaches the server. There is no average, no FIFO and no cost layers; stock movements carry no unit cost, and there is no valued stock list (the stock report shows quantities only).
 
 **Why I'm asking:** When the price changes, the goods already in stock are costed at the new price when sold, while 310 still holds what they really cost. 310 slowly drifts away from "quantity × cost" and nothing explains the difference.
 
@@ -775,7 +775,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** On which date should the system switch to the method you choose in C-01, and what value should each product start with?
 
-**What ParadiERP does today:** Not built. The costing plan foresees a cut-off date, a starting value per product, and from then on purchases entering stock at their price before tax (PUR-02). Until the switch, every material figure in manufacturing is labelled a "reference cost". Nothing changes until you sign.
+**What ParadisERP does today:** Not built. The costing plan foresees a cut-off date, a starting value per product, and from then on purchases entering stock at their price before tax (PUR-02). Until the switch, every material figure in manufacturing is labelled a "reference cost". Nothing changes until you sign.
 
 **Why I'm asking:** The switch is the one moment the stock value is reset. A switch in the middle of a year with no count behind it would carry today's drift (C-01) into the new method.
 
@@ -800,7 +800,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** At the switch, the new starting value of stock will differ from what accounts 310 (goods in stock) and 318 (scrap stock) show. Which account takes the difference?
 
-**What ParadiERP does today:** Not built. Today 310 is the sum of everything posted to it at the costs of the moment, so it will not equal "counted quantity × starting cost".
+**What ParadisERP does today:** Not built. Today 310 is the sum of everything posted to it at the costs of the moment, so it will not equal "counted quantity × starting cost".
 
 **Why I'm asking:** The difference must go somewhere once, in one entry, and you decide whether it is this year's result or a correction of earlier years.
 
@@ -824,7 +824,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** When a product is sold while its stock is below zero and the goods arrive later at a different cost, which account takes the difference?
 
-**What ParadiERP does today:** A till sale is never blocked when stock is short (the owner's rule "never block the sale"); it is recorded with a warning and the stock goes below zero. Its cost is the product's cost at that moment. When the goods arrive later at another price, nothing is adjusted. Under a weighted average (C-01) this difference becomes visible and needs an account.
+**What ParadisERP does today:** A till sale is never blocked when stock is short (the owner's rule "never block the sale"); it is recorded with a warning and the stock goes below zero. Its cost is the product's cost at that moment. When the goods arrive later at another price, nothing is adjusted. Under a weighted average (C-01) this difference becomes visible and needs an account.
 
 **Why I'm asking:** Every negative-stock sale leaves a small difference between the cost posted and the cost of the goods that later covered it.
 
@@ -848,7 +848,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** An invoice for goods raised directly in the back office (not from a till sale) records the sale but takes nothing out of stock and posts no cost. Should it take the goods out of stock and post cost of sales (600 against 310) at the method in force (today the last purchase price, later C-01)?
 
-**What ParadiERP does today:** A direct invoice posts what the customer owes (411) and the sale (700, with its tax) only. It moves no stock and posts no cost. A till sale, by contrast, does both.
+**What ParadisERP does today:** A direct invoice posts what the customer owes (411) and the sale (700, with its tax) only. It moves no stock and posts no cost. A till sale, by contrast, does both.
 
 **Why I'm asking:** Every goods invoice typed in the back office shows full revenue with zero cost, so margin is overstated and the goods stay in stock on the screen and in 310.
 
@@ -872,7 +872,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** Should a branch be allowed to sell, transfer or adjust more than it has in stock, and if so, what must happen afterwards?
 
-**What ParadiERP does today:** A till sale is never blocked; it is recorded with the warning "Stock went negative". Each branch has an "allow negative stock" setting, but it is only checked for transfers; a manual stock adjustment ignores it (see findings). The main warehouse is created with negative stock allowed.
+**What ParadisERP does today:** A till sale is never blocked; it is recorded with the warning "Stock went negative". Each branch has an "allow negative stock" setting, but it is only checked for transfers; a manual stock adjustment ignores it (see findings). The main warehouse is created with negative stock allowed.
 
 **Why I'm asking:** Negative stock means the books show goods leaving that never entered: the cost posted is a guess, and real count differences hide behind it.
 
@@ -899,7 +899,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** When a count finds fewer or more items than the system shows, which accounts should the loss and the gain go to?
 
-**What ParadiERP does today:** A stock adjustment is one product at a time, with a reason. It is valued at the product's current cost: missing goods post 657 (stock losses) against 310; extra goods post 310 against 657, so a gain lowers the losses account instead of showing as a gain. When the product's cost is 0, nothing is posted.
+**What ParadisERP does today:** A stock adjustment is one product at a time, with a reason. It is valued at the product's current cost: missing goods post 657 (stock losses) against 310; extra goods post 310 against 657, so a gain lowers the losses account instead of showing as a gain. When the product's cost is 0, nothing is posted.
 
 **Why I'm asking:** Losses and gains netted in one account hide both, and the tax treatment of stock losses may need them shown separately.
 
@@ -924,7 +924,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** How must the physical count be done and documented (how often, who counts, who signs, on which date stock is frozen), and must the system print a valued stock list (quantity × cost per product and per location) for the year-end accounts?
 
-**What ParadiERP does today:** Not built as a count document: there is no count session, no frozen count sheet, and no valued stock list. The Item Movement & Status report shows quantities per location (available, on rent, maintenance, scrap, in transit), not values. Differences are typed one product at a time as adjustments.
+**What ParadisERP does today:** Not built as a count document: there is no count session, no frozen count sheet, and no valued stock list. The Item Movement & Status report shows quantities per location (available, on rent, maintenance, scrap, in transit), not values. Differences are typed one product at a time as adjustments.
 
 **Why I'm asking:** The year-end stock figure on the balance sheet must rest on a count and a valued list. Today neither can be produced from the system.
 
@@ -948,7 +948,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** When goods are moved to scrap (damaged beyond use, to be sold as scrap), should they stay at their full purchase cost in 318 (scrap stock), or be written down to what they will fetch as scrap? And how should a scrap sale be recorded?
 
-**What ParadiERP does today:** Moving goods to scrap posts 318 against 310 at the product's full current cost. Writing scrap off posts 657 against 318. A scrap sale is not built: account 756 (scrap sales) exists in the chart, but nothing posts to it and nothing takes sold scrap out of 318. (Scrap from manufacturing is C-09, in the manufacturing section.)
+**What ParadisERP does today:** Moving goods to scrap posts 318 against 310 at the product's full current cost. Writing scrap off posts 657 against 318. A scrap sale is not built: account 756 (scrap sales) exists in the chart, but nothing posts to it and nothing takes sold scrap out of 318. (Scrap from manufacturing is C-09, in the manufacturing section.)
 
 **Why I'm asking:** Damaged goods kept at full cost overstate stock, and scrap that is sold but never leaves 318 stays on the balance sheet.
 
@@ -973,7 +973,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** At what value should the stock already on hand on the go-live day be entered, and must the total equal the stock on the last closing balance sheet?
 
-**What ParadiERP does today:** Opening stock is accepted only before a branch is declared open. It posts 310 against 890 (opening balance), never as a purchase. Typed lines may carry a unit value; otherwise the product's cost is used. The Excel import reads names and quantities only, so each line is valued at the product's current cost; a product the import creates has a cost of 0, so its opening value is 0 and nothing is posted for it. A typed opening unit value does not become the product's cost, so later sales may cost those goods at a different figure.
+**What ParadisERP does today:** Opening stock is accepted only before a branch is declared open. It posts 310 against 890 (opening balance), never as a purchase. Typed lines may carry a unit value; otherwise the product's cost is used. The Excel import reads names and quantities only, so each line is valued at the product's current cost; a product the import creates has a cost of 0, so its opening value is 0 and nothing is posted for it. A typed opening unit value does not become the product's cost, so later sales may cost those goods at a different figure.
 
 **Why I'm asking:** If the opening value is 0 or differs from the cost used at sale, 310 is wrong from day one and goes below zero as the goods are sold.
 
@@ -998,7 +998,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** Who may change a product's cost by hand, and should such a change revalue the stock in the books?
 
-**What ParadiERP does today:** Anyone allowed to edit products can type a new cost. It posts nothing; every later sale, transfer, adjustment and scrap move uses the new figure. A receiving note may also set the cost to 0, after which sales post no cost at all.
+**What ParadisERP does today:** Anyone allowed to edit products can type a new cost. It posts nothing; every later sale, transfer, adjustment and scrap move uses the new figure. A receiving note may also set the cost to 0, after which sales post no cost at all.
 
 **Why I'm asking:** A typed cost changes the cost of sales from that moment, with no paper and no entry, and 310 drifts further from reality (C-01).
 
@@ -1031,7 +1031,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** Which VAT rate applies to our hire (scaffolding, formwork, props), and does the same rate apply to the extra charges on a contract: late days, repairs we charge back, and lost or wrecked items?
 
-**What ParadiERP does today:** Hire has its own VAT rate setting, separate from sales. The rate in force is copied onto each contract line and applies to everything that line charges. The live rate will be checked on our side.
+**What ParadisERP does today:** Hire has its own VAT rate setting, separate from sales. The rate in force is copied onto each contract line and applies to everything that line charges. The live rate will be checked on our side.
 
 **Example:** 100 scaffold frames × 30 days × 50 DA/day = 150,000 DA rent. At 19 %, the customer pays 178,500 DA, of which 28,500 DA is VAT.
 
@@ -1095,7 +1095,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** The system books rent when the goods leave, and the invoice is a separate, optional step. Must every issue note (and every return note that charges something) have an invoice, and by when?
 
-**What ParadiERP does today:** Issue and return notes post the income and the customer's debt. An invoice can then be made "from the note" at any later time; it copies the amounts and posts nothing (to avoid counting income twice). Nothing forces an invoice to be made, and nothing reports notes that were never invoiced: Needs verification for a report.
+**What ParadisERP does today:** Issue and return notes post the income and the customer's debt. An invoice can then be made "from the note" at any later time; it copies the amounts and posts nothing (to avoid counting income twice). Nothing forces an invoice to be made, and nothing reports notes that were never invoiced: Needs verification for a report.
 
 **Why I'm asking:** Our books can show income and TVA with no invoice behind them, or an invoice dated weeks after the income. If the law requires an invoice for every hire within a time limit, the system should remind us or make it automatic.
 
@@ -1120,7 +1120,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** When the customer returns goods early (or the same day, unused), is it correct to reduce income and the customer's debt on the return date, with a credit note against the original invoice — and, when hire is untaxed, with a document marked "internal adjustment" instead?
 
-**What ParadiERP does today:**
+**What ParadisERP does today:**
 - The unused days are taken off rental income (706) and off the customer's account on the return date, with their TVA if any.
 - If an invoice already exists for the issue, a credit note (CRN-…) is made automatically for exactly those days, keeping the invoice's tax rate.
 - If the invoice was untaxed, the credit carries no TVA and is labelled "internal adjustment", and it is left out of the tax report (owner, 2026-10-14).
@@ -1150,7 +1150,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** When goods come back after the agreed period, is the extra charge more rent (with TVA) or a late penalty (possibly without TVA), and which account should it go to?
 
-**What ParadiERP does today:** Late days are charged at the "overdue" daily price on the contract (a multiplier on the rent, 1.5 by default). They go to their own income account, **708 "late-return income"**, because the owner asked to see them separately. They carry the same tax rate as the rent on that line.
+**What ParadisERP does today:** Late days are charged at the "overdue" daily price on the contract (a multiplier on the rent, 1.5 by default). They go to their own income account, **708 "late-return income"**, because the owner asked to see them separately. They carry the same tax rate as the rent on that line.
 
 **Why I'm asking:** If late days are a penalty in the legal sense, the tax and the account may differ from ordinary rent. We also want to know whether 708 is a suitable account for it in the national chart of accounts (SCF).
 
@@ -1175,7 +1175,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** When a branch manager waives some or all late days, do we need to show the waived amount anywhere (as a discount on the invoice, or in the books), or is it enough that it is simply not charged?
 
-**What ParadiERP does today:** The manager can waive all late days, or deduct some days or an amount (owner, 2026-10-08 and 2026-10-22). A written reason and his name are kept on the return note. The waived amount is **not** booked anywhere: only the reduced charge is posted.
+**What ParadisERP does today:** The manager can waive all late days, or deduct some days or an amount (owner, 2026-10-08 and 2026-10-22). A written reason and his name are kept on the return note. The waived amount is **not** booked anywhere: only the reduced charge is posted.
 
 **Why I'm asking:** Nothing in the books shows how much late income was given up. That may be fine, but if the tax office expects a discount line on the invoice, we need to know.
 
@@ -1200,7 +1200,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** When a customer pays us for items lost or destroyed (at the damage price on the contract), is that payment subject to TVA, and is account 757 the right one?
 
-**What ParadiERP does today:** Lost units and units "beyond repair" are charged at the damage price frozen on the contract, to **757 "damage and loss compensation"**. The same tax rate as the rent on that line is added. The customer also keeps paying rent for those units until the day the loss is reported (owner, 2026-09-23).
+**What ParadisERP does today:** Lost units and units "beyond repair" are charged at the damage price frozen on the contract, to **757 "damage and loss compensation"**. The same tax rate as the rent on that line is added. The customer also keeps paying rent for those units until the day the loss is reported (owner, 2026-09-23).
 
 **Why I'm asking:** Compensation for a loss may be treated differently for TVA from a sale of the item. If our treatment is wrong, either we over-charge the customer TVA or under-declare it.
 
@@ -1225,7 +1225,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** When a rented unit is lost, which value should leave the books: what we paid for it, or a "book value" that is lower because it is worn?
 
-**What ParadiERP does today:** The lost unit is removed from stock (310) into stock losses (**657**) at the product's **catalogue cost price**. Each product also has a separate "asset value" field that the design calls the book value, but no accounting entry uses it. If a product's cost price is 0, nothing is posted at all.
+**What ParadisERP does today:** The lost unit is removed from stock (310) into stock losses (**657**) at the product's **catalogue cost price**. Each product also has a separate "asset value" field that the design calls the book value, but no accounting entry uses it. If a product's cost price is 0, nothing is posted at all.
 
 **Why I'm asking:** The loss and the stock value depend on which figure is used. A scaffold bought for 6,500 DA five years ago is probably not worth 6,500 DA today.
 
@@ -1250,7 +1250,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** When a unit comes back beyond repair and we keep the wreck as scrap, should the scrap be written down to what it can be sold for?
 
-**What ParadiERP does today:** The wreck moves from merchandise stock (310) to scrap stock (**318**) at its **full catalogue cost price**. Nothing reduces it. The customer is also charged the full damage price (757). Selling scrap (account 756 is seeded) has no document yet: Not built.
+**What ParadisERP does today:** The wreck moves from merchandise stock (310) to scrap stock (**318**) at its **full catalogue cost price**. Nothing reduces it. The customer is also charged the full damage price (757). Selling scrap (account 756 is seeded) has no document yet: Not built.
 
 **Why I'm asking:** We keep the full value of the wreck **and** book the customer's compensation, so the profit looks better than it is until the scrap is sold or thrown away.
 
@@ -1275,7 +1275,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** When an item comes back damaged but repairable and we charge the customer the repair, is it correct to book that charge as income (707) with TVA, while our real repair cost is booked separately as an expense (615)?
 
-**What ParadiERP does today:** The return note records how many units are repairable and one repair amount typed by the clerk. It goes to **707 "maintenance charged to customer"**, taxed at the line's rate. The units move to "in maintenance" (still in stock 310, no entry). What the repair really costs us is only recorded if someone raises an expense voucher of category "repair" (615); it can name the contract but not the item, and nothing compares it with what we charged.
+**What ParadisERP does today:** The return note records how many units are repairable and one repair amount typed by the clerk. It goes to **707 "maintenance charged to customer"**, taxed at the line's rate. The units move to "in maintenance" (still in stock 310, no entry). What the repair really costs us is only recorded if someone raises an expense voucher of category "repair" (615); it can name the contract but not the item, and nothing compares it with what we charged.
 
 **Why I'm asking:** We want to confirm the two-sided treatment (income 707 vs expense 615), and whether recharging a repair is a taxed service.
 
@@ -1309,7 +1309,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 2. At what value and on what date do we move the equipment now held in stock into fixed assets?
 3. What do we record when an item is lost, wrecked or scrapped, or when a hire item is sold?
 
-**What ParadiERP does today:** Rental items sit in merchandise stock (310) with no depreciation. The register is built and waits for your choices: the treatment, straight line (suggested), the useful life per type and a default, the residual value, the value the equipment opens at, the switch-over month and the accounts (none is guessed). Lost and written-off units then leave at net book value to the disposal account, wrecks go to scrap at net book value, and each ended month's depreciation is posted by you.
+**What ParadisERP does today:** Rental items sit in merchandise stock (310) with no depreciation. The register is built and waits for your choices: the treatment, straight line (suggested), the useful life per type and a default, the residual value, the value the equipment opens at, the switch-over month and the accounts (none is guessed). Lost and written-off units then leave at net book value to the disposal account, wrecks go to scrap at net book value, and each ended month's depreciation is posted by you.
 
 **Example:** We own 2,000 frames bought at 6,500 DA = 13,000,000 DA. Depreciated over 5 years on a straight line, the yearly charge is 2,600,000 DA and their book value after 3 years is 5,200,000 DA.
 
@@ -1331,7 +1331,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** If the company starts taking a deposit from customers, should it be held in account 419 (customers' advances) or 165 (deposits and guarantees received)?
 
-**What ParadiERP does today:** A deposit can be switched on in the settings (off by default). When on, the agreed amount is written on the contract, printed, and shown as "deposit to return" when the contract closes. It is **never posted**, never counted in the customer's balance, never set against what he owes, and never blocks closing. Account 419 is seeded but nothing posts to it. The owner said the company takes **no deposit today**; the contract states the value of the goods instead (owner answer 14). We asked this before and have no answer yet.
+**What ParadisERP does today:** A deposit can be switched on in the settings (off by default). When on, the agreed amount is written on the contract, printed, and shown as "deposit to return" when the contract closes. It is **never posted**, never counted in the customer's balance, never set against what he owes, and never blocks closing. Account 419 is seeded but nothing posts to it. The owner said the company takes **no deposit today**; the contract states the value of the goods instead (owner answer 14). We asked this before and have no answer yet.
 
 **Why I'm asking:** The account cannot be changed once something has been posted to it, so it must be chosen before deposits are collected through the system.
 
@@ -1356,7 +1356,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** If we hold a deposit and the customer damages or loses goods, how should we record keeping part of the deposit and returning the rest, and does the part we keep carry TVA?
 
-**What ParadiERP does today:** Not built. At close the system only states the full deposit as "to return". It cannot collect a deposit, set part of it against damage, or refund the rest.
+**What ParadisERP does today:** Not built. At close the system only states the full deposit as "to return". It cannot collect a deposit, set part of it against damage, or refund the rest.
 
 **Why I'm asking:** This is the usual reason to take a deposit. Before we build it we need the entries and the tax treatment.
 
@@ -1381,7 +1381,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** When a contract belongs to branch A but some goods are issued from branch B's yard, which branch should show the rent, and which branch should show the later adjustments?
 
-**What ParadiERP does today:** The rent for each issue note is booked at the branch that issued the goods. Return notes must be taken at the contract's branch (owner, 2026-09-30), so late days, repairs, compensation and the refund of unused days are booked there; goods issued from another branch are moved back with an internal transfer (account 181 between branches). A lost unit is written off at the branch that issued it.
+**What ParadisERP does today:** The rent for each issue note is booked at the branch that issued the goods. Return notes must be taken at the contract's branch (owner, 2026-09-30), so late days, repairs, compensation and the refund of unused days are booked there; goods issued from another branch are moved back with an internal transfer (account 181 between branches). A lost unit is written off at the branch that issued it.
 
 **Why I'm asking:** One contract can show income in one branch and the refund of that income in another, which distorts each branch's profit (but not the company's).
 
@@ -1406,7 +1406,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** If the hire TVA rate changes, should running contracts keep the rate they were signed at, or use the new rate from the date of the change?
 
-**What ParadiERP does today:** The rate is frozen on each contract line when it is signed, together with the prices, and every later charge on that line (rent, late, repair, loss) uses it.
+**What ParadisERP does today:** The rate is frozen on each contract line when it is signed, together with the prices, and every later charge on that line (rent, late, repair, loss) uses it.
 
 **Why I'm asking:** Prices agreed with the customer should not change, but the tax rate is set by law, usually by the date of the service or invoice.
 
@@ -1433,7 +1433,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** When the factory makes goods, do we leave each cost where it is first recorded (materials used, wages, expenses) and only record finished goods coming into stock, or do we move every cost into a "work in progress" account as it happens?
 
-**What ParadiERP does today:** Nothing posts from manufacturing. Wages already post when a payroll run is approved (631 wages, 635 employer social charges, 641 other employer charges), and paid expense vouchers post to their expense account. The plan proposes two ways to add manufacturing:
+**What ParadisERP does today:** Nothing posts from manufacturing. Wages already post when a payroll run is approved (631 wages, 635 employer social charges, 641 other employer charges), and paid expense vouchers post to their expense account. The plan proposes two ways to add manufacturing:
 - **Model N (by nature):** costs stay where they are charged. Finished goods enter stock through account 72 (production stocked, i.e. "the value we produced this period") at their cost. Open orders are valued once a month and reversed on the 1st.
 - **Model W (perpetual work in progress):** every cost is moved into a work-in-progress account (e.g. 331) as it happens, and leaves it when goods are released. It needs extra "labour absorbed" and "overhead absorbed" accounts.
 
@@ -1459,7 +1459,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** To put labour into a product's cost, we divide what the worker cost the company in a month by the hours they were paid for. Is that the right way, and which hours should we divide by?
 
-**What ParadiERP does today:** Labour cost is calculated, never typed. Once the month's payroll is approved, the hourly rate = (gross pay + employer social contribution + the worker's share of other employer charges) ÷ paid hours. Paid hours = days present × hours per day + overtime hours from the payslip. Paid leave and holidays are in the cost but not in the hours, so they are spread over the hours worked. Overtime premium is blended into one rate for all hours (bookings do not say which hours were overtime). Bonuses and allowances in the month's gross are included in that month's rate. Before payroll is approved, a "standard" rate from a normal full month is used and the cost is marked provisional. Hours booked on an order are multiplied by that rate; hours not booked on any order (cleaning, breakdowns, waiting) stay in the wage expense.
+**What ParadisERP does today:** Labour cost is calculated, never typed. Once the month's payroll is approved, the hourly rate = (gross pay + employer social contribution + the worker's share of other employer charges) ÷ paid hours. Paid hours = days present × hours per day + overtime hours from the payslip. Paid leave and holidays are in the cost but not in the hours, so they are spread over the hours worked. Overtime premium is blended into one rate for all hours (bookings do not say which hours were overtime). Bonuses and allowances in the month's gross are included in that month's rate. Before payroll is approved, a "standard" rate from a normal full month is used and the cost is marked provisional. Hours booked on an order are multiplied by that rate; hours not booked on any order (cleaning, breakdowns, waiting) stay in the wage expense.
 
 **Why I'm asking:** This rate sets the labour part of every product's cost and stock value. A one-off bonus or a month with a lot of leave changes the rate for that month only.
 
@@ -1484,7 +1484,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** When an outside expense is charged to a production order (for example a galvanising job), should the cost of the product include the TVA we can recover, or only the amount before TVA?
 
-**What ParadiERP does today:** A person types the expense amount on the order and may link it to an expense payment voucher. The cost sheet counts the amount **as typed**. The payment voucher holds only one amount, with no TVA split, and a paid voucher posts that full amount to its expense account. Since step A0, the expenses linked to one voucher can never add up to more than the voucher's amount. The system cannot tell by itself whether a typed amount includes TVA.
+**What ParadisERP does today:** A person types the expense amount on the order and may link it to an expense payment voucher. The cost sheet counts the amount **as typed**. The payment voucher holds only one amount, with no TVA split, and a paid voucher posts that full amount to its expense account. Since step A0, the expenses linked to one voucher can never add up to more than the voucher's amount. The system cannot tell by itself whether a typed amount includes TVA.
 
 **Why I'm asking:** If recoverable TVA is left in, stock value and product cost are overstated by 19 % on those expenses, and the TVA would be counted twice (in the product and as a deduction).
 
@@ -1509,7 +1509,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** Must part of the factory's running costs be added to the cost of the goods we make and keep in stock, and if yes, at what rate and on what basis?
 
-**What ParadiERP does today:** No overhead is added. The overhead line on every cost sheet reads "Not set", never 0, and keeps the cost provisional. There is no screen to enter a rate; the rate is fixed at zero in code until you approve one. These costs stay in their normal expense accounts.
+**What ParadisERP does today:** No overhead is added. The overhead line on every cost sheet reads "Not set", never 0, and keeps the cost provisional. There is no screen to enter a rate; the rate is fixed at zero in code until you approve one. These costs stay in their normal expense accounts.
 
 **Why I'm asking:** If stock should carry its share of factory overheads, our stock value and the cost of goods sold are understated today. If you choose a rate, we need its basis (per labour hour is proposed), the amount and the date it starts; and what happens when the factory works below normal capacity (the unabsorbed part).
 
@@ -1534,7 +1534,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** When rejected products or material offcuts are kept to sell as scrap, at what value should they reduce the order's cost, in which account should they sit, and should they be entered into stock at all?
 
-**What ParadiERP does today:**
+**What ParadisERP does today:**
 - Rejected units are counted on the daily production record, but they **do not enter any stock**.
 - Material scrapped during production (offcuts) is counted on the order but moves no stock (it already left at the issue).
 - There is no place to record a recovery value: it is always 0, and the cost sheet says "Not recorded".
@@ -1564,7 +1564,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** When a cost of a finished order becomes known later (payroll approved at month end, a late invoice, a correction), where should that difference go: leave it in the month's expenses, put it in a special variance account, or add it to the goods we made?
 
-**What ParadiERP does today:**
+**What ParadisERP does today:**
 - An order's cost sheet is frozen only when someone asks for it through the system's interface for programs (there is no screen yet), not automatically at completion.
 - After the freeze, someone can record a "late cost" (amount, kind, source, reason), again with no screen.
 - Late costs are **reported only**: never added to the frozen cost, to stock value or to released goods. The reconciliation page shows "frozen cost + recognised late costs = adjusted provisional cost".
@@ -1597,7 +1597,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** When part of an order's good units are moved into stock while the order is still running, what cost per unit should they carry?
 
-**What ParadiERP does today:** Each partial release is valued at the recipe's standard material per unit (at the actual price of the material issued) plus the labour and expenses booked so far, shared over the good units made and not yet released. The last release of a completed order carries whatever is left, so all releases add up exactly to the order's cost. Until the cost is frozen, these values are recalculated each time they are read, so an early release's value moves when that month's payroll is approved. The frozen sheet saves them when the sheet is made, not at each release. The last release can come out negative, which is flagged.
+**What ParadisERP does today:** Each partial release is valued at the recipe's standard material per unit (at the actual price of the material issued) plus the labour and expenses booked so far, shared over the good units made and not yet released. The last release of a completed order carries whatever is left, so all releases add up exactly to the order's cost. Until the cost is frozen, these values are recalculated each time they are read, so an early release's value moves when that month's payroll is approved. The frozen sheet saves them when the sheet is made, not at each release. The last release can come out negative, which is flagged.
 
 **Why I'm asking:** Material is usually issued for the whole order on day one. If we used "cost so far ÷ units so far", the first release would carry nearly all the material and look very expensive. The planning document's D13 example uses "cost to date per unit", while C-11 proposes the rule above, so we need one answer.
 
@@ -1622,7 +1622,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** Before the system can post the real cost of our own products, should we keep factory stock movements switched off, or allow them with a temporary cost typed on each product?
 
-**What ParadiERP does today:** Stock operations are off on the live site. If they were switched on now, a sale of a finished product would post its cost of sale from the product's catalogue cost (Dr 600 / Cr 310), and post **no cost at all** if that cost is 0. Manufacturing never writes a product's catalogue cost, so for our own products it is either typed by hand or 0.
+**What ParadisERP does today:** Stock operations are off on the live site. If they were switched on now, a sale of a finished product would post its cost of sale from the product's catalogue cost (Dr 600 / Cr 310), and post **no cost at all** if that cost is 0. Manufacturing never writes a product's catalogue cost, so for our own products it is either typed by hand or 0.
 
 **Why I'm asking:** Turning stock operations on early would give wrong margins and a wrong stock value for finished goods. Keeping them off delays using the factory module for real.
 
@@ -1646,7 +1646,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** Each order shows how far its actual cost is from the planned cost (material used, labour hours, prices). Is that only a management figure, or should it be posted to an account?
 
-**What ParadiERP does today:** The cost sheet and the reconciliation page show these differences (material usage and price, labour efficiency and rate, overhead, expenses, scrap). Nothing is posted. The planned cost has no line for expenses or overhead, so every expense shows entirely as a difference (AD-11).
+**What ParadisERP does today:** The cost sheet and the reconciliation page show these differences (material usage and price, labour efficiency and rate, overhead, expenses, scrap). Nothing is posted. The planned cost has no line for expenses or overhead, so every expense shows entirely as a difference (AD-11).
 
 **Why I'm asking:** Under Model N (C-03), no variance account is needed. Under Model W, a variance account is needed. Also, a plan without expenses makes the expense difference look large on every order.
 
@@ -1671,7 +1671,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** At the end of each month, should we record the value of unfinished orders as work in progress, and reverse it on the 1st, or do this only at year end?
 
-**What ParadiERP does today:** A "Work in progress" report shows, for each open order, its cost so far, what was already released and what remains, calculated when the report is opened. Nothing posts. Under Model N the plan proposes Dr 331 (work in progress) / Cr 72 at month end, reversed on the 1st.
+**What ParadisERP does today:** A "Work in progress" report shows, for each open order, its cost so far, what was already released and what remains, calculated when the report is opened. Nothing posts. Under Model N the plan proposes Dr 331 (work in progress) / Cr 72 at month end, reversed on the 1st.
 
 **Why I'm asking:** Without this entry, materials and wages spent on unfinished orders show as expenses of the month with no matching stock, so monthly profit looks lower than it is.
 
@@ -1695,7 +1695,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** Is it acceptable to keep amounts at three decimals and let the final release of each order absorb the small rounding difference?
 
-**What ParadiERP does today:** Money is rounded to 3 decimals and unit costs to 6, rounding halves away from zero. The final release takes the order's total less the other releases, so the releases always add up exactly. Late-cost amounts are rounded to 3 decimals when entered. Each rounding residual is shown on its own line.
+**What ParadisERP does today:** Money is rounded to 3 decimals and unit costs to 6, rounding halves away from zero. The final release takes the order's total less the other releases, so the releases always add up exactly. Late-cost amounts are rounded to 3 decimals when entered. Each rounding residual is shown on its own line.
 
 **Why I'm asking:** The books must balance to the dinar and the cost sheets must match the entries exactly.
 
@@ -1719,7 +1719,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** When someone records a late cost, is it right that the amount is "its effect on the order's total cost" (a recovery is negative), and should the kind of cost be picked from a fixed list?
 
-**What ParadiERP does today:** A positive amount raises the order's cost and a negative one lowers it; more scrap recovered is entered as a negative amount (AD-2). The kind is free text up to 32 characters. The reports read words like "material", "labour", "expense" or "recovery"; any other word is shown as "unclassified" and kept out of the adjusted cost. The record does not keep who entered it.
+**What ParadisERP does today:** A positive amount raises the order's cost and a negative one lowers it; more scrap recovered is entered as a negative amount (AD-2). The kind is free text up to 32 characters. The reports read words like "material", "labour", "expense" or "recovery"; any other word is shown as "unclassified" and kept out of the adjusted cost. The record does not keep who entered it.
 
 **Why I'm asking:** A late cost entered with the wrong sign or an unknown kind will be left out or counted the wrong way.
 
@@ -1743,7 +1743,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** If an expense voucher already counted in an order's cost is cancelled, should the order's cost go down, and how do we record that if the cost is already frozen?
 
-**What ParadiERP does today:**
+**What ParadisERP does today:**
 - Only a pending or approved voucher can be cancelled; a paid one cannot.
 - An approved voucher counts as "backed" in the cost sheet, but posts nothing to the books until it is paid. So a cancelled voucher was never in the books.
 - The expense **stays in the order's cost** even after the voucher is cancelled. It is only marked provisional ("expense not settled").
@@ -1772,7 +1772,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** When the month's payroll is approved after an order's cost was frozen at the provisional labour rate, should we record the difference as a late cost, and should it include the employer's social contributions?
 
-**What ParadiERP does today:** Before payroll is approved, labour is valued at a standard rate and marked provisional. Once payroll is approved, the live calculation switches to the actual rate, but a frozen cost sheet does not change. No late-cost record is written automatically: the reconciliation page can show the difference as "unexplained" when asked to compare with today. New payroll runs compute no employer social contribution (CNAS) since 2026-10-21 (see PAY — C-06 / D11).
+**What ParadisERP does today:** Before payroll is approved, labour is valued at a standard rate and marked provisional. Once payroll is approved, the live calculation switches to the actual rate, but a frozen cost sheet does not change. No late-cost record is written automatically: the reconciliation page can show the difference as "unexplained" when asked to compare with today. New payroll runs compute no employer social contribution (CNAS) since 2026-10-21 (see PAY — C-06 / D11).
 
 **Why I'm asking:** This happens on almost every order that finishes before month end. Without a rule, labour on frozen orders stays at the provisional rate.
 
@@ -1797,7 +1797,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** If a cost sheet is frozen days or weeks after the order was completed, should it still count as the order's original cost, or as a reconstruction?
 
-**What ParadiERP does today:** Completion does not freeze the cost; a sheet exists only when someone asks for it. A sheet made later includes everything that changed in between (payroll approved, vouchers changed), and those changes are not shown as late costs. The reports show the delay in days. A sheet can also be marked "reconstructed" on request.
+**What ParadisERP does today:** Completion does not freeze the cost; a sheet exists only when someone asks for it. A sheet made later includes everything that changed in between (payroll approved, vouchers changed), and those changes are not shown as late costs. The reports show the delay in days. A sheet can also be marked "reconstructed" on request.
 
 **Why I'm asking:** A sheet frozen three weeks late looks like an original but already contains later information, so the late-cost reports would understate what changed.
 
@@ -1822,7 +1822,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** What event should make an order's cost financially final: your signature on each sheet, the month being closed, or the cost being posted to the books?
 
-**What ParadiERP does today:** Nothing is final. Every frozen sheet is labelled "provisional", and the "financially finalised" figure reads "Not available" (never 0). The system refuses to call any cost approved until the costing method is signed (C-01, C-05 to C-08, C-11).
+**What ParadisERP does today:** Nothing is final. Every frozen sheet is labelled "provisional", and the "financially finalised" figure reads "Not available" (never 0). The system refuses to call any cost approved until the costing method is signed (C-01, C-05 to C-08, C-11).
 
 **Why I'm asking:** Until this is defined, every manufacturing figure stays provisional, and the next phases (shadow entries, then real posting) have no point at which a cost stops changing.
 
@@ -1847,7 +1847,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** When a batch goes badly (many rejects, wasted material, extra hours), should the good units carry the whole cost, or should the part above a normal loss be treated as an expense of the period?
 
-**What ParadiERP does today:** The whole cost of the order is divided by the good units released, whatever the loss. The share carried by rejects ("spoilage") and material wastage are shown for information only. The owner's plan (Revision 2, D23) says "rejects absorbed". There is no "normal loss" rate and no abnormal-loss account. Completion does not compare output with the planned quantity.
+**What ParadisERP does today:** The whole cost of the order is divided by the good units released, whatever the loss. The share carried by rejects ("spoilage") and material wastage are shown for information only. The owner's plan (Revision 2, D23) says "rejects absorbed". There is no "normal loss" rate and no abnormal-loss account. Completion does not compare output with the planned quantity.
 
 **Why I'm asking:** A very bad batch can make a product look far more expensive in stock than it really is. Our understanding is that abnormal waste is normally an expense of the period, not part of the stock value.
 
@@ -1872,7 +1872,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** If a whole order is lost (every piece rejected), how should its materials, labour and expenses be recorded, and in which account?
 
-**What ParadiERP does today:** An order with no good units released cannot be completed ("nothing produced, cancel the order instead"), but it also cannot be cancelled once any stage has recorded good pieces. So an order whose parts passed the first stage but were all rejected at the last stage appears to stay open. Under Model N its costs simply stay in materials used, wages and expenses. Nothing names a loss account.
+**What ParadisERP does today:** An order with no good units released cannot be completed ("nothing produced, cancel the order instead"), but it also cannot be cancelled once any stage has recorded good pieces. So an order whose parts passed the first stage but were all rejected at the last stage appears to stay open. Under Model N its costs simply stay in materials used, wages and expenses. Nothing names a loss account.
 
 **Why I'm asking:** A total loss should be visible as a loss, and the order should be closable.
 
@@ -1896,7 +1896,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** If we make a semi-finished part ourselves (for example cut and bent tubes) and then use it in another order, should it be charged at what it cost us to make, and until the system can do that, what value should we use?
 
-**What ParadiERP does today:** A semi-finished product released from one order goes into stock like any finished product. When it is issued to the next order, its cost is the product's **catalogue cost**, which manufacturing never updates. So it is either a cost someone typed or 0 ("material with no cost"). The cost sheet adds it to raw materials.
+**What ParadisERP does today:** A semi-finished product released from one order goes into stock like any finished product. When it is issued to the next order, its cost is the product's **catalogue cost**, which manufacturing never updates. So it is either a cost someone typed or 0 ("material with no cost"). The cost sheet adds it to raw materials.
 
 **Why I'm asking:** In a factory with several steps, the final product's cost would miss everything spent making its parts, or use an old typed figure.
 
@@ -1921,7 +1921,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** If a material is issued to an order while its cost in the system is 0 (never bought through a receiving note, or no cost entered), what value should we use?
 
-**What ParadiERP does today:** The issue records a cost of 0. The cost sheet marks the material "Incomplete (part unvalued)" and the order stays provisional. The plan says a cost should not be frozen with an unvalued material unless someone accepts it with a reason, but **this check is not built**: a sheet can be frozen with it.
+**What ParadisERP does today:** The issue records a cost of 0. The cost sheet marks the material "Incomplete (part unvalued)" and the order stays provisional. The plan says a cost should not be frozen with an unvalued material unless someone accepts it with a reason, but **this check is not built**: a sheet can be frozen with it.
 
 **Why I'm asking:** The order's cost and its stock value would be too low, with no warning once frozen.
 
@@ -1946,7 +1946,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** When we pay casual day workers in cash by voucher for a production job, should their pay count as labour in the product's cost, or as an order expense?
 
-**What ParadiERP does today:** A "daily labour" expense voucher posts to the wages account. It can be linked to an order as an **expense** (an expense voucher). It then shows in the expense line of the cost sheet, with no hours, while payroll workers show in the labour line.
+**What ParadisERP does today:** A "daily labour" expense voucher posts to the wages account. It can be linked to an order as an **expense** (an expense voucher). It then shows in the expense line of the cost sheet, with no hours, while payroll workers show in the labour line.
 
 **Why I'm asking:** The total cost is the same, but the labour figures, hourly comparisons and the planned-versus-actual differences are wrong if day workers are counted as expenses.
 
@@ -1972,7 +1972,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** When we repair our own rental equipment, is the cost always an expense of the month (615), or must a large repair be added to the equipment's value?
 
-**What ParadiERP does today:** Any repair paid by expense voucher goes in full to 615, the day it is paid. Nothing can add a repair to an item's value.
+**What ParadisERP does today:** Any repair paid by expense voucher goes in full to 615, the day it is paid. Nothing can add a repair to an item's value.
 
 **Why I'm asking:** If our equipment becomes fixed assets (REN-12), a major overhaul that extends its life may have to be added to its value and depreciated, not expensed.
 
@@ -1996,7 +1996,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** When we take a spare part from our own stock to repair our equipment, which account should its cost go to?
 
-**What ParadiERP does today:** There is no document for it. The only way is a stock adjustment, which books the part's cost as a stock loss (657), the same as breakage or theft. The manufacturing sign-off sheet already notes "615 when used in a repair (maintenance, out of scope)".
+**What ParadisERP does today:** There is no document for it. The only way is a stock adjustment, which books the part's cost as a stock loss (657), the same as breakage or theft. The manufacturing sign-off sheet already notes "615 when used in a repair (maintenance, out of scope)".
 
 **Why I'm asking:** Repair costs then appear as "stock losses" instead of maintenance, so neither figure is right.
 
@@ -2021,7 +2021,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** If we build repair jobs, what should a job's cost include: spare parts, workers' time, outside work, and a share of workshop costs (electricity, tools, rent)?
 
-**What ParadiERP does today:** Not built.
+**What ParadisERP does today:** Not built.
 
 **Why I'm asking:** The answer decides what the system must record on each job and whether repair profit is real profit or only "parts and labour" margin.
 
@@ -2046,7 +2046,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** If workers' hours are recorded on repair jobs, at what hourly rate should they be costed, and should this move any amounts in the books or only serve the profit report?
 
-**What ParadiERP does today:** Not built for repairs. (Manufacturing already records hours on production orders without a rate; payroll books wages to 631 and employer social contributions to 635.)
+**What ParadisERP does today:** Not built for repairs. (Manufacturing already records hours on production orders without a rate; payroll books wages to 631 and employer social contributions to 635.)
 
 **Why I'm asking:** Wages are already booked by payroll. Booking them again on jobs would count them twice; leaving them out would make repairs look too profitable.
 
@@ -2071,7 +2071,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** If we repair equipment for outside customers (not linked to a hire), which income account should the repair go to, and should parts and labour be shown separately?
 
-**What ParadiERP does today:** Not built. Repairs charged to hire customers on a return note go to 707 (REN-11). Ordinary sales go to 700.
+**What ParadisERP does today:** Not built. Repairs charged to hire customers on a return note go to 707 (REN-11). Ordinary sales go to 700.
 
 **Why I'm asking:** We should use one account for repair income whatever the route, and know whether parts sold inside a repair are a sale of goods or part of the service.
 
@@ -2097,7 +2097,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** What TVA applies to a repair invoice (parts and labour), and when is it due — at the invoice, or when the customer pays, including when he pays an advance before the work?
 
-**What ParadiERP does today:** Not built.
+**What ParadisERP does today:** Not built.
 
 **Why I'm asking:** Our understanding (written as D45 / C-18) is that tax on services may fall due at payment, so an advance on a repair may carry tax when received. The repair module must follow the same rule as hire (REN-03).
 
@@ -2121,7 +2121,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** At a year end, must we value the parts and labour already spent on repair jobs that are not finished (work in progress), or can they stay as expenses until the job is invoiced?
 
-**What ParadiERP does today:** Not built.
+**What ParadisERP does today:** Not built.
 
 **Why I'm asking:** For outside customers, costs spent in December on a job invoiced in January may need to move to January so that cost and income are in the same year.
 
@@ -2145,7 +2145,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** If a customer's repair has to be redone for free, should the cost be added to the original job, booked as a separate expense, or covered by a provision set aside in advance?
 
-**What ParadiERP does today:** Not built.
+**What ParadisERP does today:** Not built.
 
 **Why I'm asking:** It decides whether the repair profit report shows the real result of each job.
 
@@ -2170,7 +2170,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** Do you need, for the books or for the tax office, the repair and maintenance cost per piece of equipment (for example per mixer or per lorry), or only per type of item?
 
-**What ParadiERP does today:** Not built. Rental stock is counted by product type (e.g. "frame 1.5 m"), not by serial number; expense vouchers can name a contract but not an item.
+**What ParadisERP does today:** Not built. Rental stock is counted by product type (e.g. "frame 1.5 m"), not by serial number; expense vouchers can name a contract but not an item.
 
 **Why I'm asking:** If equipment becomes fixed assets (REN-12), larger items may need their own record and history. This changes how the module is designed.
 
@@ -2199,7 +2199,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** Looking at our payslip and the way we pay wages, what must we still declare and pay to CNAS and the tax office (IRG), and how do you want those amounts to appear in our books each month?
 
-**What ParadiERP does today:** The payslip shows gross pay, the deductions we use, and the net paid; it does not calculate CNAS or IRG. The books record wages (631) and wages owed (421). Payments to CNAS or the tax office can be recorded on their own screen.
+**What ParadisERP does today:** The payslip shows gross pay, the deductions we use, and the net paid; it does not calculate CNAS or IRG. The books record wages (631) and wages owed (421). Payments to CNAS or the tax office can be recorded on their own screen.
 
 **Example:** A worker earns 45,000 DA gross and is paid 45,000 DA. If CNAS and IRG are due on that pay, how much, and which entries should we record (for example employer CNAS on 635/431, then the payment from the bank)?
 
@@ -2221,7 +2221,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** Because new payroll runs record no employer CNAS share, should the labour cost of what we manufacture (a) be only what payroll records, (b) carry an added "employer burden %" in management reports only, or (c) carry that burden in the stock value too — and if (b) or (c), what percentage?
 
-**What ParadiERP does today:** Manufacturing costing (Phase A) is built but posts nothing. It costs labour at what payroll records, so on months with no CNAS the employer share is missing; each such employee-month is marked "without employer social contribution (missing)" and the order's cost stays "provisional", never shown as final. No burden % is applied because none is approved. The Algeria preset's 30 % employer rate is a placeholder ("not the real split") and is not used on new runs. The preset defines no other employer levy.
+**What ParadisERP does today:** Manufacturing costing (Phase A) is built but posts nothing. It costs labour at what payroll records, so on months with no CNAS the employer share is missing; each such employee-month is marked "without employer social contribution (missing)" and the order's cost stays "provisional", never shown as final. No burden % is applied because none is approved. The Algeria preset's 30 % employer rate is a placeholder ("not the real split") and is not used on new runs. The preset defines no other employer levy.
 
 **Why I'm asking:** Labour cost per product is understated by the employer share, so selling prices based on it could be too low. Putting an amount in stock value that the books never record as an expense would make stock worth more than what was spent.
 
@@ -2246,7 +2246,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** When we deduct a fine (a penalty) or collect money for someone else from a worker's pay, which account should receive it?
 
-**What ParadiERP does today:** Two ways exist. (1) A company-wide "deduction" can be marked "reduces the wage cost" (it lowers 631) or "other". An "other" deduction is posted, as a deliberate visible placeholder, as a credit to 641 (employer taxes on wages), which lowers that expense line until you name the right account. (2) A one-off figure for one person in one month ("adjustment", e.g. a fine of −2,000 DA) is counted inside the gross pay, so it lowers 631. The owner's payslip includes "absences or penalties if any" (owner note on answers 37–48, 2026-10-01). We asked this before.
+**What ParadisERP does today:** Two ways exist. (1) A company-wide "deduction" can be marked "reduces the wage cost" (it lowers 631) or "other". An "other" deduction is posted, as a deliberate visible placeholder, as a credit to 641 (employer taxes on wages), which lowers that expense line until you name the right account. (2) A one-off figure for one person in one month ("adjustment", e.g. a fine of −2,000 DA) is counted inside the gross pay, so it lowers 631. The owner's payslip includes "absences or penalties if any" (owner note on answers 37–48, 2026-10-01). We asked this before.
 
 **Why I'm asking:** A fine kept by the company is not the same as lower wages, and money collected for a third party is a debt, not a saving. Today both end up reducing an expense line.
 
@@ -2271,7 +2271,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** Where should the system put (a) the part of a payslip that could not be collected because deductions were larger than the pay, and (b) an advance that will never be repaid (the worker left, or the owner forgives it)?
 
-**What ParadiERP does today:** (a) Net pay is never below zero. The amount that could not be taken is posted to 471 (suspense) so the month can still be approved, with a warning. (b) An advance stays "open" until a run takes it back; a "written off" state exists but there is no button for it, on purpose, until you name the expense account. When an advance is given to someone who has already left, the system warns that no run will recover it.
+**What ParadisERP does today:** (a) Net pay is never below zero. The amount that could not be taken is posted to 471 (suspense) so the month can still be approved, with a warning. (b) An advance stays "open" until a run takes it back; a "written off" state exists but there is no button for it, on purpose, until you name the expense account. When an advance is given to someone who has already left, the system warns that no run will recover it.
 
 **Why I'm asking:** Without an answer, 425 (advances to staff) keeps money that will never come back, and 471 fills with amounts nobody clears.
 
@@ -2296,7 +2296,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** Should a loan to an employee that is repaid over several months be kept in the same account as a small advance against this month's salary, and is it acceptable that the system takes back the whole open balance from the next pay?
 
-**What ParadiERP does today:** There is one kind of advance. It is posted Dr 425 / Cr cash or bank the day it is given, and the next run takes back as much of the whole open balance as the pay allows (owner answer 37: "advances are deducted in full"). Loans repaid by a fixed monthly instalment (owner answer 38, with postponement allowed by the manager, answer 59) are **not built**: there is no instalment amount and no "loan" type.
+**What ParadisERP does today:** There is one kind of advance. It is posted Dr 425 / Cr cash or bank the day it is given, and the next run takes back as much of the whole open balance as the pay allows (owner answer 37: "advances are deducted in full"). Loans repaid by a fixed monthly instalment (owner answer 38, with postponement allowed by the manager, answer 59) are **not built**: there is no instalment amount and no "loan" type.
 
 **Why I'm asking:** A 100,000 DA loan repaid over 10 months would be taken entirely from the next payslip today, leaving the worker with nothing. Long loans may also belong in a different account from a short advance.
 
@@ -2320,7 +2320,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** Are our overtime multipliers and the way the hourly rate is worked out acceptable?
 
-**What ParadiERP does today:** Overtime kinds and multipliers are settings. The owner chose: nail-workshop overtime ×1 (normal rate), loading goods ×2, night hours ×2, work on the weekly rest day or a public holiday ×2 the daily rate (owner notes 2026-10-10; answers 39 and 58). The hourly rate = monthly base ÷ working days per month ÷ 8 hours. The owner uses ÷30 for a day (answer 40); the Algeria preset ships 26 days. Which figure is set in production: Needs verification. Overtime is calculated on the base wage only, not on allowances.
+**What ParadisERP does today:** Overtime kinds and multipliers are settings. The owner chose: nail-workshop overtime ×1 (normal rate), loading goods ×2, night hours ×2, work on the weekly rest day or a public holiday ×2 the daily rate (owner notes 2026-10-10; answers 39 and 58). The hourly rate = monthly base ÷ working days per month ÷ 8 hours. The owner uses ÷30 for a day (answer 40); the Algeria preset ships 26 days. Which figure is set in production: Needs verification. Overtime is calculated on the base wage only, not on allowances.
 
 **Why I'm asking:** A ×1 rate is "no overtime premium". Whether that is allowed, and whether the hourly rate should come from the month divided by days, or by a number of legal monthly hours, is a labour-law and payslip question, not ours to decide.
 
@@ -2345,7 +2345,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** Is it right to deduct an absent day as one thirtieth of the gross pay, and to pay a monthly worker in full when nobody entered his attendance?
 
-**What ParadiERP does today:** An unpaid absent day = gross (base plus allowances) ÷ the working days per month setting, taken off the gross (owner answer 40: "absence day = gross ÷ 30"). A monthly employee with no attendance recorded is paid the full month, with a warning on the run. Days with no fingerprint are absences (owner answer 45).
+**What ParadisERP does today:** An unpaid absent day = gross (base plus allowances) ÷ the working days per month setting, taken off the gross (owner answer 40: "absence day = gross ÷ 30"). A monthly employee with no attendance recorded is paid the full month, with a warning on the run. Days with no fingerprint are absences (owner answer 45).
 
 **Why I'm asking:** The divisor changes every absence deduction, and paying in full by default can overpay when a sheet was simply forgotten.
 
@@ -2370,7 +2370,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** When March payroll is approved in May, or an approved March run is reversed in May and approved again, which dates should the entries carry?
 
-**What ParadiERP does today:** The approval entry is always dated the last day of the payroll month (a March run approved on 5 May is dated 31 March). There is no "closed period": the system will post into a month the accountant has already closed or declared. A reversal is dated the day it is made (5 May), while the corrected run is dated 31 March again.
+**What ParadisERP does today:** The approval entry is always dated the last day of the payroll month (a March run approved on 5 May is dated 31 March). There is no "closed period": the system will post into a month the accountant has already closed or declared. A reversal is dated the day it is made (5 May), while the corrected run is dated 31 March again.
 
 **Why I'm asking:** Posting into a closed month changes figures already reported. And reversing in May but re-posting in March counts March's wages twice in March and takes them off May.
 
@@ -2395,7 +2395,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** Is it acceptable that a paid payroll month is never reopened, and any error is corrected by an adjustment in the next month's payroll?
 
-**What ParadiERP does today:** An approved run can be reversed only if nothing has been paid against it (reverse the wage payments first). A paid run is final; the fix is a signed adjustment (bonus or deduction, with a reason) on the next run. A recompute after approval is impossible without reversal. Overtime entries in an approved or paid month cannot be edited (owner, 2026-10-10).
+**What ParadisERP does today:** An approved run can be reversed only if nothing has been paid against it (reverse the wage payments first). A paid run is final; the fix is a signed adjustment (bonus or deduction, with a reason) on the next run. A recompute after approval is impossible without reversal. Overtime entries in an approved or paid month cannot be edited (owner, 2026-10-10).
 
 **Why I'm asking:** The payslip of the month with the error stays wrong; the correction appears on the next payslip, and in the next month's books.
 
@@ -2419,7 +2419,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** What must the last payslip of an employee who leaves contain, and how should it be booked?
 
-**What ParadiERP does today:** Not built as a final settlement. The leaver stays in the run of the month he left (the employee list includes anyone employed on at least one day of the month). The base is **not** cut automatically by the leaving date: a monthly employee is paid the full month unless absences are entered for the days after he left (with no attendance at all, he is paid in full with a warning). There is no leave-pay compensation, no notice or end-of-contract payment, and an open advance is only taken back up to his last net pay.
+**What ParadisERP does today:** Not built as a final settlement. The leaver stays in the run of the month he left (the employee list includes anyone employed on at least one day of the month). The base is **not** cut automatically by the leaving date: a monthly employee is paid the full month unless absences are entered for the days after he left (with no attendance at all, he is paid in full with a warning). There is no leave-pay compensation, no notice or end-of-contract payment, and an open advance is only taken back up to his last net pay.
 
 **Why I'm asking:** We could overpay a leaver, or forget amounts he is owed (unused leave).
 
@@ -2443,7 +2443,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** How should paid annual leave be paid and accounted for?
 
-**What ParadiERP does today:** The attendance sheet has a "paid leave" day status; such days are paid like worked days (a monthly worker loses nothing). There is no leave balance: the owner's rule of 2.5 days per month worked, carried over (answer 48), is **not built**. There is no provision at year end for leave earned but not taken.
+**What ParadisERP does today:** The attendance sheet has a "paid leave" day status; such days are paid like worked days (a monthly worker loses nothing). There is no leave balance: the owner's rule of 2.5 days per month worked, carried over (answer 48), is **not built**. There is no provision at year end for leave earned but not taken.
 
 **Why I'm asking:** Leave earned but not taken is a debt to staff; and the leave pay itself may not simply be "the normal salary for those days".
 
@@ -2467,7 +2467,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** Is it acceptable to pay casual day labourers by a payment voucher, posted straight to 631 wages, with no payslip, no CNAS and no IRG?
 
-**What ParadiERP does today:** The owner said there are no daily workers in payroll; a day labourer is paid by a payment voucher under the category "daily labour" (owner answers 41/47, 2026-10-02). That category posts Dr 631 / Cr cash or bank. The worker is not an employee in the system and nothing is withheld or declared. The code marks this account as "the accountant confirms".
+**What ParadisERP does today:** The owner said there are no daily workers in payroll; a day labourer is paid by a payment voucher under the category "daily labour" (owner answers 41/47, 2026-10-02). That category posts Dr 631 / Cr cash or bank. The worker is not an employee in the system and nothing is withheld or declared. The code marks this account as "the accountant confirms".
 
 **Why I'm asking:** These are real wages in 631 with no social or tax treatment and no record per person beyond the payee name on the voucher.
 
@@ -2492,7 +2492,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** Is it acceptable that a worker moved to another branch during the month is charged in full to the branch that holds him when payroll is computed?
 
-**What ParadiERP does today:** One run per branch per month. A worker who changes branch is paid the whole month by the branch he belongs to when the run is computed; there is no split by days. Wages paid in cash from another branch's box are booked against the paying box's branch (see P0.2 in section 8 for the effect on company-wide reports).
+**What ParadisERP does today:** One run per branch per month. A worker who changes branch is paid the whole month by the branch he belongs to when the run is computed; there is no split by days. Wages paid in cash from another branch's box are booked against the paying box's branch (see P0.2 in section 8 for the effect on company-wide reports).
 
 **Why I'm asking:** Branch profit figures move with the date of the transfer, not the work done.
 
@@ -2522,7 +2522,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** We want to correct the company-wide (group) reports so that wages, advances and payments to the fund or tax office paid from another branch's cash box are included again, for past months too. Is that acceptable, and do you want the list of affected entries before it is done?
 
-**What ParadiERP does today:** When a wage payment, an advance or a statutory payment is paid from a box belonging to another branch, its entry is marked "inter-branch". Company-wide reports leave out every entry marked "inter-branch", which is right for a remittance (cash simply moving between our own boxes) but wrong here: the money really left the company. The fix was planned (Phase 0, item P0.2): stop marking these three kinds as inter-branch, and have group reports include past ones by their type, without editing any entry. **Not built yet** (the code still marks them). Owner decision P0-D2 "correct past group reports, with the list of affected entries sent to the accountant first" is pending your review.
+**What ParadisERP does today:** When a wage payment, an advance or a statutory payment is paid from a box belonging to another branch, its entry is marked "inter-branch". Company-wide reports leave out every entry marked "inter-branch", which is right for a remittance (cash simply moving between our own boxes) but wrong here: the money really left the company. The fix was planned (Phase 0, item P0.2): stop marking these three kinds as inter-branch, and have group reports include past ones by their type, without editing any entry. **Not built yet** (the code still marks them). Owner decision P0-D2 "correct past group reports, with the list of affected entries sent to the accountant first" is pending your review.
 
 **Why I'm asking:** Group figures for past periods will change; profit does not change, but cash, wages owed (421), advances (425) and the fund/tax liabilities (431/442/447) do.
 
@@ -2544,9 +2544,9 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 ### TRS-01 — Opening balances of cash and bank
 
-**Question:** How should we bring into the books the cash in each box and the money in each bank account on the day we started using ParadiERP?
+**Question:** How should we bring into the books the cash in each box and the money in each bank account on the day we started using ParadisERP?
 
-**What ParadiERP does today:** Not built. There is an opening-balance entry for stock (against 890) and for customer and supplier balances, but nothing for cash or bank. A box has an "opening" movement type that nothing writes. So 530 and 512 started at zero.
+**What ParadisERP does today:** Not built. There is an opening-balance entry for stock (against 890) and for customer and supplier balances, but nothing for cash or bank. A box has an "opening" movement type that nothing writes. So 530 and 512 started at zero.
 
 **Why I'm asking:** Every cash and bank figure in the balance sheet is off by the amounts held on day one.
 
@@ -2570,7 +2570,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** How should we record a branch's or the safe's cash being deposited at the bank, and cash withdrawn from the bank into a box?
 
-**What ParadiERP does today:** Not built. A remittance moves cash only between our own boxes. There is no document for box → bank or bank → box, and no manual entry.
+**What ParadisERP does today:** Not built. A remittance moves cash only between our own boxes. There is no document for box → bank or bank → box, and no manual entry.
 
 **Why I'm asking:** If takings are deposited at the bank, the box stays too high and the bank too low in the books, forever.
 
@@ -2594,7 +2594,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** Do you need a separate account for each bank account (and for a CCP postal account, if we have one), or is one bank account in the books enough?
 
-**What ParadiERP does today:** Everything that is not cash posts to one account, 512. There is no list of bank accounts; the system cannot say which bank received a card payment, a transfer or a cleared cheque, or which bank a supplier was paid from.
+**What ParadisERP does today:** Everything that is not cash posts to one account, 512. There is no list of bank accounts; the system cannot say which bank received a card payment, a transfer or a cleared cheque, or which bank a supplier was paid from.
 
 **Why I'm asking:** With more than one bank, 512 cannot be compared with any single bank statement.
 
@@ -2616,9 +2616,9 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 ### TRS-04 — Bank reconciliation, bank charges and interest
 
-**Question:** How do you want bank charges, bank interest and direct debits to reach the books, and do you need a monthly bank reconciliation in ParadiERP?
+**Question:** How do you want bank charges, bank interest and direct debits to reach the books, and do you need a monthly bank reconciliation in ParadisERP?
 
-**What ParadiERP does today:** Not built. There is no bank statement import, no reconciliation screen and no manual journal entry (the only correction is reversing an entry a document posted). So bank fees, account charges, interest and direct debits cannot be recorded at all.
+**What ParadisERP does today:** Not built. There is no bank statement import, no reconciliation screen and no manual journal entry (the only correction is reversing an entry a document posted). So bank fees, account charges, interest and direct debits cannot be recorded at all.
 
 **Why I'm asking:** Without them, 512 never matches the bank statement.
 
@@ -2645,7 +2645,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** Should a card payment be recorded at the bank on the day of the sale, and where should the card commission go?
 
-**What ParadiERP does today:** A card payment at the till is treated as confirmed at once and posts Dr 512 on the sale date. The commission the bank or the card network keeps is not recorded anywhere. A card payment typed in the back office (a receipt voucher) waits "pending" until someone confirms it, then posts Dr 512 / Cr 411.
+**What ParadisERP does today:** A card payment at the till is treated as confirmed at once and posts Dr 512 on the sale date. The commission the bank or the card network keeps is not recorded anywhere. A card payment typed in the back office (a receipt voucher) waits "pending" until someone confirms it, then posts Dr 512 / Cr 411.
 
 **Why I'm asking:** The money arrives later and net of commission, so 512 is higher than the bank statement until fees are recorded.
 
@@ -2671,7 +2671,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** When a customer hands us a cheque, should it be recorded as "cheques to collect" (413) straight away, or only when the bank has paid it?
 
-**What ParadiERP does today:** It depends where the cheque is taken. At the till: on the sale, Dr 413 (notes receivable); on confirmation, Dr 512 / Cr 413; if it bounces, Dr 411 / Cr 413 (the customer owes it again). On a back-office receipt voucher: nothing is posted until someone confirms it; then Dr 512 / Cr 411, dated the day the cheque was received, not the day it cleared. A second person must confirm a cheque (owner, 2026-10-11). A rental contract paid by cheque is not closed until the cheque is confirmed (owner answer 22).
+**What ParadisERP does today:** It depends where the cheque is taken. At the till: on the sale, Dr 413 (notes receivable); on confirmation, Dr 512 / Cr 413; if it bounces, Dr 411 / Cr 413 (the customer owes it again). On a back-office receipt voucher: nothing is posted until someone confirms it; then Dr 512 / Cr 411, dated the day the cheque was received, not the day it cleared. A second person must confirm a cheque (owner, 2026-10-11). A rental contract paid by cheque is not closed until the cheque is confirmed (owner answer 22).
 
 **Why I'm asking:** The two paths give different balances for 411 and 413 for the same kind of paper, and the bank is credited on the receipt date even when the cheque clears weeks later.
 
@@ -2696,7 +2696,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** How should we record a cheque that we had confirmed but the bank later returns unpaid, and the fees the bank charges for it?
 
-**What ParadiERP does today:** Not built. Once confirmed, a cheque cannot be marked bounced (only a pending one can). There is no way to record the bank's fee or to charge it to the customer.
+**What ParadisERP does today:** Not built. Once confirmed, a cheque cannot be marked bounced (only a pending one can). There is no way to record the bank's fee or to charge it to the customer.
 
 **Why I'm asking:** A late bounce leaves 512 too high and the customer's debt too low.
 
@@ -2720,7 +2720,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** When we pay a supplier or an expense by cheque, should the bank be reduced on the day we hand over the cheque or on the day the bank pays it?
 
-**What ParadiERP does today:** A payment voucher paid by any method other than cash posts Dr expense/supplier / Cr 512 on the day it is marked paid. The cheque number and bank are stored. There is no list of our cheques not yet cashed.
+**What ParadisERP does today:** A payment voucher paid by any method other than cash posts Dr expense/supplier / Cr 512 on the day it is marked paid. The cheque number and bank are stored. There is no list of our cheques not yet cashed.
 
 **Why I'm asking:** Cheques not yet cashed make 512 lower than the bank statement; without a list nobody can reconcile.
 
@@ -2744,7 +2744,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** May the books show a cash box with less than zero, and if the system sees a payment larger than the box balance, should it record it anyway?
 
-**What ParadiERP does today:** Cash payments (payment vouchers, wages, advances, fund payments) larger than the box balance are recorded with a warning, never refused (because a box is often refilled before anyone records it). A remittance larger than the box balance is refused (owner rule, 2026-10-08). So a box can go negative from payments, and then no remittance can leave it.
+**What ParadisERP does today:** Cash payments (payment vouchers, wages, advances, fund payments) larger than the box balance are recorded with a warning, never refused (because a box is often refilled before anyone records it). A remittance larger than the box balance is refused (owner rule, 2026-10-08). So a box can go negative from payments, and then no remittance can leave it.
 
 **Why I'm asking:** Physical cash cannot be negative; a negative box means a missing record (an unrecorded refill or receipt).
 
@@ -2769,7 +2769,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** When a payment voucher was paid by mistake (wrong amount, wrong supplier, or the money came back), how should it be corrected?
 
-**What ParadiERP does today:** A pending or approved voucher can be cancelled with a reason. A **paid** voucher cannot be cancelled ("the money has left the box and the entry is in the books"), and there is no "reverse" for it. Payroll vouchers (advance, wages, fund) are cancelled automatically only when their payroll document is reversed, and that puts the cash back. The generic "reverse an entry" action in accounting reverses the ledger lines only: it does not put the cash back in the box, does not reopen the voucher and does not restore the supplier's or customer's balance, so books and box would disagree. (How a cancelled voucher affects manufacturing costing is AD-4, Agent F.)
+**What ParadisERP does today:** A pending or approved voucher can be cancelled with a reason. A **paid** voucher cannot be cancelled ("the money has left the box and the entry is in the books"), and there is no "reverse" for it. Payroll vouchers (advance, wages, fund) are cancelled automatically only when their payroll document is reversed, and that puts the cash back. The generic "reverse an entry" action in accounting reverses the ledger lines only: it does not put the cash back in the box, does not reopen the voucher and does not restore the supplier's or customer's balance, so books and box would disagree. (How a cancelled voucher affects manufacturing costing is AD-4, Agent F.)
 
 **Why I'm asking:** Mistakes happen; today the only fix leaves the cash box, the voucher list and the ledger out of step.
 
@@ -2793,7 +2793,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** Should cash collected from a branch be shown as "in transit" until it reaches the central safe, or is it enough to move it from box to box in one step?
 
-**What ParadiERP does today:** A remittance moves the cash in one step: out of the branch box and into the safe at the same moment, dated the moment it is recorded, with the collector's name. There is no "in transit" state and no confirmation by the safe.
+**What ParadisERP does today:** A remittance moves the cash in one step: out of the branch box and into the safe at the same moment, dated the moment it is recorded, with the collector's name. There is no "in transit" state and no confirmation by the safe.
 
 **Why I'm asking:** If the manager collects on Monday and reaches the safe on Wednesday, the safe shows money it does not yet hold.
 
@@ -2817,7 +2817,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** Do you need a separate petty-cash box (for small expenses) beside each branch's till cash?
 
-**What ParadiERP does today:** Not built as a separate box. Each branch has exactly one box (created automatically), and the main branch's box is the central safe. Small expenses are paid by payment voucher from that box (any amount needs a manager's approval — owner answer 25).
+**What ParadisERP does today:** Not built as a separate box. Each branch has exactly one box (created automatically), and the main branch's box is the central safe. Small expenses are paid by payment voucher from that box (any amount needs a manager's approval — owner answer 25).
 
 **Why I'm asking:** Mixing takings and expense cash in one box makes daily counts harder.
 
@@ -2843,7 +2843,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** Is one company ledger, with the branch recorded on every line, enough, or must any branch keep its own separate books or file its own declarations?
 
-**What ParadiERP does today:** One ledger for the company. Every entry and every line carries a branch, so reports can be run for the group or for one branch. Movements between branches (cash remittances, stock transfers) are marked and dropped from the group figures. A branch can have its own fiscal identifiers, printed on its papers instead of the company's.
+**What ParadisERP does today:** One ledger for the company. Every entry and every line carries a branch, so reports can be run for the group or for one branch. Movements between branches (cash remittances, stock transfers) are marked and dropped from the group figures. A branch can have its own fiscal identifiers, printed on its papers instead of the company's.
 
 **Why I'm asking:** If a branch is registered separately for tax (its own tax office or article number), it may need its own declarations or its own figures; the system would then have to produce them per branch.
 
@@ -2868,7 +2868,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** Is it acceptable that the inter-branch current account (181) is computed on a single branch's balance sheet instead of being posted with each movement between branches?
 
-**What ParadiERP does today:** No entry posts to 181. A transfer or a remittance moves the same account (310 or 530) from one branch to the other in one entry. A single branch's balance sheet would not balance on its own, so the system adds the missing amount as a computed 181 line. On the group balance sheet it is zero.
+**What ParadisERP does today:** No entry posts to 181. A transfer or a remittance moves the same account (310 or 530) from one branch to the other in one entry. A single branch's balance sheet would not balance on its own, so the system adds the missing amount as a computed 181 line. On the group balance sheet it is zero.
 
 **Why I'm asking:** If you need to read or reconcile 181 movement by movement (for example per pair of branches), a computed figure is not enough.
 
@@ -2892,7 +2892,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** We propose: goods move between the company's own locations at cost (the average once C-01 is switched), with no sale, no tax and no invoice, because both ends belong to one company with one tax number; transport paid for a transfer is the receiving branch's expense (624), balanced through 181. Do you agree, or should transport be added to the goods' value?
 
-**What ParadiERP does today:** A transfer is a numbered document (TRF-000001). Dispatch takes the quantity off the sending location and posts nothing; the goods stay in the sender's 310 while in transit. Each receipt posts 310 at the receiving branch against 310 at the sending branch, at the product's cost frozen at dispatch (today the last purchase price), marked inter-branch so group figures drop it. No sale, no tax, no invoice. Transport for a transfer is not built: an expense voucher "transport" posts 624 against the cash box of the branch that paid, with no link to the transfer and no move to the receiving branch. Note: each branch may carry its own fiscal identifiers (BRN-01).
+**What ParadisERP does today:** A transfer is a numbered document (TRF-000001). Dispatch takes the quantity off the sending location and posts nothing; the goods stay in the sender's 310 while in transit. Each receipt posts 310 at the receiving branch against 310 at the sending branch, at the product's cost frozen at dispatch (today the last purchase price), marked inter-branch so group figures drop it. No sale, no tax, no invoice. Transport for a transfer is not built: an expense voucher "transport" posts 624 against the cash box of the branch that paid, with no link to the transfer and no move to the receiving branch. Note: each branch may carry its own fiscal identifiers (BRN-01).
 
 **Why I'm asking:** We must be sure an internal movement is not a taxable delivery, and we must know where transfer transport belongs.
 
@@ -2917,7 +2917,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** Is it acceptable that goods dispatched but not yet received at month end stay in the sending branch's stock value?
 
-**What ParadiERP does today:** Dispatch posts nothing. Until the goods are received, declared lost or the transfer is cancelled, their value stays in 310 at the sending branch; the stock report shows them "in transit" at the sending branch, not as available anywhere.
+**What ParadisERP does today:** Dispatch posts nothing. Until the goods are received, declared lost or the transfer is cancelled, their value stays in 310 at the sending branch; the stock report shows them "in transit" at the sending branch, not as available anywhere.
 
 **Why I'm asking:** At month end each branch's stock value includes or excludes these goods; the group total is right either way.
 
@@ -2941,7 +2941,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** Is it right that goods lost between two branches are a loss (657) of the sending branch, and how should we record money recovered from the driver, the carrier or an insurer?
 
-**What ParadiERP does today:** The sending branch (or a user allowed to write off) declares a loss with a reason, or the receiving branch reports a shortfall and the sending branch confirms it. Both post 657 against 310 at the sending branch, at the cost frozen at dispatch, and are not marked inter-branch (a real loss for the company). A rejected shortfall goes back to "in transit". Recovering the loss from someone is not built.
+**What ParadisERP does today:** The sending branch (or a user allowed to write off) declares a loss with a reason, or the receiving branch reports a shortfall and the sending branch confirms it. Both post 657 against 310 at the sending branch, at the cost frozen at dispatch, and are not marked inter-branch (a real loss for the company). A rejected shortfall goes back to "in transit". Recovering the loss from someone is not built.
 
 **Why I'm asking:** If a driver or carrier is responsible, the amount is a claim, not only a loss; and losses may need a paper to be accepted for tax.
 
@@ -2966,7 +2966,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** Should a shortfall reported by the receiving branch, and not answered by the sending branch, be written off automatically after some time or at month end?
 
-**What ParadiERP does today:** A reported shortfall stays "in transit" at the sending branch, waiting for confirmation or rejection, with no time limit.
+**What ParadisERP does today:** A reported shortfall stays "in transit" at the sending branch, waiting for confirmation or rejection, with no time limit.
 
 **Why I'm asking:** Goods nobody can find stay in stock value for months.
 
@@ -2990,7 +2990,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** Is it acceptable that a purchase is recorded at the branch that received the goods, while the payment is recorded at the branch whose cash box paid?
 
-**What ParadiERP does today:** The receiving note raises 401 at the receiving branch (a warehouse has no cash box). A supplier payment voucher lowers 401 at the branch that paid. The company's total for each supplier is right; per branch, the difference appears in the computed 181 (BRN-02).
+**What ParadisERP does today:** The receiving note raises 401 at the receiving branch (a warehouse has no cash box). A supplier payment voucher lowers 401 at the branch that paid. The company's total for each supplier is right; per branch, the difference appears in the computed 181 (BRN-02).
 
 **Why I'm asking:** Branch reports then show a branch owing a supplier it never paid, and another branch paying a supplier it never bought from.
 
@@ -3014,7 +3014,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** For branch profit reports, should the warehouse's costs (wages, rent, transport) be shared out over the selling branches, and how?
 
-**What ParadiERP does today:** A warehouse holds and moves stock and never sells (no till, no cashier, no cash box). Transfers move goods at cost with no mark-up, so the warehouse shows costs and no income, and branches show margins that carry none of the warehouse's costs. Sharing out costs is not built.
+**What ParadisERP does today:** A warehouse holds and moves stock and never sells (no till, no cashier, no cash box). Transfers move goods at cost with no mark-up, so the warehouse shows costs and no income, and branches show margins that carry none of the warehouse's costs. Sharing out costs is not built.
 
 **Why I'm asking:** Branch profits look better than they are, and the warehouse looks like a loss-maker.
 
@@ -3040,7 +3040,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Status:** Owner Workflow Confirmed — Compliance Pending (legal eligibility to confirm).
 
-**Owner's decision (31 Oct 2026):** ParadiERP already records both taxed and untaxed sales; the choice is made on each sale.
+**Owner's decision (31 Oct 2026):** ParadisERP already records both taxed and untaxed sales; the choice is made on each sale.
 
 **Question:** In which cases may we legally record a sale without VAT (which customers, which goods, which situations), and what proof must we keep for each one?
 
@@ -3067,7 +3067,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** When a customer bought without VAT at the till and comes back days later asking for an invoice with VAT, may we issue it, and in which month does that VAT belong?
 
-**What ParadiERP does today:** An invoice is always raised from an existing sale or rental note. It copies the sale's choice: an untaxed sale can only produce an untaxed invoice. The invoice itself never posts to the books; the sale already did. So there is no way today to turn an untaxed sale into a taxed one.
+**What ParadisERP does today:** An invoice is always raised from an existing sale or rental note. It copies the sale's choice: an untaxed sale can only produce an untaxed invoice. The invoice itself never posts to the books; the sale already did. So there is no way today to turn an untaxed sale into a taxed one.
 
 **Why I'm asking:** Contractors often need a VAT invoice to recover the tax. If the rule is "the sale decides", the cashier's tick at the counter is final. If a later taxed invoice is allowed, the system has to add the VAT to 4457 and to what the customer owes.
 
@@ -3092,7 +3092,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** Please confirm the tax set-up: prices stored before tax, VAT added on top, and the rates 19 % (standard), 9 % (reduced) and 0 % (exempt). Which of our products or services are at 9 % or exempt?
 
-**What ParadiERP does today:** The Algeria preset stores prices before tax, offers 19 %, 9 % and 0 %, and defaults new products to 19 %. Each product carries one rate. The rates are a company setting, not fixed in code. Whether the live company still has exactly these settings: Needs verification.
+**What ParadisERP does today:** The Algeria preset stores prices before tax, offers 19 %, 9 % and 0 %, and defaults new products to 19 %. Each product carries one rate. The rates are a company setting, not fixed in code. Whether the live company still has exactly these settings: Needs verification.
 
 **Why I'm asking:** A wrong rate on a product is wrong on every sale of it. Until 2026-09-25 the system treated prices as tax-included by mistake, so we want the accountant to confirm the setting as it is now.
 
@@ -3117,7 +3117,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** Is it correct to calculate VAT once on the total of each rate (and round to the centime), rather than on each line?
 
-**What ParadiERP does today:** On the till, invoices, credit notes and rental notes, VAT is worked out on the total of each rate, rounded to two decimals (half up), then shared back over the lines so the lines still add up. The books keep three decimals.
+**What ParadisERP does today:** On the till, invoices, credit notes and rental notes, VAT is worked out on the total of each rate, rounded to two decimals (half up), then shared back over the lines so the lines still add up. The books keep three decimals.
 
 **Why I'm asking:** Line-by-line rounding and total rounding can differ by a few centimes. The tax office and the customer must see the same figure.
 
@@ -3143,11 +3143,11 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Status:** Pending Accountant (purchase VAT recording).
 
-**Owner's note (31 Oct 2026):** When tax is switched on, ParadiERP calculates it on the total. This question is only about the VAT we pay to suppliers.
+**Owner's note (31 Oct 2026):** When tax is switched on, ParadisERP calculates it on the total. This question is only about the VAT we pay to suppliers.
 
 **Question:** Which VAT on our purchases and expenses can we deduct (goods, fuel, repairs, transport …), which account should it go to, and what details from the supplier's invoice must we record to deduct it?
 
-**What ParadiERP does today:** Goods received are recorded at their before-tax value, and expense vouchers at the full amount paid. The VAT on purchases is not recorded separately yet; we will add it from your answer.
+**What ParadisERP does today:** Goods received are recorded at their before-tax value, and expense vouchers at the full amount paid. The VAT on purchases is not recorded separately yet; we will add it from your answer.
 
 **Example:** Supplier invoice: goods 200,000 DA + VAT 38,000 DA = 238,000 DA. We would record stock 200,000 DA, deductible VAT 38,000 DA, supplier owed 238,000 DA.
 
@@ -3169,7 +3169,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Status:** Internal Technical Verification (we will check our reports against your answer).
 
-**Owner's note (31 Oct 2026):** ParadiERP has a full reporting system. We want to be sure it covers every figure the G50 needs.
+**Owner's note (31 Oct 2026):** ParadisERP has a full reporting system. We want to be sure it covers every figure the G50 needs.
 
 **Question:** Which lines of the monthly G50 do we fill, and from which figures? A copy of a recent G50 you prepared for us (or a blank one) would be enough.
 
@@ -3193,7 +3193,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** The owner says each branch has its own trade register and tax number. Does each branch file its own VAT declaration, or does the company file one?
 
-**What ParadiERP does today:** Every entry carries its branch, so VAT can be shown per branch or for the company. Each branch's own identifiers print on its papers (owner, 2026-10-20). No declaration exists yet (TAX-06).
+**What ParadisERP does today:** Every entry carries its branch, so VAT can be shown per branch or for the company. Each branch's own identifiers print on its papers (owner, 2026-10-20). No declaration exists yet (TAX-06).
 
 **Why I'm asking:** It decides how the VAT report is grouped and whose tax number appears on it.
 
@@ -3217,7 +3217,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** Must invoice numbers be continuous per year, per branch, or is one continuous number for the whole company acceptable?
 
-**What ParadiERP does today:** Invoices are numbered INV-000001, INV-000002 … for the whole company, all branches together, never restarting. Credit notes (CRN-), receipts (RCV-) and payment vouchers (PV-) work the same way. Till receipts have their own number per till.
+**What ParadisERP does today:** Invoices are numbered INV-000001, INV-000002 … for the whole company, all branches together, never restarting. Credit notes (CRN-), receipts (RCV-) and payment vouchers (PV-) work the same way. Till receipts have their own number per till.
 
 **Why I'm asking:** If each branch has its own tax number, the tax office may expect each branch's invoices to run without gaps. Changing numbering later is harder once papers are out.
 
@@ -3244,7 +3244,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Status:** Internal Technical Verification (we will check the setting and its posting).
 
-**Owner's note (31 Oct 2026):** Stamp duty is set up in ParadiERP. We want to check that it matches the rule.
+**Owner's note (31 Oct 2026):** Stamp duty is set up in ParadisERP. We want to check that it matches the rule.
 
 **Question:** Please confirm the stamp-duty rule for our cash payments: which documents, the rate, any minimum and maximum, and the account it goes to.
 
@@ -3266,7 +3266,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** Which tax regime is the company under, and which other taxes (on turnover or on profit) should the system prepare figures or accounts for?
 
-**What ParadiERP does today:** Not built. There is nothing for a tax on turnover (TAP), the company profit tax (IBS), the flat-rate tax (IFU) or their accounts. Payroll taxes are handled by payroll (see the payroll section — payroll taxes).
+**What ParadisERP does today:** Not built. There is nothing for a tax on turnover (TAP), the company profit tax (IBS), the flat-rate tax (IFU) or their accounts. Payroll taxes are handled by payroll (see the payroll section — payroll taxes).
 
 **Why I'm asking:** We understand TAP may have changed in recent finance laws, but we do not want to guess. If a turnover tax applies, the monthly report should show its base.
 
@@ -3302,7 +3302,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 2. When a hire customer pays only part of the amount, is VAT due on the part paid, or on the whole invoice?
 3. Should advances sit in their own account (419, customer advances) until the invoice, or stay on the customer's account (411)?
 
-**What ParadiERP does today:** Sales: VAT is recorded with the sale or invoice; advances carry no VAT and stay on the customer's account (411). Hire: VAT is recorded for the whole period when the equipment goes out. Moving hire VAT to payment or invoice, as the owner wants, will be a change on our side once you confirm the rule.
+**What ParadisERP does today:** Sales: VAT is recorded with the sale or invoice; advances carry no VAT and stay on the customer's account (411). Hire: VAT is recorded for the whole period when the equipment goes out. Moving hire VAT to payment or invoice, as the owner wants, will be a change on our side once you confirm the rule.
 
 **Example:** A contractor pays 500,000 DA on 20 October for a hire starting 5 November, invoiced on 5 November, and pays the rest in December. Which month carries the VAT: October (79,832 DA = 500,000 × 19/119), November, or December for the second payment?
 
@@ -3327,7 +3327,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** Which details are required on a taxed invoice, for the seller and for a business buyer?
 
-**What ParadiERP does today:** Each paper prints the issuing branch's name, address, phone and NIF, NIS, RC and AI (falling back to the main branch, then the company). The invoice prints the buyer's name, address and tax number as they were when it was issued, the lines, VAT per rate, totals, payment mode and the amount in words. None of the fiscal identifiers is marked "required"; an invoice can be issued to a business customer with no NIF.
+**What ParadisERP does today:** Each paper prints the issuing branch's name, address, phone and NIF, NIS, RC and AI (falling back to the main branch, then the company). The invoice prints the buyer's name, address and tax number as they were when it was issued, the lines, VAT per rate, totals, payment mode and the amount in words. None of the fiscal identifiers is marked "required"; an invoice can be issued to a business customer with no NIF.
 
 **Why I'm asking:** A taxed invoice missing a required detail may be refused by the buyer's tax office, and the buyer cannot recover the VAT.
 
@@ -3351,7 +3351,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** Is there any electronic invoicing or electronic reporting to the tax office that applies, or will soon apply, to the company?
 
-**What ParadiERP does today:** Not built. An integration point for e-invoicing exists for the platform operator, but no Algerian format is implemented.
+**What ParadisERP does today:** Not built. An integration point for e-invoicing exists for the platform operator, but no Algerian format is implemented.
 
 **Why I'm asking:** If it is coming, numbering and invoice data should be ready for it.
 
@@ -3375,7 +3375,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** Once you have answered the stock, manufacturing and tax questions, do the chosen valuation method, the accounts, the presentation of charges by nature, the stock variation, the tax on advances (D45) and the year-end count meet the SCF and the tax rules as you apply them?
 
-**What ParadiERP does today:** Nothing is asserted. This is the closing check of the manufacturing costing sign-off; nothing new posts until every row is signed.
+**What ParadisERP does today:** Nothing is asserted. This is the closing check of the manufacturing costing sign-off; nothing new posts until every row is signed.
 
 **Why I'm asking:** We do not make regulatory conclusions ourselves; we need your confirmation that the whole set fits together.
 
@@ -3401,7 +3401,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** Which accounts must we add for things the business does that have no account today?
 
-**What ParadiERP does today:** The chart has no capital or reserves (class 10/11), no result account (12), no loans (16), no fixed assets or depreciation (class 2 / 28), no deductible VAT (4456), no VAT payable (445x), no bank charges (627), no taxes and duties (64), no financial income or charges (66/76). The admin can add accounts, but nothing posts to an added account (see GL-03).
+**What ParadisERP does today:** The chart has no capital or reserves (class 10/11), no result account (12), no loans (16), no fixed assets or depreciation (class 2 / 28), no deductible VAT (4456), no VAT payable (445x), no bank charges (627), no taxes and duties (64), no financial income or charges (66/76). The admin can add accounts, but nothing posts to an added account (see GL-03).
 
 **Why I'm asking:** A balance sheet without capital, fixed assets or loans is not the company's real balance sheet.
 
@@ -3410,7 +3410,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 **Possible answers:**
 - A. Add these accounts (list) and a way to post to them (GL-03).
 
-**Our suggestion:** ParadiERP keeps the official books (GL-01, owner's decision), so these accounts will be needed. Please list them with their numbers, starting with deductible VAT (TAX-05). **(To be confirmed by the accountant.)**
+**Our suggestion:** ParadisERP keeps the official books (GL-01, owner's decision), so these accounts will be needed. Please list them with their numbers, starting with deductible VAT (TAX-05). **(To be confirmed by the accountant.)**
 
 **Priority:** Important
 
@@ -3424,7 +3424,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** How should we record things that are not a sale, a rental, a receipt or a voucher: bank charges, tax payments, capital, loans, depreciation, year-end adjustments, corrections?
 
-**What ParadiERP does today:** There is no way to type a journal entry. This was a design choice: every entry must come from a document so every figure can be traced. The only correction is reversing a whole existing entry.
+**What ParadisERP does today:** There is no way to type a journal entry. This was a design choice: every entry must come from a document so every figure can be traced. The only correction is reversing a whole existing entry.
 
 **Why I'm asking:** An accountant always needs a few hand entries (opening the year, depreciation, accruals, reclassifying a mistake). Without them, the books cannot be finished in the system.
 
@@ -3449,9 +3449,9 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** Do you need separate journals (sales, purchases, cash, bank, miscellaneous) and a continuous number on every entry?
 
-**What ParadiERP does today:** There is one journal. Each entry carries the kind of document that caused it (sale, receipt, voucher, payroll …) and the screen can filter by it, but there are no journal codes and no running entry number; entries are identified by an internal code and their document's number.
+**What ParadisERP does today:** There is one journal. Each entry carries the kind of document that caused it (sale, receipt, voucher, payroll …) and the screen can filter by it, but there are no journal codes and no running entry number; entries are identified by an internal code and their document's number.
 
-**Why I'm asking:** The legal books are normally a numbered chronological journal. ParadiERP keeps the official books (GL-01, owner's decision), so we expect this is required.
+**Why I'm asking:** The legal books are normally a numbered chronological journal. ParadisERP keeps the official books (GL-01, owner's decision), so we expect this is required.
 
 **Example:** Your software expects "VT" for sales, "AC" for purchases, "CA" for cash, "BQ" for bank, "OD" for miscellaneous.
 
@@ -3474,7 +3474,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** Should the trial balance show opening balance, movements and closing balance for each account?
 
-**What ParadiERP does today:** The trial balance adds up the debits and credits of the chosen period only. A balance sheet account such as cash or customers shows only what moved in the month, not what it holds. The balance sheet and the account statement do show full balances.
+**What ParadisERP does today:** The trial balance adds up the debits and credits of the chosen period only. A balance sheet account such as cash or customers shows only what moved in the month, not what it holds. The balance sheet and the account statement do show full balances.
 
 **Why I'm asking:** A trial balance used to check the books normally shows the balances.
 
@@ -3498,17 +3498,17 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** Do you need the balance sheet and profit and loss in the official SCF layout, or are simple lists by account enough?
 
-**What ParadiERP does today:** Both reports are lists by account (assets, liabilities, equity; income, expenses), per branch or for the group. The balance sheet adds "result" as income minus expenses since the very first entry, because there is no year-end closing (CLO-08). There is no cash-flow statement and no notes.
+**What ParadisERP does today:** Both reports are lists by account (assets, liabilities, equity; income, expenses), per branch or for the group. The balance sheet adds "result" as income minus expenses since the very first entry, because there is no year-end closing (CLO-08). There is no cash-flow statement and no notes.
 
 **Why I'm asking:** For the yearly filing the statements must be in the official layout. If you prepare them in your own software, simple lists are enough.
 
 **Example:** —
 
 **Possible answers:**
-- A. Official SCF layout from ParadiERP.
+- A. Official SCF layout from ParadisERP.
 - B. Simple lists; I prepare the official statements.
 
-**Our suggestion:** A in time, since ParadiERP keeps the official books (GL-01, owner's decision); B until it is built. **(To be confirmed by the accountant.)**
+**Our suggestion:** A in time, since ParadisERP keeps the official books (GL-01, owner's decision); B until it is built. **(To be confirmed by the accountant.)**
 
 **Priority:** Later
 
@@ -3522,7 +3522,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** When something lands in suspense (471), who investigates it and how should it be cleared?
 
-**What ParadiERP does today:** The system sends to 471 anything it cannot place without blocking a sale: an unpaid amount on a sale with no customer, a cash rounding larger than the rounding step, a rental issued to a contract with no customer, and the part of a payslip's deductions that exceeds the pay (net held at zero). There is no document to move an amount out of 471 (no hand entries, GL-03).
+**What ParadisERP does today:** The system sends to 471 anything it cannot place without blocking a sale: an unpaid amount on a sale with no customer, a cash rounding larger than the rounding step, a rental issued to a contract with no customer, and the part of a payslip's deductions that exceeds the pay (net held at zero). There is no document to move an amount out of 471 (no hand entries, GL-03).
 
 **Why I'm asking:** 471 should be empty at month end. Today it can only grow.
 
@@ -3548,7 +3548,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** What should the opening entry contain, and which account should balance it?
 
-**What ParadiERP does today:** Stock, customer balances and supplier balances at go-live are posted against 890 (opening balance). There is no way to enter the opening cash in boxes, bank balances, fixed assets, capital, loans, VAT owed or payroll owed. The stock opening is dated the day it was keyed.
+**What ParadisERP does today:** Stock, customer balances and supplier balances at go-live are posted against 890 (opening balance). There is no way to enter the opening cash in boxes, bank balances, fixed assets, capital, loans, VAT owed or payroll owed. The stock opening is dated the day it was keyed.
 
 **Why I'm asking:** Without the full opening position, the balance sheet will not match the last accounts you prepared, and 890 holds a mixed figure.
 
@@ -3572,7 +3572,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** Is it acceptable that each branch has its own profit and loss and balance sheet, with money and goods moved between branches shown through account 181 only on a single branch's sheet?
 
-**What ParadiERP does today:** Every line carries a branch. For the whole company, moves between branches (cash remittances, stock transfers) cancel out. For one branch, the difference is shown as 181 (calculated, never posted).
+**What ParadisERP does today:** Every line carries a branch. For the whole company, moves between branches (cash remittances, stock transfers) cancel out. For one branch, the difference is shown as 181 (calculated, never posted).
 
 **Why I'm asking:** It decides how branch results are read and whether 181 should be a real posted account.
 
@@ -3600,7 +3600,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Owner's decision (31 Oct 2026):** A month is closed after it has been reviewed. Nothing can then be posted with a date in a closed month. A mistake found later is fixed by a controlled correction that keeps a full record of who changed what and why.
 
-**What ParadiERP does now (1 Nov 2026):** the Admin closes the books through the end of a month that has ended; from then on nothing dated in that month or before can be posted, and the document is refused with a message. To correct a closed month the Admin reopens it, with a reason, corrects, and closes it again; every close and reopen is kept with who, when and why. A sale from a till that was offline is never refused: it keeps its date, and its accounting entry is dated the first open day (owner, 1 Nov 2026 — please confirm under SAL-14). How a correction to a closed month should be dated is question COR-E01.
+**What ParadisERP does now (1 Nov 2026):** the Admin closes the books through the end of a month that has ended; from then on nothing dated in that month or before can be posted, and the document is refused with a message. To correct a closed month the Admin reopens it, with a reason, corrects, and closes it again; every close and reopen is kept with who, when and why. A sale from a till that was offline is never refused: it keeps its date, and its accounting entry is dated the first open day (owner, 1 Nov 2026 — please confirm under SAL-14). How a correction to a closed month should be dated is question COR-E01.
 
 **Example:** You declare October's VAT on 15 November and October is closed. On 20 November someone tries to record a credit note dated 25 October: the system refuses the date, and the correction goes through the controlled route instead.
 
@@ -3618,7 +3618,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** How far back may a user date a receipt, credit note, wage payment, advance or opening balance?
 
-**What ParadiERP does today:** These documents accept any date the user types and post on it, with no limit: receipts, hand-made credit notes, invoices (which post nothing themselves), wage payments, advances, customer and supplier opening balances.
+**What ParadisERP does today:** These documents accept any date the user types and post on it, with no limit: receipts, hand-made credit notes, invoices (which post nothing themselves), wage payments, advances, customer and supplier opening balances.
 
 **Why I'm asking:** A back-dated document can change a month already reviewed, and a typing mistake (2025 instead of 2026) moves money into the wrong year.
 
@@ -3645,7 +3645,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** When a document is entered a few days after it happened, which date should its accounting entry carry?
 
-**What ParadiERP does today:** It depends on the document. Sales, receipts, credit notes and payroll use the document's date. Rental issue and return notes, receiving notes, stock adjustments and stock transfers use the moment they are keyed, even when the rental note itself carries an earlier date; a payment voucher uses the moment it is marked paid.
+**What ParadisERP does today:** It depends on the document. Sales, receipts, credit notes and payroll use the document's date. Rental issue and return notes, receiving notes, stock adjustments and stock transfers use the moment they are keyed, even when the rental note itself carries an earlier date; a payment voucher uses the moment it is marked paid.
 
 **Why I'm asking:** At a month end this moves revenue and VAT into the wrong month.
 
@@ -3670,7 +3670,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** Please confirm that a month runs from 00:00 on the 1st to 24:00 on the last day, Algeria time, for every report and declaration.
 
-**What ParadiERP does today:** Entries are stored in universal time. The accounting screen builds the month from the computer's own clock and time zone, not the company's; the server, when no dates are sent, uses universal time. Algeria is one hour ahead of universal time.
+**What ParadisERP does today:** Entries are stored in universal time. The accounting screen builds the month from the computer's own clock and time zone, not the company's; the server, when no dates are sent, uses universal time. Algeria is one hour ahead of universal time.
 
 **Why I'm asking:** A sale at 00:30 on 1 November in Algeria is 23:30 on 31 October in universal time. On a computer set to another time zone, it can fall into October's report.
 
@@ -3696,7 +3696,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** What should happen at the end of each day at each till: a closing report, a cash count, a signature?
 
-**What ParadiERP does today:** There is no day close. The "Z-report" is a back-office summary for any date range (sales, refunds, tax by rate, rounding, gift cards). Nothing locks the day, and there is no screen to record a counted cash difference in a box (the system can record one, but no screen uses it).
+**What ParadisERP does today:** There is no day close. The "Z-report" is a back-office summary for any date range (sales, refunds, tax by rate, rounding, gift cards). Nothing locks the day, and there is no screen to record a counted cash difference in a box (the system can record one, but no screen uses it).
 
 **Why I'm asking:** A daily count is where cash shortages are found. Without it, a missing 5,000 DA is noticed only at month end, if at all.
 
@@ -3721,7 +3721,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** What must be done and checked every month before you consider the month closed?
 
-**What ParadiERP does today:** Not built as a checklist. Possible checks the system could show: 471 suspense is zero, cheques past due, payroll for the month approved, cash boxes counted, every till synced, 4457 matches the VAT report, customer and supplier balances match the ledger.
+**What ParadisERP does today:** Not built as a checklist. Possible checks the system could show: 471 suspense is zero, cheques past due, payroll for the month approved, cash boxes counted, every till synced, 4457 matches the VAT report, customer and supplier balances match the ledger.
 
 **Why I'm asking:** A short, fixed list lets the owner see when a month is ready for you.
 
@@ -3745,7 +3745,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** What is the company's fiscal year, and how should the year's result be closed and carried into the next year?
 
-**What ParadiERP does today:** Not built. There is no fiscal year, no closing entry and no retained-earnings account. The balance sheet calculates "result" as all income minus all expenses since the very first entry, so in the second year it shows two years' results as one figure. Reports are limited to 400 days per request.
+**What ParadisERP does today:** Not built. There is no fiscal year, no closing entry and no retained-earnings account. The balance sheet calculates "result" as all income minus all expenses since the very first entry, so in the second year it shows two years' results as one figure. Reports are limited to 400 days per request.
 
 **Why I'm asking:** From 1 January 2027 the 2026 result must stop being "this year's result" and become last year's (to reserves, retained earnings or dividends as decided).
 
@@ -3771,7 +3771,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** When a customer returns goods, should they go back into stock at the cost recorded when they were sold, or at today's cost?
 
-**What ParadiERP does today:** A refund puts the goods back (Dr **310** stock / Cr **600** cost of goods sold) at the product's **current** cost price, which is the last purchase price on the day the refund reaches the server. The cost recorded at the sale is not stored per sale line, so it cannot be used. This is item P0.4c on the sign-off tab ("refunds reverse the cost the sale posted"); it needs the cost stored on each sale line (P0.4a).
+**What ParadisERP does today:** A refund puts the goods back (Dr **310** stock / Cr **600** cost of goods sold) at the product's **current** cost price, which is the last purchase price on the day the refund reaches the server. The cost recorded at the sale is not stored per sale line, so it cannot be used. This is item P0.4c on the sign-off tab ("refunds reverse the cost the sale posted"); it needs the cost stored on each sale line (P0.4a).
 
 **Why I'm asking:** If prices moved between the sale and the return, the return creates or removes stock value that never existed.
 
@@ -3796,7 +3796,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** When goods sold in one month come back in a later month, should the return reduce this month's sales, tax and cost, or should we correct the original month?
 
-**What ParadiERP does today:** The refund is its own document dated the day of the return. It reduces sales (700), tax collected (4457) and cost (600) in the month of the return; the original month is not touched. A refund at the till must name the original sale, cannot exceed what is left of it, and must be made at the same branch. In practice the till can only refund sales it holds itself (the last 500 sales recorded on that computer), and there is no back-office refund screen.
+**What ParadisERP does today:** The refund is its own document dated the day of the return. It reduces sales (700), tax collected (4457) and cost (600) in the month of the return; the original month is not touched. A refund at the till must name the original sale, cannot exceed what is left of it, and must be made at the same branch. In practice the till can only refund sales it holds itself (the last 500 sales recorded on that computer), and there is no back-office refund screen.
 
 **Why I'm asking:** The tax effect of a return made in a later month must follow your rule (see TAX — returns and credit notes), and the till limit means some returns cannot be entered at all.
 
@@ -3820,7 +3820,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** If a customer returns goods at a branch other than the one that sold them, which branch's sales and stock should change?
 
-**What ParadiERP does today:** The till refuses it ("a sale is refunded at the branch that made it; another branch goes through the back office"), but the back office has no refund screen, so such a return cannot be recorded with its stock movement today.
+**What ParadisERP does today:** The till refuses it ("a sale is refunded at the branch that made it; another branch goes through the back office"), but the back office has no refund screen, so such a return cannot be recorded with its stock movement today.
 
 **Why I'm asking:** Customers do this; without a rule, staff will give money back from the drawer with no record.
 
@@ -3845,7 +3845,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** Should a refund always go back by the same means the customer used to pay (cash for cash, debt reduction for a sale on account, card for card)?
 
-**What ParadiERP does today:** The cashier picks the refund method. The server checks only that the amount refunded "to the account" is not more than what was put on the account, and that all refunds together do not exceed the sale. It does **not** stop a cash refund for a sale that was put on account or paid by a cheque not yet cleared.
+**What ParadisERP does today:** The cashier picks the refund method. The server checks only that the amount refunded "to the account" is not more than what was put on the account, and that all refunds together do not exceed the sale. It does **not** stop a cash refund for a sale that was put on account or paid by a cheque not yet cleared.
 
 **Why I'm asking:** A cash refund of a sale on account takes cash out of the drawer while the customer still owes the money; a cash refund of an unpaid cheque pays out money that never arrived.
 
@@ -3870,7 +3870,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** When only part of a ticket is returned, is it right to give back the returned lines' share of the discount and not the cash rounding?
 
-**What ParadiERP does today:** A refund line gives back its share of the line's price, discount and tax in proportion to the quantity returned. A whole-ticket discount was already spread over the lines, so it is given back pro rata too. The cash rounding of the original sale is not given back. The server accepts several partial refunds of one sale; the till screen allows only **one** refund per sale.
+**What ParadisERP does today:** A refund line gives back its share of the line's price, discount and tax in proportion to the quantity returned. A whole-ticket discount was already spread over the lines, so it is given back pro rata too. The cash rounding of the original sale is not given back. The server accepts several partial refunds of one sale; the till screen allows only **one** refund per sale.
 
 **Why I'm asking:** We want the refund paper and the books to agree with what the customer actually paid.
 
@@ -3896,7 +3896,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** For tax purposes, is the till's refund receipt enough to reduce our sales tax, or must we issue a credit note (avoir) for every refund?
 
-**What ParadiERP does today:** By the owner's decision of 2026-10-10 (rules 1–4), a credit note is created automatically only when the refunded sale had already been invoiced; it posts nothing (the refund already did). A refund of a sale that was never invoiced reduces sales and tax with only the refund receipt as paper. The automatic credit note is made after the sale is saved, in a separate step; if it fails, only a log line records it.
+**What ParadisERP does today:** By the owner's decision of 2026-10-10 (rules 1–4), a credit note is created automatically only when the refunded sale had already been invoiced; it posts nothing (the refund already did). A refund of a sale that was never invoiced reduces sales and tax with only the refund receipt as paper. The automatic credit note is made after the sale is saved, in a separate step; if it fails, only a log line records it.
 
 **Why I'm asking:** If the tax office requires a credit note for the tax reduction, our uninvoiced refunds reduce tax without the right paper.
 
@@ -3920,7 +3920,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** Should a credit note made by hand be used only for price corrections and billing mistakes, with returned goods always going through a refund that puts them back in stock?
 
-**What ParadiERP does today:** A hand-made credit note against an invoice posts Dr 700 (or the line's income account) and Dr 4457 / Cr 411. It works by quantity (part of a line's quantity), not by amount. It does **not** put goods back in stock and does **not** reverse the cost. If the same sale is later refunded at the till, the refund posts again, so the income and tax are given back twice (the till refund does not check credit notes).
+**What ParadisERP does today:** A hand-made credit note against an invoice posts Dr 700 (or the line's income account) and Dr 4457 / Cr 411. It works by quantity (part of a line's quantity), not by amount. It does **not** put goods back in stock and does **not** reverse the cost. If the same sale is later refunded at the till, the refund posts again, so the income and tax are given back twice (the till refund does not check credit notes).
 
 **Why I'm asking:** Staff may use a credit note for a return; stock and cost would then be wrong, and a later till refund would double it.
 
@@ -3944,7 +3944,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** When returned goods cannot be sold again, how should they be recorded?
 
-**What ParadiERP does today:** Every refund puts the full quantity back into the branch's sellable stock. There is no choice at the return to send it to scrap or to a loss. Moving it afterwards is possible through stock states (to scrap 318 or written off to 657).
+**What ParadisERP does today:** Every refund puts the full quantity back into the branch's sellable stock. There is no choice at the return to send it to scrap or to a loss. Moving it afterwards is possible through stock states (to scrap 318 or written off to 657).
 
 **Why I'm asking:** Sellable stock and its value are overstated until someone remembers to move the item.
 
@@ -3968,7 +3968,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** When a cashier makes a mistake (wrong price, wrong customer), is "refund and sell again" an acceptable correction, or do you need a cancellation that keeps the same number?
 
-**What ParadiERP does today:** A completed sale can never be edited, deleted or voided. The only correction is a refund (a new numbered document) followed by a new sale. A refund must go to the same customer as the sale, so moving a sale to another customer is also refund-and-resell.
+**What ParadisERP does today:** A completed sale can never be edited, deleted or voided. The only correction is a refund (a new numbered document) followed by a new sale. A refund must go to the same customer as the sale, so moving a sale to another customer is also refund-and-resell.
 
 **Why I'm asking:** Both documents stay in the books and in the daily report; we want to know this trail is acceptable.
 
@@ -3992,7 +3992,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** When we find a mistake in a month that is closed and declared, should the correction go into the current month, or should the old month be reopened and changed?
 
-**What ParadiERP does today:** No month is ever closed (CLO-01). When something is put right, the system adds a new entry dated today and leaves the old one as it was. Two such corrections have already been made this way: the cash short by the change given (cash and suspense, one entry per branch) and the daily rental pricing correction (rent, VAT and customer balances of past contracts), both dated the day they ran.
+**What ParadisERP does today:** No month is ever closed (CLO-01). When something is put right, the system adds a new entry dated today and leaves the old one as it was. Two such corrections have already been made this way: the cash short by the change given (cash and suspense, one entry per branch) and the daily rental pricing correction (rent, VAT and customer balances of past contracts), both dated the day they ran.
 
 **Why I'm asking:** Correcting in the current month keeps declared months unchanged, but the VAT of the old month may need its own correction on the declaration.
 
@@ -4017,7 +4017,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** Should anyone be able to reverse a single journal entry directly, or only by cancelling or correcting the document behind it?
 
-**What ParadiERP does today:** A user with the "accounting manage" permission can reverse any entry through the server, with a reason; there is no screen for it yet. The reversal is dated today and is a mirror image. It does not touch the document: a reversed sale stays a sale, a reversed receipt stays confirmed, the customer's balance and the stock do not move. Once reversed, the same document can never be posted again.
+**What ParadisERP does today:** A user with the "accounting manage" permission can reverse any entry through the server, with a reason; there is no screen for it yet. The reversal is dated today and is a mirror image. It does not touch the document: a reversed sale stays a sale, a reversed receipt stays confirmed, the customer's balance and the stock do not move. Once reversed, the same document can never be posted again.
 
 **Why I'm asking:** After such a reversal the books and the customer's balance disagree, and there is no way to post the corrected version.
 
@@ -4041,7 +4041,7 @@ due (it is not given back). Your answer only confirms or changes the setting and
 
 **Question:** When a correction changes the VAT of a month already declared, how do you want to see it so you can report it?
 
-**What ParadiERP does today:** A correction simply adds to or takes from 4457 on its own date (see COR-E01). There is no list of "VAT corrections relating to earlier months". The daily rental pricing correction changed the VAT on past rentals in this way.
+**What ParadisERP does today:** A correction simply adds to or takes from 4457 on its own date (see COR-E01). There is no list of "VAT corrections relating to earlier months". The daily rental pricing correction changed the VAT on past rentals in this way.
 
 **Why I'm asking:** You need to know which part of a month's VAT relates to earlier months.
 
@@ -4075,7 +4075,7 @@ Aliases: D9 = C-01, D43 = C-02 / C-16, D33 = C-04, D11 = C-06, D13 = C-10, D47 =
 | (c) Phase C shadow journal | Simulated manufacturing entries in a separate journal, never the real ledger, reviewed with you for at least one month. Also needs the average-cost shadow (P0.4a/b) built. | Everything in (b), plus C-02 / D43, **C-03** (which model), **C-04 / D33** (account codes; our own team's, not the accountant's), C-13 / AD-10 / AD-11, C-14 / D47, C-15, C-16 / D43 — that is, every row C-01 to C-17 — plus MFG-02 and MFG-05. |
 | (d) Phase D live posting | Manufacturing entries post to the real ledger from a cut-off date, plus one approved catch-up entry. production stock operations and manufacturing postings are switched on together. | Every row signed: everything in (c) plus **C-18** (Algerian rules overall) and **D45** (customer advances and the tax on them), and P0.2, P0.3, P0.4c and the service-income account (700 / 706). Also: the average-cost switch done (D9 / D43), one month of (c) reviewed with you, and the catch-up figure approved. |
 
-## Appendix — What ParadiERP records in the books today
+## Appendix — What ParadisERP records in the books today
 
 For reference while answering. "Now" means the entry is dated the moment it is typed, not the date on the document.
 

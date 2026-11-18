@@ -18,7 +18,7 @@ It reads B1's frozen sheets and late costs, and (optionally) today's live inputs
 
 ## 1. What B1 actually stores (audit)
 
-### 1.1 Entities (`ParadiERP.Domain/ManufacturingCostSnapshotEntities.cs`)
+### 1.1 Entities (`ParadisERP.Domain/ManufacturingCostSnapshotEntities.cs`)
 
 | Table | Key / unique | What it holds | Precision |
 |---|---|---|---|

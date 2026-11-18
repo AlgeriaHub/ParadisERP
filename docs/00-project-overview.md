@@ -1,6 +1,6 @@
-# ParadiERP project overview
+# ParadisERP project overview
 
-ParadiERP is an online point-of-sale web application that remains usable when a shop loses
+ParadisERP is an online point-of-sale web application that remains usable when a shop loses
 internet access. The Angular PWA stores the catalog and sales locally in IndexedDB. Sales are
 completed against local data, placed in an outbox, and synchronized with the ASP.NET Core API
 when connectivity returns.

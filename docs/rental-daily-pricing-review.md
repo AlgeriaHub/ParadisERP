@@ -8,8 +8,8 @@ preserves the tested local checkpoint requested by the owner.
 
 ## Incorrect calculation and full-period field
 
-`ParadiERP.Application/Rentals/RentalPricing.cs` and its frontend counterpart
-`ParadiERP.WebUI/src/app/core/rentals.ts` treated `RentUnitPrice` as a monthly unit price.
+`ParadisERP.Application/Rentals/RentalPricing.cs` and its frontend counterpart
+`ParadisERP.WebUI/src/app/core/rentals.ts` treated `RentUnitPrice` as a monthly unit price.
 They calculated **quantity × days × (entered rate / 30)**. Quantity was already included;
 the incorrect monthly conversion was the cause of the reported daily-rate discrepancy.
 
@@ -27,16 +27,16 @@ is the sum of these line totals, before tax, deposits, compensation, and overdue
 
 | File / path | Change and consistency guarantee |
 | --- | --- |
-| `ParadiERP.Application/Rentals/RentalPricing.cs` | Shared server amount function uses the daily rate directly. |
-| `ParadiERP.Infrastructure/Rentals/RentalDocuments.cs` | Adds authoritative contracted-line total; invoice description says `/jour`. Issue creation, issue re-reads, invoice source lines, and extension-as-new issues already call the same shared pricing function. |
-| `ParadiERP.API/Endpoints/RentalEndpoints.cs` | Create, edit, and read responses return calculated line totals and their sum. |
-| `ParadiERP.Application/Contracts/Dtos.cs` | Adds response-only `RentalTotal` to line and contract DTOs. Client-supplied total/full-period fields cannot replace it. |
-| `ParadiERP.WebUI/src/app/core/rentals.ts` | Mirrors daily pricing for editor, issue preview, settlement/returns, early-return relief, and overdue previews. |
+| `ParadisERP.Application/Rentals/RentalPricing.cs` | Shared server amount function uses the daily rate directly. |
+| `ParadisERP.Infrastructure/Rentals/RentalDocuments.cs` | Adds authoritative contracted-line total; invoice description says `/jour`. Issue creation, issue re-reads, invoice source lines, and extension-as-new issues already call the same shared pricing function. |
+| `ParadisERP.API/Endpoints/RentalEndpoints.cs` | Create, edit, and read responses return calculated line totals and their sum. |
+| `ParadisERP.Application/Contracts/Dtos.cs` | Adds response-only `RentalTotal` to line and contract DTOs. Client-supplied total/full-period fields cannot replace it. |
+| `ParadisERP.WebUI/src/app/core/rentals.ts` | Mirrors daily pricing for editor, issue preview, settlement/returns, early-return relief, and overdue previews. |
 | `.../rentals/rentals-api.service.ts` | Types the authoritative response totals. |
 | `.../rentals/rental-contract.component.ts` | Displays server line totals and the server contract total. |
 | `.../print/print-rental-contract.component.ts` | Uses server totals; fallback for older DTO fixtures uses the same daily helper. Prints the daily formula. |
 | `.../core/i18n/translations-backoffice.ts` | Exact Arabic/French/English daily-price labels; daily hints, pricing-setting examples, line-total labels, and print rule. |
-| `ParadiERP.Application/Rentals/RentalTerms.cs`, `RentalSettlement.cs`, `ParadiERP.Domain/RentalEntities.cs`, `Entities.cs` | Price-unit documentation now states daily rates. |
+| `ParadisERP.Application/Rentals/RentalTerms.cs`, `RentalSettlement.cs`, `ParadisERP.Domain/RentalEntities.cs`, `Entities.cs` | Price-unit documentation now states daily rates. |
 | `.../receivables/receivables-api.service.ts` | Invoice description documentation now uses daily units. |
 
 The existing settlement engine already calls the shared server pricing function for rent,

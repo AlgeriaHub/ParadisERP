@@ -17,7 +17,7 @@ work exactly as before and appear read-only in the portal ("From server configur
   valid country profile) and swaps it in atomically. A request always sees one consistent set.
 * **Storage.** Portal companies live in the platform database, table `ProvisionedCompanies`
   (ID, hostnames, provider, admin username, country preset, state, revision). The connection
-  string is encrypted with ASP.NET Data Protection (purpose `ParadiERP.Companies`).
+  string is encrypted with ASP.NET Data Protection (purpose `ParadisERP.Companies`).
 * **Startup.** After migrating the platform database, the API loads portal companies into
   the registry, then migrates and seeds every non-archived company. If a connection string
   cannot be decrypted, startup stops with a message pointing at `DataProtection:KeysPath`.

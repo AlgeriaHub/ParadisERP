@@ -217,7 +217,7 @@ French and English name fields.
 
 | Concern | Location |
 |---|---|
-| Profile model, validation, presets | `ParadiERP.Application/Regional/` |
+| Profile model, validation, presets | `ParadisERP.Application/Regional/` |
 | Per-company resolution (override → config → preset) | `TenantOptions.ConfiguredRegional`, `TenantContext.Regional` |
 | Operator storage and audit | `PlatformStore.ReadRegionalAsync/UpdateRegionalAsync`, table `RegionalOverrides` |
 | Operator API | `GET /api/platform/regional-presets`, `PUT /api/platform/companies/{id}/regional`, `GET/PUT/DELETE /api/platform/language-packs[/{code}]` |

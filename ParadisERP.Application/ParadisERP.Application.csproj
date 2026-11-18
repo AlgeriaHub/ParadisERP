@@ -1,0 +1,5 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\ParadisERP.Domain\ParadisERP.Domain.csproj" />
+  </ItemGroup>
+</Project>

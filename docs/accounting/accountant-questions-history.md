@@ -1,4 +1,4 @@
-# ParadiERP — Accountant Questions: Original Wording
+# ParadisERP — Accountant Questions: Original Wording
 
 *Internal record, not for the accountant. Kept so that no question is lost.*
 
@@ -18,7 +18,7 @@ On 31 Oct 2026 the owner decided, closed or narrowed the questions below. `accou
 | TAX-06 | General reporting question closed; narrowed to the G50 lines |
 | TAX-09 | Feature question closed; narrowed to confirming the rule |
 | D45 | Owner workflow recorded; merged with REN-03 on legal timing |
-| GL-01 | Closed by the owner: ParadiERP is the official books. Removed from the questionnaire |
+| GL-01 | Closed by the owner: ParadisERP is the official books. Removed from the questionnaire |
 | D33 | Closed for the accountant: the chart is reviewed internally. Removed from the questionnaire |
 | CLO-01 | Approved by the owner; now an information note |
 | C-04 | Numbering made internal by the owner on 1 Nov 2026; answered by the SCF review (`scf-chart-review.md`). Removed from the questionnaire |
@@ -30,7 +30,7 @@ On 31 Oct 2026 the owner decided, closed or narrowed the questions below. `accou
 
 **Question:** When a product is sold, the system records its cost (Dr 600 cost of goods sold / Cr 310 stock). If nobody has entered a cost for the product, what should happen?
 
-**What ParadiERP does today:** When the sale reaches the server, it posts Dr **600** / Cr **310** at the product's current cost price (the last purchase price, overwritten at each goods receipt). If the cost price is zero, **no cost is posted at all**, but the quantity still leaves stock. Services (no stock tracking) post no cost on purpose. For a sale made offline, the cost used is the one on file **when the sale arrives at the server**, not when it was made. The costing method itself (last price versus average) is a separate question (see STOCK — C-01 / D9).
+**What ParadisERP does today:** When the sale reaches the server, it posts Dr **600** / Cr **310** at the product's current cost price (the last purchase price, overwritten at each goods receipt). If the cost price is zero, **no cost is posted at all**, but the quantity still leaves stock. Services (no stock tracking) post no cost on purpose. For a sale made offline, the cost used is the one on file **when the sale arrives at the server**, not when it was made. The costing method itself (last price versus average) is a separate question (see STOCK — C-01 / D9).
 
 **Why I'm asking:** A product sold with no cost shows 100% margin, and the stock account (310) keeps a value for goods that are gone. Offline sales can also pick up a newer purchase price than the one in force on the sale day.
 
@@ -57,7 +57,7 @@ On 31 Oct 2026 the owner decided, closed or narrowed the questions below. `accou
 
 **Question:** When we sell a gift card, how should the money received and the promise to the card holder be recorded, and what happens to an unused balance when the card expires?
 
-**What ParadiERP does today:** A gift card is issued in the back office with an amount, but **no money is recorded and no entry is posted**. When the card is spent at the till, the sale goes to 700 and Dr **4181** "Gift card liability". So 4181 grows as a debit balance, and the cash paid for the card never reaches the books. A refund put onto a card credits 4181. Expiry posts nothing.
+**What ParadisERP does today:** A gift card is issued in the back office with an amount, but **no money is recorded and no entry is posted**. When the card is spent at the till, the sale goes to 700 and Dr **4181** "Gift card liability". So 4181 grows as a debit balance, and the cash paid for the card never reaches the books. A refund put onto a card credits 4181. Expiry posts nothing.
 
 **Why I'm asking:** Cash received for cards is missing from the books, and the liability for unspent cards is not shown.
 
@@ -83,7 +83,7 @@ On 31 Oct 2026 the owner decided, closed or narrowed the questions below. `accou
 
 **Question:** Must our equipment hire (scaffolding, formwork, etc.) carry TVA, and at what rate?
 
-**What ParadiERP does today:** Hire has its own tax rate setting, separate from the sales rate. It is **0 % by default** ("hire not taxed"). Whatever rate is set is copied onto each contract line when the contract is signed and is then used for everything that line charges: rent, late days, repairs and lost/wrecked items. The rate the live company has actually set: Needs verification.
+**What ParadisERP does today:** Hire has its own tax rate setting, separate from the sales rate. It is **0 % by default** ("hire not taxed"). Whatever rate is set is copied onto each contract line when the contract is signed and is then used for everything that line charges: rent, late days, repairs and lost/wrecked items. The rate the live company has actually set: Needs verification.
 
 **Why I'm asking:** If hire is taxable and the setting is still 0 %, every rental invoice since the start is missing its TVA, and the tax we owe is understated.
 
@@ -110,7 +110,7 @@ On 31 Oct 2026 the owner decided, closed or narrowed the questions below. `accou
 
 **Question:** Is it acceptable to book the whole agreed rental period as income on the day the goods leave, or must income be spread over the days (or months) the goods are actually out?
 
-**What ParadiERP does today:** The full agreed period is booked as income (706) on the issue note's day (owner decision, 2026-09-23). If the customer returns early, the unused days are taken back off income on the return day. Nothing splits a contract's income across months or across the year end.
+**What ParadisERP does today:** The full agreed period is booked as income (706) on the issue note's day (owner decision, 2026-09-23). If the customer returns early, the unused days are taken back off income on the return day. Nothing splits a contract's income across months or across the year end.
 
 **Why I'm asking:** A contract that starts in December and runs into February puts all three months of income into the old year. That makes the year's profit (and possibly its tax) too high, and the next year's too low.
 
@@ -137,7 +137,7 @@ On 31 Oct 2026 the owner decided, closed or narrowed the questions below. `accou
 
 **Question:** If hire carries TVA, on which date does that TVA become owed to the tax office: the day the goods leave, the day of the invoice, or the day the customer pays?
 
-**What ParadiERP does today:** The TVA is booked to account 4457 (tax collected) at the same moment as the rent, on the issue note, for the whole period, whether or not an invoice is ever printed and whether or not the customer has paid. When the rate is 0 % (the default) nothing is booked.
+**What ParadisERP does today:** The TVA is booked to account 4457 (tax collected) at the same moment as the rent, on the issue note, for the whole period, whether or not an invoice is ever printed and whether or not the customer has paid. When the rate is 0 % (the default) nothing is booked.
 
 **Why I'm asking:** Hire is a service. Our understanding is that tax on services may fall due at payment rather than at delivery (this is how question D45 / C-18 is phrased for advances). If so, the tax account shows TVA as owed too early, and the monthly declaration would not match it.
 
@@ -164,7 +164,7 @@ On 31 Oct 2026 the owner decided, closed or narrowed the questions below. `accou
 
 **Question:** Should the scaffolding and other equipment we hire out be in stock (as merchandise) or be fixed assets (equipment) with yearly depreciation?
 
-**What ParadiERP does today:** Rental items are ordinary products in merchandise stock (**310**), valued at catalogue cost price. Being out on hire or in repair changes only the quantity columns, not the value. There is **no depreciation** (our design notes: "value falls because items are removed, not because a periodic calculation reduces it"). The owner's decision 8 (2026-09-20) was "current assets, but held as a setting"; that setting is **not built**. The same stock can be sold at the till and hired out (owner, 2026-10-06: one stock). Fixed assets and depreciation: Not built.
+**What ParadisERP does today:** Rental items are ordinary products in merchandise stock (**310**), valued at catalogue cost price. Being out on hire or in repair changes only the quantity columns, not the value. There is **no depreciation** (our design notes: "value falls because items are removed, not because a periodic calculation reduces it"). The owner's decision 8 (2026-09-20) was "current assets, but held as a setting"; that setting is **not built**. The same stock can be sold at the till and hired out (owner, 2026-10-06: one stock). Fixed assets and depreciation: Not built.
 
 **Why I'm asking:** This changes the balance sheet (stock vs equipment), the yearly profit (depreciation expense) and possibly the tax result. It also decides REN-09, REN-10 and MNT-01.
 
@@ -187,9 +187,9 @@ On 31 Oct 2026 the owner decided, closed or narrowed the questions below. `accou
 
 ### PAY-01 — CNAS and IRG are "handled outside the system": how do they reach the books?
 
-**Question:** Since the payroll in ParadiERP no longer calculates CNAS (employee and employer share) or IRG, how should the social security and income tax on our wages be recorded in our accounts, and is a payslip without them acceptable as our official payslip?
+**Question:** Since the payroll in ParadisERP no longer calculates CNAS (employee and employer share) or IRG, how should the social security and income tax on our wages be recorded in our accounts, and is a payslip without them acceptable as our official payslip?
 
-**What ParadiERP does today:** The owner decided on 2026-10-10 that CNAS and IRG are not on the payslip, for any worker, and are handled outside the system. Since 2026-10-21 every new or reopened run has CNAS and IRG switched off. The run still posts 631 and 421, but 635, 431 and 442 stay at zero. The payslip prints no CNAS or IRG line. The switch is fixed in the program, not a setting: turning CNAS/IRG back on needs a developer. There is a "statutory payment" screen that records paying the fund or the tax office (Dr 431 or 442 / Cr bank), and it accepts a payment even when nothing is owed on that account (it only warns), so 431 or 442 would then show a debit balance (as if the fund owed us).
+**What ParadisERP does today:** The owner decided on 2026-10-10 that CNAS and IRG are not on the payslip, for any worker, and are handled outside the system. Since 2026-10-21 every new or reopened run has CNAS and IRG switched off. The run still posts 631 and 421, but 635, 431 and 442 stay at zero. The payslip prints no CNAS or IRG line. The switch is fixed in the program, not a setting: turning CNAS/IRG back on needs a developer. There is a "statutory payment" screen that records paying the fund or the tax office (Dr 431 or 442 / Cr bank), and it accepts a payment even when nothing is owed on that account (it only warns), so 431 or 442 would then show a debit balance (as if the fund owed us).
 
 **Why I'm asking:** If CNAS and IRG are paid but never accrued, the books show no employer social cost (635), no debt to the fund (431) and no tax withheld (442), and the bank payment has nowhere sensible to land. Earlier the owner said workers are declared and the cost is split between company and worker (owner answers 29 and 56, 2026-10-01/02); the later decision reversed that for the payslip only.
 
@@ -198,7 +198,7 @@ On 31 Oct 2026 the owner decided, closed or narrowed the questions below. `accou
 **Possible answers:**
 - A. Turn CNAS and IRG back on in the payroll with the real rates and scale (the accountant enters them), so the payslip, 631/635/431/442 and the payments all match.
 - B. Keep them out of the payslip, but each month record one entry per branch for the CNAS employer share and the amounts paid (e.g. Dr 635 / Cr 431, then Dr 431 / Cr 512) from your own payroll file. (This needs a way to enter that entry; today the system has no manual journal entry.)
-- C. The accountant keeps CNAS/IRG fully in a separate payroll tool, and ParadiERP is only used to pay net wages; the accountant adjusts the books at closing.
+- C. The accountant keeps CNAS/IRG fully in a separate payroll tool, and ParadisERP is only used to pay net wages; the accountant adjusts the books at closing.
 
 **Our suggestion:** A, if the workers are declared: it is the only option where the payslip, the books and the fund's declarations agree. If the owner keeps his decision, B with a monthly accountant-prepared entry. **(To be confirmed by the accountant.)**
 
@@ -214,7 +214,7 @@ On 31 Oct 2026 the owner decided, closed or narrowed the questions below. `accou
 
 **Question:** Is the company allowed to record a counter sale without VAT when the customer does not ask for an invoice, and if so, who should be allowed to choose that?
 
-**What ParadiERP does today:** Every till sale starts as "without tax". The cashier ticks a box to add VAT. Any cashier can tick or untick it; there is no permission behind it. An untaxed sale puts nothing on account 4457 (VAT collected). In the back office, by contrast, an invoice without tax needs a special permission that only the Admin holds. The owner chose "untaxed by default" on 2026-09-25 because prices are stored before tax and most counter sales go out without a tax line.
+**What ParadisERP does today:** Every till sale starts as "without tax". The cashier ticks a box to add VAT. Any cashier can tick or untick it; there is no permission behind it. An untaxed sale puts nothing on account 4457 (VAT collected). In the back office, by contrast, an invoice without tax needs a special permission that only the Admin holds. The owner chose "untaxed by default" on 2026-09-25 because prices are stored before tax and most counter sales go out without a tax line.
 
 **Why I'm asking:** Our understanding is that a company registered for VAT owes VAT on what it sells whether or not the customer wants a paper. If that is right, every untaxed till sale under-declares VAT. If it is wrong, we still need to know who may decide it.
 
@@ -241,7 +241,7 @@ On 31 Oct 2026 the owner decided, closed or narrowed the questions below. `accou
 
 **Question:** How should the system record the VAT on what we buy (goods from suppliers, fuel, repairs, transport), so we can deduct it?
 
-**What ParadiERP does today:** Not built. A receiving note records goods at their purchase price only, with no VAT, and puts that same amount on the supplier's account (401). A payment voucher for an expense (fuel, transport, repair, small purchases) puts the whole amount, VAT included, on the expense account. There is no "VAT deductible" account (4456) in the chart. When we then pay the supplier the full invoice including VAT, the supplier's account goes into the wrong direction by the VAT amount.
+**What ParadisERP does today:** Not built. A receiving note records goods at their purchase price only, with no VAT, and puts that same amount on the supplier's account (401). A payment voucher for an expense (fuel, transport, repair, small purchases) puts the whole amount, VAT included, on the expense account. There is no "VAT deductible" account (4456) in the chart. When we then pay the supplier the full invoice including VAT, the supplier's account goes into the wrong direction by the VAT amount.
 
 **Why I'm asking:** Without it, deductible VAT is lost from the books, expenses are overstated, and supplier balances never match their statements. (For manufacturing order expenses, see also C-07, owned by the manufacturing review.)
 
@@ -266,7 +266,7 @@ On 31 Oct 2026 the owner decided, closed or narrowed the questions below. `accou
 
 **Question:** What report do you need from the system to prepare the monthly declaration (G50), and should it be per branch or for the whole company?
 
-**What ParadiERP does today:** Not built as a declaration. The nearest things are: the sales summary ("Z-report"), which shows till sales by tax rate but leaves out invoices, rentals and credit notes and puts untaxed sales in the same 0 % line as exempt goods; and the account statement of 4457 (VAT collected), which includes everything that posted. There is no figure for deductible VAT (see TAX-05).
+**What ParadisERP does today:** Not built as a declaration. The nearest things are: the sales summary ("Z-report"), which shows till sales by tax rate but leaves out invoices, rentals and credit notes and puts untaxed sales in the same 0 % line as exempt goods; and the account statement of 4457 (VAT collected), which includes everything that posted. There is no figure for deductible VAT (see TAX-05).
 
 **Why I'm asking:** The declaration must be right when it is filed. Today someone would have to build it by hand from two reports that do not cover the same things.
 
@@ -293,7 +293,7 @@ On 31 Oct 2026 the owner decided, closed or narrowed the questions below. `accou
 
 **Question:** Does stamp duty apply to our invoices or receipts paid in cash, at what rate and limits, and must it appear on the paper?
 
-**What ParadiERP does today:** Not built. Nothing in the system calculates, prints or records stamp duty.
+**What ParadisERP does today:** Not built. Nothing in the system calculates, prints or records stamp duty.
 
 **Why I'm asking:** If it is due on cash-paid invoices, every such invoice is missing it today, and it needs its own account and its own line in the declaration.
 
@@ -317,7 +317,7 @@ On 31 Oct 2026 the owner decided, closed or narrowed the questions below. `accou
 
 **Question:** When a customer pays in advance (before the goods leave or the work is done), is VAT due on that advance at the moment we receive it?
 
-**What ParadiERP does today:** A receipt voucher always reduces what the customer owes (account 411). Money received before any invoice simply leaves the customer's account in credit. No VAT is calculated on any advance, and nothing posts to account 419 (customer advances), which is in the chart but unused. The manufacturing plan proposes 419 for advances on orders and treating the tax on advances as a setting (`costing-accountant-signoff.md` §5).
+**What ParadisERP does today:** A receipt voucher always reduces what the customer owes (account 411). Money received before any invoice simply leaves the customer's account in credit. No VAT is calculated on any advance, and nothing posts to account 419 (customer advances), which is in the chart but unused. The manufacturing plan proposes 419 for advances on orders and treating the tax on advances as a setting (`costing-accountant-signoff.md` §5).
 
 **Why I'm asking:** Our understanding is that VAT on goods falls due at delivery, and on services at payment, so an advance on goods carries no VAT when received but an advance on a service (hire, repair) might. If that is right, today's books miss VAT on service advances.
 
@@ -341,18 +341,18 @@ On 31 Oct 2026 the owner decided, closed or narrowed the questions below. `accou
 
 ### GL-01 — Are these the company's official books?
 
-**Question:** Will you keep the company's official books in ParadiERP, or in your own accounting software, with ParadiERP only supplying figures?
+**Question:** Will you keep the company's official books in ParadisERP, or in your own accounting software, with ParadisERP only supplying figures?
 
-**What ParadiERP does today:** Every sale, rental, invoice, receipt, voucher, stock movement and payroll run posts automatically to a double-entry ledger with trial balance, profit and loss, balance sheet and account statements. There is no export to accounting software (Needs verification of any planned format: none found in code).
+**What ParadisERP does today:** Every sale, rental, invoice, receipt, voucher, stock movement and payroll run posts automatically to a double-entry ledger with trial balance, profit and loss, balance sheet and account statements. There is no export to accounting software (Needs verification of any planned format: none found in code).
 
 **Why I'm asking:** It changes almost every answer below. Official books need period closing, a numbered journal and year-end closing; a feeder system needs a clean monthly export.
 
-**Example:** End of October: either you close October in ParadiERP, or you import October's entries into your software.
+**Example:** End of October: either you close October in ParadisERP, or you import October's entries into your software.
 
 **Possible answers:**
-- A. ParadiERP is the official ledger.
-- B. ParadiERP feeds my software: I need a monthly export (format: …).
-- C. I re-key from ParadiERP reports.
+- A. ParadisERP is the official ledger.
+- B. ParadisERP feeds my software: I need a monthly export (format: …).
+- C. I re-key from ParadisERP reports.
 
 **Our suggestion:** B for the first year, so you keep control while we close the gaps below; then decide on A.
 
@@ -368,7 +368,7 @@ On 31 Oct 2026 the owner decided, closed or narrowed the questions below. `accou
 
 **Question:** Please review every account the system posts to and confirm its number and name, or give us yours.
 
-**What ParadiERP does today:** The chart seeded on every company: 890 opening balance, 181 inter-branch account; 310 merchandise stock, 318 scrap stock; 401 suppliers, 411 customers, 413 cheques not yet cleared, 4181 gift cards, 4182 loyalty points, 419 customer advances (unused), 4457 VAT collected, 471 suspense; 421, 425, 431, 442, 447 (payroll); 512 bank, 530 cash; 600 cost of goods sold, 615 repairs, 6061 fuel, 6068 small purchases, 624 transport, 630 (old heading, unused), 631, 635, 641 (payroll), 657 stock losses, 658 other expenses; 700 sales, 706 rental income, 707 repairs charged to customers, 708 overdue days, 756 scrap sales, 757 damage compensation, 758 rounding. Expense vouchers map fuel → 6061, transport → 624, repair → 615, purchase → 6068, day labour → 631, other → 658, fixed in code. A code cannot change once something has posted to it.
+**What ParadisERP does today:** The chart seeded on every company: 890 opening balance, 181 inter-branch account; 310 merchandise stock, 318 scrap stock; 401 suppliers, 411 customers, 413 cheques not yet cleared, 4181 gift cards, 4182 loyalty points, 419 customer advances (unused), 4457 VAT collected, 471 suspense; 421, 425, 431, 442, 447 (payroll); 512 bank, 530 cash; 600 cost of goods sold, 615 repairs, 6061 fuel, 6068 small purchases, 624 transport, 630 (old heading, unused), 631, 635, 641 (payroll), 657 stock losses, 658 other expenses; 700 sales, 706 rental income, 707 repairs charged to customers, 708 overdue days, 756 scrap sales, 757 damage compensation, 758 rounding. Expense vouchers map fuel → 6061, transport → 624, repair → 615, purchase → 6068, day labour → 631, other → 658, fixed in code. A code cannot change once something has posted to it.
 
 **Why I'm asking:** Some numbers come from the French chart and may mean something else in the SCF. For example, we believe 418x usually means "customers — invoices to be issued" rather than gift cards, 890 is a French habit for opening balances, and 707 is used for repairs re-charged. Suspense (471) is set up as an asset.
 
@@ -392,7 +392,7 @@ On 31 Oct 2026 the owner decided, closed or narrowed the questions below. `accou
 
 **Question:** After you have checked and declared a month, should the system lock it so nothing can be posted into it any more, and who may unlock it?
 
-**What ParadiERP does today:** Not built. There is no period lock, no month close and no fiscal year in the books. Any document can post into any past date. The only lock in the system is for payroll attendance: a month whose payroll is approved cannot have its attendance changed.
+**What ParadisERP does today:** Not built. There is no period lock, no month close and no fiscal year in the books. Any document can post into any past date. The only lock in the system is for payroll attendance: a month whose payroll is approved cannot have its attendance changed.
 
 **Why I'm asking:** Without a lock, October's figures can change after the October VAT is declared and the accounts are reviewed.
 
@@ -417,7 +417,7 @@ On 31 Oct 2026 the owner decided, closed or narrowed the questions below. `accou
 
 **Question:** Which account numbers should manufacturing use for raw materials, supplies, work in progress, finished goods, scrap, consumption, production stocked and sales of our own production?
 
-**What ParadiERP does today:** Manufacturing records materials, hours and quantities but posts nothing. The sign-off sheet proposes 311, 321/322, 331, 351/355, 358 (or 318), 601, 602, 72 and 701; none of them exists in the chart and none is created until you name it.
+**What ParadisERP does today:** Manufacturing records materials, hours and quantities but posts nothing. The sign-off sheet proposes 311, 321/322, 331, 351/355, 358 (or 318), 601, 602, 72 and 701; none of them exists in the chart and none is created until you name it.
 
 **Why I'm asking:** Nothing in manufacturing can reach the books until these are named, and a code cannot change after its first posting.
 
@@ -443,7 +443,7 @@ On 31 Oct 2026 the owner decided, closed or narrowed the questions below. `accou
 
 **Question:** Are these account numbers suitable in the national chart (SCF) for our rental income: 706 rent, 707 repairs charged to customers, 708 late-return income, 757 compensation for lost or wrecked items, 756 scrap sales?
 
-**What ParadiERP does today:** These five accounts are created for every company and used as described in REN-02 to REN-11. Once something has been posted to an account its number cannot be changed. (The chart as a whole is question D33 — see TAX.)
+**What ParadisERP does today:** These five accounts are created for every company and used as described in REN-02 to REN-11. Once something has been posted to an account its number cannot be changed. (The chart as a whole is question D33 — see TAX.)
 
 **Why I'm asking:** We chose these numbers ourselves. If one is wrong, it is better to correct it before more entries are made.
 
@@ -468,7 +468,7 @@ On 31 Oct 2026 the owner decided, closed or narrowed the questions below. `accou
 
 **Question:** Are 421, 425, 431, 442, 447, 631, 635 and 641 the right accounts for our wages, advances, social security, income tax withheld and employer taxes?
 
-**What ParadiERP does today:** Payroll posts to exactly these accounts (table above). 630 "Charges de personnel" exists but nothing posts to it. The code notes say the accountant must confirm the eight codes and that a code cannot be changed once something has posted to it. This was already asked and is still unanswered. Whether runs have already been approved in production: Needs verification.
+**What ParadisERP does today:** Payroll posts to exactly these accounts (table above). 630 "Charges de personnel" exists but nothing posts to it. The code notes say the accountant must confirm the eight codes and that a code cannot be changed once something has posted to it. This was already asked and is still unanswered. Whether runs have already been approved in production: Needs verification.
 
 **Why I'm asking:** Once a month is posted, a wrong code can only be fixed by reversing and reposting, month by month.
 

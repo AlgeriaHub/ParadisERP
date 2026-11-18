@@ -47,22 +47,22 @@ product, or job labour or parts record. The pieces it will build on are listed b
 
 | What | Where | Behaviour |
 |---|---|---|
-| Five stock states | `ParadiERP.Domain/Entities.cs:393-431` (`StockState`, `ProductStock`) | `StockQty` (available), `OnRentQty`, `MaintenanceQty` ("being repaired; still an asset, not available to hire"), `ScrapQty`, plus `WrittenOff`, which is not a bucket. All per product and per branch. |
-| Moving between states by hand | `ParadiERP.API/Endpoints/StockEndpoints.cs:229-300` (`POST /api/catalog/stock/state`) | Moves a quantity from one state to another under the `StockRows` version lock. It refuses on-rent moves ("contracts' to move") and refuses to move more than the bucket holds. It writes a `StockMovement` of kind `StateChange` with `QtyDelta = 0` and the reason `available->maintenance: <reason>`. It touches the product so tills re-pull it. |
-| Its permission | `ParadiERP.API/Authorization/RoutePermissions.cs:115` | `inventory.adjust` |
-| Its ledger | `ParadiERP.Infrastructure/Ledger/DocumentPosting.cs:99-116` (`StockPosting.StateChange`), `ParadiERP.Domain/LedgerEntities.cs:444-449` (`ForStockState`) | Available ↔ maintenance stays in 310 and posts **nothing**. To scrap: Dr 318 / Cr 310. To write-off: Dr 657 / Cr 310. Valued at `Product.CostPrice`. |
+| Five stock states | `ParadisERP.Domain/Entities.cs:393-431` (`StockState`, `ProductStock`) | `StockQty` (available), `OnRentQty`, `MaintenanceQty` ("being repaired; still an asset, not available to hire"), `ScrapQty`, plus `WrittenOff`, which is not a bucket. All per product and per branch. |
+| Moving between states by hand | `ParadisERP.API/Endpoints/StockEndpoints.cs:229-300` (`POST /api/catalog/stock/state`) | Moves a quantity from one state to another under the `StockRows` version lock. It refuses on-rent moves ("contracts' to move") and refuses to move more than the bucket holds. It writes a `StockMovement` of kind `StateChange` with `QtyDelta = 0` and the reason `available->maintenance: <reason>`. It touches the product so tills re-pull it. |
+| Its permission | `ParadisERP.API/Authorization/RoutePermissions.cs:115` | `inventory.adjust` |
+| Its ledger | `ParadisERP.Infrastructure/Ledger/DocumentPosting.cs:99-116` (`StockPosting.StateChange`), `ParadisERP.Domain/LedgerEntities.cs:444-449` (`ForStockState`) | Available ↔ maintenance stays in 310 and posts **nothing**. To scrap: Dr 318 / Cr 310. To write-off: Dr 657 / Cr 310. Valued at `Product.CostPrice`. |
 | Movement kinds | `Entities.cs:1113-1140` (`StockMovementKind`) | 0–17. Manufacturing uses 15–17. Values are only ever appended. |
 
 ### 1.2 Damage on return notes (the repair recharge)
 
 | What | Where | Behaviour |
 |---|---|---|
-| Return line conditions | `ParadiERP.Domain/RentalEntities.cs:504-551` (`ReturnNoteLine`) | `QtyOk`, `QtyPartialDamage` ("damaged but usable: returned stock in need of repair"), `MaintenanceValue` ("what that repair is charged at; income, because the customer is paying for it"), `QtyTotalDamage`, `QtyMissing` |
-| Where units go | `ParadiERP.Infrastructure/Rentals/RentalDocuments.cs:1297-1306` (`Allocate`) | sound → available, repairable → **maintenance**, wrecked → scrap, missing → written off. The return note's branch is `ReturnNote.BranchId` (`RentalEntities.cs:386`). |
-| Rules | `ParadiERP.Application/Rentals/RentalRules.cs:97-98` | Refuses a negative repair amount, and refuses a repair amount with no damaged units |
-| The charge | `ParadiERP.Application/Rentals/RentalSettlement.cs:312-315` | One `RentalCharge` of kind `Maintenance` per line, for the typed amount |
-| Its account | `ParadiERP.Infrastructure/Ledger/RentalPosting.cs:39-47`, `LedgerEntities.cs:367` | **707** "maintenance charged to customer", taxed at the line's rate. The code comment states the rule: "the same work, decided by who pays". |
-| The money | `ParadiERP.Domain/ReceivableEntities.cs:214-219` (`ReceiptKind.Repair`), owner answers 19–20 | A receipt voucher of kind Repair names the contract and the return note |
+| Return line conditions | `ParadisERP.Domain/RentalEntities.cs:504-551` (`ReturnNoteLine`) | `QtyOk`, `QtyPartialDamage` ("damaged but usable: returned stock in need of repair"), `MaintenanceValue` ("what that repair is charged at; income, because the customer is paying for it"), `QtyTotalDamage`, `QtyMissing` |
+| Where units go | `ParadisERP.Infrastructure/Rentals/RentalDocuments.cs:1297-1306` (`Allocate`) | sound → available, repairable → **maintenance**, wrecked → scrap, missing → written off. The return note's branch is `ReturnNote.BranchId` (`RentalEntities.cs:386`). |
+| Rules | `ParadisERP.Application/Rentals/RentalRules.cs:97-98` | Refuses a negative repair amount, and refuses a repair amount with no damaged units |
+| The charge | `ParadisERP.Application/Rentals/RentalSettlement.cs:312-315` | One `RentalCharge` of kind `Maintenance` per line, for the typed amount |
+| Its account | `ParadisERP.Infrastructure/Ledger/RentalPosting.cs:39-47`, `LedgerEntities.cs:367` | **707** "maintenance charged to customer", taxed at the line's rate. The code comment states the rule: "the same work, decided by who pays". |
+| The money | `ParadisERP.Domain/ReceivableEntities.cs:214-219` (`ReceiptKind.Repair`), owner answers 19–20 | A receipt voucher of kind Repair names the contract and the return note |
 
 So the recharge is a single amount the clerk types at return, before anyone knows the repair cost. Nothing ever
 compares it with what the repair cost (REN-11). The REN-11 example: 8 frames charged 16,000 DA → 707, repaired by a
@@ -72,19 +72,19 @@ welder for 11,000 DA → 615, a profit of 5,000 DA that no report shows.
 
 | What | Where | Behaviour |
 |---|---|---|
-| Outside repair paid by voucher | `ParadiERP.Domain/PaymentVoucherEntities.cs:76-80`, `ParadiERP.Infrastructure/Receivables/PaymentVouchers.cs:83` | Expense category `repair` → **615** for the gross amount, on the day it is paid. The voucher may name a contract (`ContractId`) but never an item. |
+| Outside repair paid by voucher | `ParadisERP.Domain/PaymentVoucherEntities.cs:76-80`, `ParadisERP.Infrastructure/Receivables/PaymentVouchers.cs:83` | Expense category `repair` → **615** for the gross amount, on the day it is paid. The voucher may name a contract (`ContractId`) but never an item. |
 | Spare parts used | `DocumentPosting.cs:199-209` (`StockPosting.Adjustment`) | No document exists for this. The only route is a stock adjustment, Dr **657** stock loss / Cr 310, which records the repair as a loss (MNT-02). |
-| Spare-part role | `ParadiERP.Domain/ManufacturingEntities.cs:22-35` | `ManufacturingRole.SparePart = 4`, "a part kept for repairs; still sold at the till" |
+| Spare-part role | `ParadisERP.Domain/ManufacturingEntities.cs:22-35` | `ManufacturingRole.SparePart = 4`, "a part kept for repairs; still sold at the till" |
 | Own labour | — | Wages go to 631 and employer social to 635 through payroll. No repair hours are recorded anywhere. |
 
 ### 1.4 Labour bookings (built for maintenance to share)
 
 | What | Where | Behaviour |
 |---|---|---|
-| Kind | `ParadiERP.Domain/ManufacturingOrderEntities.cs:369-374` | `LaborOrderKind { Production = 0, Maintenance = 1 }`, documented as "Maintenance comes later and books into the same table" |
+| Kind | `ParadisERP.Domain/ManufacturingOrderEntities.cs:369-374` | `LaborOrderKind { Production = 0, Maintenance = 1 }`, documented as "Maintenance comes later and books into the same table" |
 | Booking | `ManufacturingOrderEntities.cs:383-407` (`LaborBooking`) | Employee, day, `OrderKind`, `OrderId`, `StageId`, **`LineId` and `LogRowId` (both required)**, hours, payroll branch, year and month, attendance at booking time, override reason. No money. |
-| Index | `ParadiERP.Infrastructure/Persistence/PosDbContext.cs:1340-1348` | Unique on (EmployeeId, LogRowId); indexed on (EmployeeId, Day) and (OrderId, StageId) |
-| Ceiling | `ParadiERP.Infrastructure/Manufacturing/ProductionLogs.cs:370-424` | "Every booking that day, on every line and order kind: one hour is never allocated twice" (line 394). Payroll month lock: `payroll_month_locked`. Override: `manufacturing.labour.override`, with a reason. |
+| Index | `ParadisERP.Infrastructure/Persistence/PosDbContext.cs:1340-1348` | Unique on (EmployeeId, LogRowId); indexed on (EmployeeId, Day) and (OrderId, StageId) |
+| Ceiling | `ParadisERP.Infrastructure/Manufacturing/ProductionLogs.cs:370-424` | "Every booking that day, on every line and order kind: one hour is never allocated twice" (line 394). Payroll month lock: `payroll_month_locked`. Override: `manufacturing.labour.override`, with a reason. |
 | Readers | `ProductionCosts.cs:274`, `ProductionCostSnapshots.cs:259`, `ProductionCostHistory.cs:617`, `ProductionOrders.cs:76,545`, `PracticeLedgerReport.cs:71` | Filter on `OrderKind == Production`, so maintenance bookings stay out of manufacturing figures |
 | Readers without the kind filter | `ProductionCosts.cs:177` (labour absorption, by `LineId`), `ProductionLogs.cs:58,77,212,390,432` (by `LogRowId`) | They key on line or row, so a maintenance booking with neither stays out. They still need to compile once both columns become nullable (Phase M3). |
 
@@ -92,13 +92,13 @@ welder for 11,000 DA → 615, a profit of 5,000 DA that no report shows.
 
 | What | Where | Reuse |
 |---|---|---|
-| Labour rate | `ParadiERP.Infrastructure/Manufacturing/LabourRates.cs` | Gives the rate per employee-month from payroll. It is actual once the runs are approved, standard before that. Nothing stored. Reused unchanged. |
-| Cost engine | `ParadiERP.Application/Manufacturing/ProductionCostEngine.cs` (`CostingPolicy` :78-84, `CostingInput` :86-95, `Compute` :204) | Pure. C = materials + consumables + accessories + labour + overhead + expenses − recovery. It also applies the employer burden (C-06) and expense VAT (C-07). Section 3.1 reuses it through an adapter. |
-| Labour privacy | `ParadiERP.Infrastructure/Manufacturing/CostPrivacy.cs` | Per-order labour money, and every figure that gives it back, goes only to holders of `payroll.manage` + `manufacturing.costs.rates.view`. A line sum is shown from 2 orders and 2 workers. Section 6.2 applies it to jobs. |
-| Costing choices | `ParadiERP.Domain/ManufacturingAccountingEntities.cs:15-78` | One settings row, where every default is the suggested answer. This is the model for `MaintenanceSettings`. |
+| Labour rate | `ParadisERP.Infrastructure/Manufacturing/LabourRates.cs` | Gives the rate per employee-month from payroll. It is actual once the runs are approved, standard before that. Nothing stored. Reused unchanged. |
+| Cost engine | `ParadisERP.Application/Manufacturing/ProductionCostEngine.cs` (`CostingPolicy` :78-84, `CostingInput` :86-95, `Compute` :204) | Pure. C = materials + consumables + accessories + labour + overhead + expenses − recovery. It also applies the employer burden (C-06) and expense VAT (C-07). Section 3.1 reuses it through an adapter. |
+| Labour privacy | `ParadisERP.Infrastructure/Manufacturing/CostPrivacy.cs` | Per-order labour money, and every figure that gives it back, goes only to holders of `payroll.manage` + `manufacturing.costs.rates.view`. A line sum is shown from 2 orders and 2 workers. Section 6.2 applies it to jobs. |
+| Costing choices | `ParadisERP.Domain/ManufacturingAccountingEntities.cs:15-78` | One settings row, where every default is the suggested answer. This is the model for `MaintenanceSettings`. |
 | Account map | `ManufacturingAccountingEntities.cs:132-171` (`ManufacturingAccountMapping`, `ManufacturingAccountSlots`) | One row per slot key, stored as text. Seeded empty and never guessed. Maintenance appends its own keys. |
-| Practice ledger | `ParadiERP.Application/Manufacturing/PracticeLedger.cs`, `ParadiERP.Infrastructure/Manufacturing/PracticeLedgerReport.cs` | Entries computed on read and stored nowhere, with the checks. Maintenance adds its own section (section 5). |
-| Month posting | `ParadiERP.Infrastructure/Manufacturing/ManufacturingLedgerPostings.cs` | Posts a closed, checked month through `LedgerPoster` (source `manufacturing`) and reverses it with mirror entries. Maintenance reuses the mechanism under source `maintenance`. |
+| Practice ledger | `ParadisERP.Application/Manufacturing/PracticeLedger.cs`, `ParadisERP.Infrastructure/Manufacturing/PracticeLedgerReport.cs` | Entries computed on read and stored nowhere, with the checks. Maintenance adds its own section (section 5). |
+| Month posting | `ParadisERP.Infrastructure/Manufacturing/ManufacturingLedgerPostings.cs` | Posts a closed, checked month through `LedgerPoster` (source `manufacturing`) and reverses it with mirror entries. Maintenance reuses the mechanism under source `maintenance`. |
 | Expense on an order | `ManufacturingOrderEntities.cs:181-192` (`ProductionOrderExpense`), A0 cap ([phase-2.md](../manufacturing/phase-2.md) §8) | A typed amount that may point at a voucher. The amounts linked to one voucher never exceed it. The model for a job's outside work. |
 
 ### 1.6 Invoicing and the ledger's accounts
@@ -403,7 +403,7 @@ merchandise (role `None`) is credited to 310, the account its receipt debited.
 
 ### 6.1 Permissions
 
-A new module `maintenance` in `PermissionCatalog.Modules` (`ParadiERP.Domain/Authorization/PermissionCatalog.cs`),
+A new module `maintenance` in `PermissionCatalog.Modules` (`ParadisERP.Domain/Authorization/PermissionCatalog.cs`),
 listed in `Capabilities.cs` and granted through the roles screen and the per-person editor (built 2026-11-05):
 
 | Key | Allows |
@@ -472,7 +472,7 @@ batch harnesses.
 ## 8. Migrations and phases
 
 Each phase is shipped on its own approval. Every schema change is a migration in both sets
-(`ParadiERP.Infrastructure` for SQLite, `ParadiERP.Migrations.SqlServer`), followed by `tests/e2e/provider-smoke.cjs`
+(`ParadisERP.Infrastructure` for SQLite, `ParadisERP.Migrations.SqlServer`), followed by `tests/e2e/provider-smoke.cjs`
 on a fresh SQL Server database. Every phase leaves today's behaviour intact while MS-01 is off. Money, stock, ledger,
 payroll and migration work stays with Claude (CLAUDE.md, "Small tasks go to Antigravity"). Copy and translation
 tasks within a phase may go to Antigravity.
@@ -545,7 +545,7 @@ manufacturing and the ledger are untouched while MS-01 is off, and they stay unt
 
 ### The settings row
 
-`MaintenanceSettings` (`ParadiERP.Domain/MaintenanceEntities.cs`) is one row, `Id = 1`, `ValueGeneratedNever`, in the
+`MaintenanceSettings` (`ParadisERP.Domain/MaintenanceEntities.cs`) is one row, `Id = 1`, `ValueGeneratedNever`, in the
 style of `ManufacturingCostingSettings`. Reading it never writes it: before the first save the page shows a fresh row's
 defaults. Every choice is an enum whose 0 value is the table's first option.
 
@@ -629,8 +629,8 @@ MS number; the module's state is said in words above the form. The Accounting se
 
 ### Migration and tests
 
-Migration `MaintenanceSettings` in both sets (`ParadiERP.Infrastructure`, `ParadiERP.Migrations.SqlServer`): one new
-table, nothing else. Tests: `ParadiERP.Tests/Maintenance/MaintenanceSettingsTests.cs` (defaults, saved and read back,
+Migration `MaintenanceSettings` in both sets (`ParadisERP.Infrastructure`, `ParadisERP.Migrations.SqlServer`): one new
+table, nothing else. Tests: `ParadisERP.Tests/Maintenance/MaintenanceSettingsTests.cs` (defaults, saved and read back,
 validation, each half refused without its key, the options kept for later, the confirmation, the route over HTTP), the
 security pins (catalogue 92 keys in 10 modules, Admin 91, routes 325), and
 `features/backoffice/maintenance/maintenance-settings.component.spec.ts`.
@@ -645,7 +645,7 @@ manual state route and the return-note writer behave exactly as before.
 
 ### The job and its events
 
-`MaintenanceJob` (`ParadiERP.Domain/MaintenanceEntities.cs`), numbered `MJ-000001` under the version lock, server-only.
+`MaintenanceJob` (`ParadisERP.Domain/MaintenanceEntities.cs`), numbered `MJ-000001` under the version lock, server-only.
 Columns: `Number`, `BranchId`, `Kind` (`Internal`, `Recharged`, `Customer` — the last refused with 400
 `maintenance_option_not_yet` until M5), `Status` (`Draft`, `Open`, `Completed`, `Invoiced` — M5 —, `Cancelled`),
 `ProductId`, `Qty`, `ItemReference`, `ContractId`/`ReturnNoteId`/`ReturnNoteLineId` (recharged), `Description`,
@@ -713,7 +713,7 @@ save) and to holders of `maintenance.view`. Translations fr/ar/en in `core/i18n/
 ### Migration and tests
 
 Migration `MaintenanceJobs` in both sets: two tables (`MaintenanceJobs`, `MaintenanceJobEvents`) and their indexes, every
-foreign key restricted; both report no pending model changes. Tests: `ParadiERP.Tests/Maintenance/MaintenanceJobTests.cs`
+foreign key restricted; both report no pending model changes. Tests: `ParadisERP.Tests/Maintenance/MaintenanceJobTests.cs`
 (13) — the same movements and 318/310 entry as the manual route, every unit accounted for, the bucket less open jobs,
 cancelling frees, retry and customer kind, two completions at once on a file database (one wins, the units move once),
 units moved out by hand under an open job, return-note line coverage, the module off, MS-02, MS-03 with the default
@@ -817,7 +817,7 @@ practice ledger posts it.
 Migration `MaintenanceJobParts` in both sets: two tables (`MaintenanceJobParts`, `MaintenanceJobExpenses`) and their
 indexes, every foreign key restricted; both report no pending model changes. `MaintenanceJobEventKind` gains
 `PartsIssued = 10`, `PartsReturned = 11`, `ExpenseRecorded = 12` (numbered from 10 so the labour phase built beside M2 can
-append from 5). Tests: `ParadiERP.Tests/Maintenance/MaintenancePartsTests.cs` (10): stock and movements per issue and
+append from 5). Tests: `ParadisERP.Tests/Maintenance/MaintenancePartsTests.cs` (10): stock and movements per issue and
 return, back at the issue's cost after the cost price changed, no `LedgerEntries` row; refusals beyond stock, beyond what is
 at the job, untracked, unknown; retried request ids; draft, completion and cancel with parts at the job; MS-32 at issue
 refused and a saved one still posting nothing; under the weighted average, an issue at the average and a return at its
@@ -904,7 +904,7 @@ override holder gives the reason and anyone else is told only an override holder
 
 ### Tests
 
-`ParadiERP.Tests/Maintenance/MaintenanceLabourTests.cs`: a production booking and a job booking on one day stop at
+`ParadisERP.Tests/Maintenance/MaintenanceLabourTests.cs`: a production booking and a job booking on one day stop at
 attendance, both ways round; the override (reason required, the maintenance key and not the manufacturing one, kept on
 the booking); a payroll-locked month refuses booking and removal and nothing reaches attendance or payroll; one per
 person, job and day, an open job of the branch, the day, the hours, the change log naming the job; branch scope (404)
@@ -1007,7 +1007,7 @@ zero. Translations fr/ar/en in `core/i18n/translations-maintenance-cost.ts`.
 
 ### Tests
 
-`ParadiERP.Tests/Maintenance/MaintenanceCostTests.cs` (9): the adapter on MNT-04 (9,900; 11,385 with 247.5/h; 7,200 without
+`ParadisERP.Tests/Maintenance/MaintenanceCostTests.cs` (9): the adapter on MNT-04 (9,900; 11,385 with 247.5/h; 7,200 without
 labour; 10,200 at a 500 workshop rate); final only when confirmed and every element final, the engine's `Version` `B1.0` and
 the adapter's total the engine's own; the standard rate before payroll approval, 450 actual after (2,700, total 9,900); C-06
 burden (20 % in reports: 3,240) and C-07 VAT (4,760 → 4,000) followed, MS-13 own values (10 %: 2,970); privacy — no labour
@@ -1030,7 +1030,7 @@ posts a closed month, and every other entry is an option the accountant switches
 
 ### The account map's maintenance slots (MS-31)
 
-`MaintenanceAccountSlots` (`ParadiERP.Domain/ManufacturingAccountingEntities.cs`): rows of the same `ManufacturingAccountMappings`
+`MaintenanceAccountSlots` (`ParadisERP.Domain/ManufacturingAccountingEntities.cs`): rows of the same `ManufacturingAccountMappings`
 table, keys under `maintenance.`, seeded empty and never guessed. Manufacturing's list (`ManufacturingAccountSlots.All`) is
 unchanged, so Costing settings and production's practice ledger show what they showed.
 
@@ -1140,7 +1140,7 @@ Translations fr/ar/en in `core/i18n/translations-maintenance-ledger.ts`.
 
 Migration `MaintenanceMonthPostings` in both sets: one table of `ManufacturingMonthPostings`' shape, unique (Year, Month,
 Generation); both sets report no pending model changes. No settings column: MS-30, MS-33, MS-36, MS-39 and MS-40 were built in M0.
-Tests: `ParadiERP.Tests/Maintenance/MaintenanceLedgerTests.cs` (7) — the builder: every entry balances, parts tie to their
+Tests: `ParadisERP.Tests/Maintenance/MaintenanceLedgerTests.cs` (7) — the builder: every entry balances, parts tie to their
 stock, each option adds only its entries (labour and overhead moved, work in progress monthly and at year end, the invoice
 tie-out); a month on read with unmapped slots shown and the ledger identical before and after, the readers and the module off;
 the account map's slots seeded empty, mapped under their own route, manufacturing's list unchanged; a month posted balanced,
@@ -1310,7 +1310,7 @@ profit". Settings marked MS-34's two other options "later phase" (offered since 
 `Equipment`, `PriceBasis`, `Price`, `ProposedPrice`, `CostAtPricing`, `PricedByUserId`/`PricedBy`/`PricedAtUtc`,
 `BelowCostConfirmedBy`/`At`, `TaxMode` (default 1, untaxed), `InvoiceId` (FK, unique, filtered on SQL Server),
 `InvoicedBy`/`At`; the table `MaintenanceRepairRates`. Both sets report no pending model changes. `MaintenanceJobEventKind`
-gains `Priced = 20`, `Invoiced = 21`. Tests: `ParadiERP.Tests/Maintenance/MaintenanceCustomerJobTests.cs` (12) — MS-06,
+gains `Priced = 20`, `Invoiced = 21`. Tests: `ParadisERP.Tests/Maintenance/MaintenanceCustomerJobTests.cs` (12) — MS-06,
 nothing taken from stock and nothing posted at completion; each basis on its worked example; MS-25 both ways (and the
 confirmation asked again after the cost grew); the invoice posting 411 / 707 untaxed with no 4457 and no cost of goods,
 VAT on request (23,800 / 3,800), once per job (the job and the writer both refuse), the job's number as the invoice's source
@@ -1468,7 +1468,7 @@ One route is added, `GET /api/maintenance/rework-candidates`: `maintenance.jobs.
 snapshot. The security pins move to **359**. `MaintenanceJobs` now takes `IRegionalSettingsProvider` for the company
 calendar.
 
-`ParadiERP.Tests/Maintenance/MaintenanceReworkTests.cs` covers:
+`ParadisERP.Tests/Maintenance/MaintenanceReworkTests.cs` covers:
 
 - the link: within the guarantee; refused before completion, for another customer, for an internal job, for a rework of a
   rework, at another branch (404), and after the guarantee; candidates; never priced or invoiced;
@@ -1611,7 +1611,7 @@ Migration `CapitalisedRepairs` in both sets: `MaintenanceSettings.CapitaliseAbov
 `MaintenanceJobCapitalisedLines` (FK to the job, restricted, indexed). Both sets report no pending model changes. One route,
 `GET /api/maintenance/history` (the Admin only in the legacy snapshot); security pins **370**.
 
-`ParadiERP.Tests/Maintenance/MaintenanceCapitalisationTests.cs` (6): the engine's cost-only layer (no unit, depreciated from the
+`ParadisERP.Tests/Maintenance/MaintenanceCapitalisationTests.cs` (6): the engine's cost-only layer (no unit, depreciated from the
 month after, leaves pro rata and whole with the last unit); the default unchanged; capitalisation above the amount (the lines
 per element, the movement, the pool and its depreciation, the cost card and the per-type report, the practice ledger balanced
 with own repairs at zero and every check passing, the month posted with each account's net, the pool's history); at or below
@@ -1702,7 +1702,7 @@ MS-32 "at issue" on `maintenance.customer_parts`); the invoice moves none and po
 
 ### Tests
 
-`ParadiERP.Tests/Maintenance/MaintenanceCustomerIncomeTests.cs` (7): the slot seeded empty with no hint, refused for 615,
+`ParadisERP.Tests/Maintenance/MaintenanceCustomerIncomeTests.cs` (7): the slot seeded empty with no hint, refused for 615,
 411 and an inactive 7x account, taken for an active 7x income account, kept while in force; both options 409 while unmapped,
 then saved by the accountant only; the invoice refused (409, nothing raised) unmapped and after the account is made
 inactive; one service account 20,000 untaxed (411 / slot) and taxed (23,800 / 20,000 / 3,800); parts and labour apart
@@ -1777,7 +1777,7 @@ Translations fr/ar/en in `core/i18n/translations-maintenance-workshop.ts`.
 Migration `MaintenanceWorkshopList` in both sets (SQLite and SQL Server): the new table and its two indexes only; no existing
 row changes. Both sets report no pending model changes.
 
-`ParadiERP.Tests/Maintenance/MaintenanceWorkshopTests.cs` (3): the Admin's list across branches (added to the employee's own
+`ParadisERP.Tests/Maintenance/MaintenanceWorkshopTests.cs` (3): the Admin's list across branches (added to the employee's own
 branch when none is named, once per branch, refused for another branch, a leaver or nobody; one branch named; removed and
 offered again); a branch manager reads and keeps only their own branch's list (a named branch replaced, another branch's row
 404 and kept); a person who moves keeps the old row, which no longer counts and is not copied; the module off.

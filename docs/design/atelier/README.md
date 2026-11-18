@@ -1,4 +1,4 @@
-# Atelier — the ParadiERP design (v3, 2026-10-12)
+# Atelier — the ParadisERP design (v3, 2026-10-12)
 
 The owner asked for a full redesign of the whole product — menus, cards, popup messages,
 tables, every screen — and, shown three directions, told Claude to pick: **Atelier** was chosen.
