@@ -91,6 +91,7 @@ export class ConfirmService {
     ref.setInput('request', request);
     this.appRef.attachView(ref.hostView);
     document.body.appendChild(ref.location.nativeElement);
+    ref.changeDetectorRef.detectChanges();
     return new Promise<boolean>((resolve) => {
       const sub = ref.instance.answer.subscribe((yes) => {
         sub.unsubscribe();

@@ -346,7 +346,7 @@ export class AuthService {
         new Promise((resolve) => setTimeout(resolve, LOGOUT_WAIT_MS)),
       ]);
     }
-    await patchMeta({ currentUserId: null, ...(privileged ? { token: null, tokenExpiresAtUtc: null } : {}) });
+    await patchMeta({ currentUserId: null, token: null, tokenExpiresAtUtc: null });
     this.currentUser.set(null);
     this.officeSession.set(false);
   }
