@@ -32,6 +32,7 @@ export class LandingComponent {
   readonly loading = signal(false);
   readonly errorMessage = signal('');
   readonly trialResult = signal<TrialSignupResponse | null>(null);
+  readonly copied = signal(false);
 
   storeName = '';
   slug = '';
@@ -54,6 +55,7 @@ export class LandingComponent {
   openTrialModal(): void {
     this.errorMessage.set('');
     this.trialResult.set(null);
+    this.copied.set(false);
     this.showTrialModal.set(true);
   }
 
@@ -83,6 +85,16 @@ export class LandingComponent {
       .slice(0, 30);
   }
 
+  async copyPassword(text: string): Promise<void> {
+    try {
+      await navigator.clipboard.writeText(text);
+      this.copied.set(true);
+      setTimeout(() => this.copied.set(false), 2000);
+    } catch {
+      // clipboard fallback
+    }
+  }
+
   async submitTrial(): Promise<void> {
     if (!this.slug || this.slug.length < 3) {
       this.errorMessage.set(this.i18n.lang() === 'ar' ? 'يرجى إدخال نطاق فرعي صالح (3 أحرف على الأقل)' : 'Please enter a valid subdomain (at least 3 characters)');
@@ -95,7 +107,7 @@ export class LandingComponent {
     try {
       const response = await this.api.postJson<TrialSignupResponse>('/api/trials', {
         slug: this.slug,
-        storeName: this.storeName,
+        companyName: this.storeName || this.slug,
         adminEmail: this.adminEmail || 'admin',
         country: this.country,
       });
