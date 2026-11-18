@@ -35,6 +35,7 @@ public static class SsoConfiguration
     {
         services.AddSingleton(sso);
         services.AddSingleton(platform);
+        services.AddAntiforgery(options => options.HeaderName = "X-CSRF-TOKEN");
         if (!sso.Enabled)
         {
             services.AddAuthorization(options => options.AddPolicy(OperatorPolicy, policy => policy.RequireAssertion(_ => false)));
@@ -45,7 +46,6 @@ public static class SsoConfiguration
             || string.IsNullOrWhiteSpace(sso.ClientSecret))
             throw new InvalidOperationException("SSO requires the platform store, an HTTPS authority, a client ID, and a client secret.");
 
-        services.AddAntiforgery(options => options.HeaderName = "X-CSRF-TOKEN");
         services.AddAuthentication()
             .AddCookie(CookieScheme, options =>
             {
