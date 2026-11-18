@@ -33,7 +33,7 @@ const backofficeGuard: CanActivateFn = () => {
 
 export const routes: Routes = [
   { path: 'platform', loadComponent: () => import('./features/platform/platform.component').then(m => m.PlatformComponent) },
-  { path: '', pathMatch: 'full', loadComponent: () => import('./features/landing/landing.component').then(m => m.LandingComponent) },
+  { path: '', pathMatch: 'full', redirectTo: 'register' },
   {
     path: 'login',
     loadComponent: () => import('./features/login/login.component').then((m) => m.LoginComponent),
