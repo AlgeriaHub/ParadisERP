@@ -3,7 +3,7 @@
 //   SHOT_SET=before UI_FONT=ibm-plex-sans-arabic WEB_DIST=<bundle from main> node tests/e2e/capture-paradis-batch1-screenshots.cjs
 //   SHOT_SET=after node tests/e2e/capture-paradis-batch1-screenshots.cjs
 //
-// Serves an already-built bundle (WEB_DIST, default AlgeriaPos.WebUI/dist/algeria-pos-web-ui/browser;
+// Serves an already-built bundle (WEB_DIST, default ParadiERP.WebUI/dist/paradierp-web-ui/browser;
 // a relative path is read against the repo root) on 127.0.0.1:5216, answers every /api call from the
 // mocks below, captures sign-in shots in a fresh signed-out context, then signs in through #/login in
 // the main context and writes PNGs to artifacts/ui-redesign-checkpoint/paradis-batch1/<SHOT_SET>.
@@ -35,7 +35,7 @@ const chosen = (shot) => ONLY.length === 0 || ONLY.some((prefix) => shot.file.st
 const UI_FONT = (process.env.UI_FONT || 'thmanyah-sans').trim() || 'thmanyah-sans';
 const APPEARANCE = (process.env.APPEARANCE || '').trim() || null;
 if (APPEARANCE) JSON.parse(APPEARANCE);
-const webDist = path.resolve(root, process.env.WEB_DIST || 'AlgeriaPos.WebUI/dist/algeria-pos-web-ui/browser');
+const webDist = path.resolve(root, process.env.WEB_DIST || 'ParadiERP.WebUI/dist/paradierp-web-ui/browser');
 
 const PORT = 5216;
 const BASE = `http://127.0.0.1:${PORT}`;

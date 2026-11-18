@@ -6,7 +6,7 @@ const testPassword = requiredPassword();
 // synced — never appeared. This drives one online cash sale with SMS receipts switched on and checks
 // that, once the sale reaches the server, the badge goes and the form comes, without a reload.
 //
-//   ADMIN_PASSWORD=... node tests/e2e/send-receipt-after-sync.cjs   (after `npm run build` in AlgeriaPos.WebUI)
+//   ADMIN_PASSWORD=... node tests/e2e/send-receipt-after-sync.cjs   (after `npm run build` in ParadiERP.WebUI)
 const { spawn } = require('node:child_process');
 const path = require('node:path');
 const { chromium } = require('playwright');

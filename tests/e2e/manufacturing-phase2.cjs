@@ -285,7 +285,7 @@ async function lifecycle(w) {
 }
 
 function serve() {
-  const web = path.join(root, 'AlgeriaPos.WebUI/dist/algeria-pos-web-ui/browser');
+  const web = path.join(root, 'ParadiERP.WebUI/dist/paradierp-web-ui/browser');
   const server = http.createServer(async (r, s) => {
     if (r.url.startsWith('/api/') || r.url === '/health') {
       const chunks = [];

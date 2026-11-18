@@ -16,12 +16,12 @@ The solution follows the layered structure used by the Riaya, CarRental, and Afa
 
 | Project | Responsibility |
 |---|---|
-| `AlgeriaPos.Domain` | Entities and enums with no dependency on outer layers. |
-| `AlgeriaPos.Application` | Transport-neutral application contracts and future use cases. |
-| `AlgeriaPos.Infrastructure` | EF Core persistence, seeding, token generation, and sync. |
-| `AlgeriaPos.API` | Composition root, authentication, middleware, and HTTP endpoints. |
-| `AlgeriaPos.WebUI` | Angular PWA, IndexedDB replica, offline outbox, and register UI. |
-| `AlgeriaPos.Tests` | Backend tests and dependency-boundary guards. |
+| `ParadiERP.Domain` | Entities and enums with no dependency on outer layers. |
+| `ParadiERP.Application` | Transport-neutral application contracts and future use cases. |
+| `ParadiERP.Infrastructure` | EF Core persistence, seeding, token generation, and sync. |
+| `ParadiERP.API` | Composition root, authentication, middleware, and HTTP endpoints. |
+| `ParadiERP.WebUI` | Angular PWA, IndexedDB replica, offline outbox, and register UI. |
+| `ParadiERP.Tests` | Backend tests and dependency-boundary guards. |
 
 ## Dependency direction
 

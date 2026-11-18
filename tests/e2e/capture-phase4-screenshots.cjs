@@ -13,7 +13,7 @@ const root = path.resolve(__dirname, '../..');
 const out = path.join(root, 'artifacts/ui-redesign-checkpoint/phase4');
 fs.mkdirSync(out, { recursive: true });
 
-const webDist = path.join(root, 'AlgeriaPos.WebUI/dist/algeria-pos-web-ui/browser');
+const webDist = path.join(root, 'ParadiERP.WebUI/dist/paradierp-web-ui/browser');
 
 const permissions = [
   'admin.access',

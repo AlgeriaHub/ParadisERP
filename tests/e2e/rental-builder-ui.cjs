@@ -7,7 +7,7 @@ const before=process.argv.includes('--before');
 let assertions=0;const check=(name,ok)=>{if(!ok)throw Error(name);assertions++;console.log('PASS',name)};
 const products=Array.from({length:20},(_,i)=>({id:`p${i+1}`,sku:`RENT-${String(i+1).padStart(3,'0')}`,barcode:`613000000${String(i+1).padStart(4,'0')}`,nameFr:`GÃ©nÃ©rateur chantier ${i+1}`,nameAr:`Ù…ÙˆÙ„Ø¯ ÙƒÙ‡Ø±Ø¨Ø§Ø¦ÙŠ ${i+1}`,nameEn:`Site generator ${i+1}`,isActive:true,isRentable:true,trackStock:true,stockQty:200,price:5,taxRate:0,unit:'pcs'}));
 async function main(){
-const root=path.resolve('AlgeriaPos.WebUI/dist/algeria-pos-web-ui/browser');
+const root=path.resolve('ParadiERP.WebUI/dist/paradierp-web-ui/browser');
 const server=require('http').createServer((req,res)=>{
  const requested=decodeURIComponent(new URL(req.url,'http://localhost').pathname);
  const file=path.resolve(root,'.'+(requested==='/'?'/index.html':requested));
@@ -16,7 +16,7 @@ const server=require('http').createServer((req,res)=>{
  res.setHeader('Content-Type',types[path.extname(file)]||'application/octet-stream');fs.createReadStream(file).pipe(res);
 });
 await new Promise(resolve=>server.listen(5099,'127.0.0.1',resolve));
-const permissions=[...fs.readFileSync('AlgeriaPos.Domain/Authorization/PermissionCatalog.cs','utf8').matchAll(/public const string \w+ = "([^"]+)"/g)].map(m=>m[1]);
+const permissions=[...fs.readFileSync('ParadiERP.Domain/Authorization/PermissionCatalog.cs','utf8').matchAll(/public const string \w+ = "([^"]+)"/g)].map(m=>m[1]);
 const user={id:'ui-test-admin',username:'admin',fullName:'Administrateur',role:'Admin',isActive:true,permissions,capabilities:['customers.create'],branchLocked:false};
 products.forEach((p,i)=>{p.nameFr=`G\u00e9n\u00e9rateur chantier ${i+1}`;p.nameAr=`\u0645\u0648\u0644\u062f \u0643\u0647\u0631\u0628\u0627\u0626\u064a ${i+1}`;});
 const browser=await chromium.launch({headless:true,channel:'chrome'});

@@ -6,8 +6,8 @@ owner's standing rule (2026-11-09) every answer is a back-office setting the acc
 answer as default, and **today's behaviour is kept until the accountant switches it on**.
 
 Where: **Reports › Fixed assets** (`reports/fixed-assets`), three tabs — Register, Month's depreciation, Settings.
-Code: `AlgeriaPos.Infrastructure/FixedAssets/`, routes `AlgeriaPos.API/Endpoints/FixedAssetEndpoints.cs`, entities
-`AlgeriaPos.Domain/FixedAssetEntities.cs`, migration `FixedAssetRegister` (SQLite and SQL Server sets).
+Code: `ParadiERP.Infrastructure/FixedAssets/`, routes `ParadiERP.API/Endpoints/FixedAssetEndpoints.cs`, entities
+`ParadiERP.Domain/FixedAssetEntities.cs`, migration `FixedAssetRegister` (SQLite and SQL Server sets).
 
 ## The model
 

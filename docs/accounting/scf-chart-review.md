@@ -1,10 +1,10 @@
-# AlgeriaPos — Chart of Accounts against the SCF (D33)
+# ParadiERP — Chart of Accounts against the SCF (D33)
 
 *Internal review of 2026-11-01, for the owner and developers. It answers D33, which the owner made our own team's responsibility on 2026-10-31, and the numbering in C-04, REN-18 and PAY-02, which the owner made internal on 2026-11-01. Nothing in the system was changed.*
 
 ## Source
 
-- **The chart reviewed:** `LedgerAccounts.Default` in `AlgeriaPos.Domain/LedgerEntities.cs`. These are the 37 system accounts seeded on every company. Code posts to them by number, so they cannot be renumbered from the Accounts screen (`LedgerEndpoints.cs:86-120`). An admin may add accounts of their own; those were not reviewed, because nothing in code posts to them.
+- **The chart reviewed:** `LedgerAccounts.Default` in `ParadiERP.Domain/LedgerEntities.cs`. These are the 37 system accounts seeded on every company. Code posts to them by number, so they cannot be renumbered from the Accounts screen (`LedgerEndpoints.cs:86-120`). An admin may add accounts of their own; those were not reviewed, because nothing in code posts to them.
 - **The SCF:** Arrêté du 26 juillet 2008, *Journal officiel* n° 19 of 25 March 2009 (joradp.dz, `F2009019.pdf`). That arrêté sets the "Nomenclature des comptes à trois chiffres" and the rules for using each account. The quotations below come from that text.
 - **Scope:** whether each account sits under the right SCF heading. Valuation, tax and timing stay with the accountant (the IDs in brackets).
 
@@ -24,7 +24,7 @@ The SCF fixes the two- and three-digit accounts. Four-digit sub-accounts (4457, 
 
 ✓ correct · ~ correct with a note · ✗ wrong SCF heading
 
-| Code | What AlgeriaPos uses it for | SCF account | Verdict |
+| Code | What ParadiERP uses it for | SCF account | Verdict |
 |---|---|---|---|
 | 890 | Opening balance (equity) | Class 8: no SCF account. §312.3: "classes 0, 8 et 9 … utilisées librement par les entités" for "opérations particulières qui n'auraient pas leur place dans les comptes des classes 1 à 7" | ~ Acceptable as a temporary account at go-live. An opening balance does belong in classes 1–7 (capital 101, reserves 106, retained earnings 11), so 890 must be cleared into class 1 before any financial statement (GL-10). |
 | 181 | Inter-branch account, computed, never posted | 181 "Comptes de liaison entre établissements" | ✓ |

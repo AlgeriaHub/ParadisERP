@@ -5,9 +5,9 @@ const testPassword = requiredPassword();
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
-const bcrypt = require('../../AlgeriaPos.WebUI/node_modules/bcryptjs');
+const bcrypt = require('../../ParadiERP.WebUI/node_modules/bcryptjs');
 
-const DIST = require('path').resolve(__dirname, '../../AlgeriaPos.WebUI/dist/algeria-pos-web-ui/browser');
+const DIST = require('path').resolve(__dirname, '../../ParadiERP.WebUI/dist/paradierp-web-ui/browser');
 
 let counter = 0;
 const next = () => ++counter;

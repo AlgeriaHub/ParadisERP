@@ -2,13 +2,13 @@
 
 ## Scope and workspace
 
-This is a **fresh, no-history snapshot** of `AlgeriaHub/AlgeriaPos` at `origin/main` commit
+This is a **fresh, no-history snapshot** of `AlgeriaHub/ParadiERP` at `origin/main` commit
 `25387c8` in:
 
-`F:\SeragProjects\AlgeriaPos\.claude\worktrees\paradierp-public`
+`F:\SeragProjects\ParadiERP\.claude\worktrees\paradierp-public`
 
 It is not yet a Git repository, has not been pushed, and nothing has been changed on the Ubuntu
-server. The source AlgeriaPos working tree remains untouched.
+server. The source ParadiERP working tree remains untouched.
 
 ## Completed
 
@@ -34,29 +34,29 @@ server. The source AlgeriaPos working tree remains untouched.
 
 ### Files changed
 
-- `AlgeriaPos.API/Endpoints/TrialEndpoints.cs`
-- `AlgeriaPos.API/Endpoints/ApiEndpoints.cs`
-- `AlgeriaPos.API/Authorization/RoutePermissions.cs`
-- `AlgeriaPos.Application/Regional/UiFonts.cs`
-- `AlgeriaPos.Tests/Tenancy/TrialEndpointsTests.cs`
-- `AlgeriaPos.WebUI/src/app/core/ui-fonts.ts`
-- `AlgeriaPos.WebUI/src/app/features/landing/landing.component.ts`
-- `AlgeriaPos.WebUI/src/app/features/landing/landing.component.html`
-- `AlgeriaPos.WebUI/src/app/features/landing/landing.component.scss`
-- `AlgeriaPos.WebUI/src/app/core/i18n/landing.translations.ts`
-- `AlgeriaPos.WebUI/src/app/core/i18n.service.ts`
-- `AlgeriaPos.WebUI/src/app/app.routes.ts`
-- `AlgeriaPos.WebUI/src/app/app.component.ts`
-- `AlgeriaPos.WebUI/src/app/app.component.html`
-- `AlgeriaPos.WebUI/src/fonts.scss`
-- `AlgeriaPos.WebUI/src/styles.scss`
-- `AlgeriaPos.WebUI/src/index.html`
+- `ParadiERP.API/Endpoints/TrialEndpoints.cs`
+- `ParadiERP.API/Endpoints/ApiEndpoints.cs`
+- `ParadiERP.API/Authorization/RoutePermissions.cs`
+- `ParadiERP.Application/Regional/UiFonts.cs`
+- `ParadiERP.Tests/Tenancy/TrialEndpointsTests.cs`
+- `ParadiERP.WebUI/src/app/core/ui-fonts.ts`
+- `ParadiERP.WebUI/src/app/features/landing/landing.component.ts`
+- `ParadiERP.WebUI/src/app/features/landing/landing.component.html`
+- `ParadiERP.WebUI/src/app/features/landing/landing.component.scss`
+- `ParadiERP.WebUI/src/app/core/i18n/landing.translations.ts`
+- `ParadiERP.WebUI/src/app/core/i18n.service.ts`
+- `ParadiERP.WebUI/src/app/app.routes.ts`
+- `ParadiERP.WebUI/src/app/app.component.ts`
+- `ParadiERP.WebUI/src/app/app.component.html`
+- `ParadiERP.WebUI/src/fonts.scss`
+- `ParadiERP.WebUI/src/styles.scss`
+- `ParadiERP.WebUI/src/index.html`
 
 ## Verification
 
-- `dotnet test AlgeriaPos.Tests --filter 'FullyQualifiedName~TrialEndpointsTests'`: 8/8 tests passed.
-- `dotnet build AlgeriaPos.API`: Succeeded with 0 errors and 0 warnings.
-- `npm run build` passed in `AlgeriaPos.WebUI` on 2026-11-18. All bundles generated cleanly.
+- `dotnet test ParadiERP.Tests --filter 'FullyQualifiedName~TrialEndpointsTests'`: 8/8 tests passed.
+- `dotnet build ParadiERP.API`: Succeeded with 0 errors and 0 warnings.
+- `npm run build` passed in `ParadiERP.WebUI` on 2026-11-18. All bundles generated cleanly.
 
 ## Public-release setup status
 

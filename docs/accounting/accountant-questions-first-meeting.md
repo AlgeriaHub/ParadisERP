@@ -1,12 +1,12 @@
-# AlgeriaPos — First Meeting with Our Accountant
+# ParadiERP — First Meeting with Our Accountant
 
-*Prepared 2026-10-31, updated the same day and on 2026-11-02 with the owner's decisions. Arabic version: `accountant-questions-first-meeting.ar.md`. These 14 questions need your professional answer: they are about the law, tax and the books, not about what the system can do. The full list is in "AlgeriaPos — Questions for Our Accountant"; each question here keeps the same ID.*
+*Prepared 2026-10-31, updated the same day and on 2026-11-02 with the owner's decisions. Arabic version: `accountant-questions-first-meeting.ar.md`. These 14 questions need your professional answer: they are about the law, tax and the books, not about what the system can do. The full list is in "ParadiERP — Questions for Our Accountant"; each question here keeps the same ID.*
 
 Our suggestions are only suggestions. Anything about VAT, stamp duty, CNAS, IRG, depreciation or the SCF needs your confirmation.
 
 ## What is already settled on our side
 
-- AlgeriaPos is the company's official accounting system; all the books are kept in it.
+- ParadiERP is the company's official accounting system; all the books are kept in it.
 - Our own team reviews the chart of accounts against the SCF.
 - Equipment hire carries VAT, and the rent for the agreed period is booked on the first day of the rental.
 - VAT is optional when the bill is made: whoever makes it chooses taxed or untaxed, on till sales, invoices and rental bills (owner, 2026-11-02).
@@ -20,7 +20,7 @@ Our suggestions are only suggestions. Anything about VAT, stamp duty, CNAS, IRG,
 
 ## 1. TAX-01 — Which sales may legally go out without VAT?
 
-**Question:** AlgeriaPos can record a sale or an invoice with or without VAT, chosen when the bill is made (the owner's decision). In which cases does the law allow a sale without VAT (which customers, goods or situations), and what proof must we keep for each?
+**Question:** ParadiERP can record a sale or an invoice with or without VAT, chosen when the bill is made (the owner's decision). In which cases does the law allow a sale without VAT (which customers, goods or situations), and what proof must we keep for each?
 
 **Example:** A walk-in customer buys 50,000 DA of pipes and pays cash without asking for an invoice. With VAT, the customer pays 59,500 DA, of which 9,500 DA is owed to the tax office. May this sale go out without VAT?
 

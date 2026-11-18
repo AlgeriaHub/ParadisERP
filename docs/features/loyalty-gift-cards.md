@@ -37,10 +37,10 @@ admin switched the programme on.
 
 | Concern | Location |
 |---|---|
-| Point/card arithmetic (shared spec) | `AlgeriaPos.Application/Loyalty/LoyaltyRules.cs`, mirrored in `AlgeriaPos.WebUI/src/app/core/loyalty.ts` |
-| Applying a pushed sale | `AlgeriaPos.Infrastructure/Loyalty/LoyaltyLedger.cs` (inside the sale transaction) |
-| Entities | `AlgeriaPos.Domain/LoyaltyEntities.cs` (`GiftCard`, `GiftCardMovement`, `LoyaltyMovement`), `Store.Loyalty*`, `Customer.LoyaltyPoints` |
-| API | `AlgeriaPos.API/Endpoints/GiftCardEndpoints.cs` (`/api/catalog/gift-cards…`, `/api/catalog/customers/{id}/loyalty`) |
+| Point/card arithmetic (shared spec) | `ParadiERP.Application/Loyalty/LoyaltyRules.cs`, mirrored in `ParadiERP.WebUI/src/app/core/loyalty.ts` |
+| Applying a pushed sale | `ParadiERP.Infrastructure/Loyalty/LoyaltyLedger.cs` (inside the sale transaction) |
+| Entities | `ParadiERP.Domain/LoyaltyEntities.cs` (`GiftCard`, `GiftCardMovement`, `LoyaltyMovement`), `Store.Loyalty*`, `Customer.LoyaltyPoints` |
+| API | `ParadiERP.API/Endpoints/GiftCardEndpoints.cs` (`/api/catalog/gift-cards…`, `/api/catalog/customers/{id}/loyalty`) |
 | Till | payment dialog and split parts in `features/register`, balances/points on the receipt |
 | Back office | `features/backoffice/gift-cards-tab.component.ts`, loyalty fields in the store tab, points column in customers |
 | Migration | `LoyaltyGiftCards` (SQLite, MySQL) — additive: three tables plus five columns |
@@ -52,8 +52,8 @@ tiles in Back office → Rapports when non-zero.
 
 ## Tests
 
-* `AlgeriaPos.Tests/Loyalty/LoyaltyRulesTests.cs` — earning, redemption, thresholds, card problems.
-* `AlgeriaPos.WebUI/src/app/core/loyalty.spec.ts` — the same maths plus the till's tender checks.
+* `ParadiERP.Tests/Loyalty/LoyaltyRulesTests.cs` — earning, redemption, thresholds, card problems.
+* `ParadiERP.WebUI/src/app/core/loyalty.spec.ts` — the same maths plus the till's tender checks.
 * `tests/e2e/loyalty-giftcards.cjs` (in CI) — real API: settings validation, issue/duplicate/generated
   codes, redeem, overspend and unknown-card warnings, refunds to a card and in points, adjustments,
   movement history, replication to a till, and the report totals.

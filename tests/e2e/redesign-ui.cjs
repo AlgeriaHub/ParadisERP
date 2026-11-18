@@ -4,13 +4,13 @@ const fs = require('node:fs');
 const path = require('node:path');
 const http = require('node:http');
 const assert = require('node:assert/strict');
-const root = path.resolve('AlgeriaPos.WebUI/dist/algeria-pos-web-ui/browser');
+const root = path.resolve('ParadiERP.WebUI/dist/paradierp-web-ui/browser');
 const output = path.resolve('artifacts/design/screen-redesign');
 fs.mkdirSync(output, { recursive: true });
 const products = [{ id: 'product1', sku: 'LOC-001', barcode: '6130000000001', nameFr: 'Générateur de chantier', nameAr: 'مولد كهربائي', nameEn: 'Site generator', price: 500, taxRate: 0, unit: 'pcs', isActive: true, isRentable: true, trackStock: true, stockQty: 20, reorderLevel: 2, version: 1, isDeleted: false }];
 const branches = [{ id: 'branch1', nameFr: 'Agence centrale', nameAr: 'الفرع الرئيسي', nameEn: 'Main branch', isActive: true }];
 const customers = [{ id: 'customer1', code: 'DEMO-01', fullName: 'Client démonstration', kind: 'Person', balance: 0, creditLimit: 0 }];
-const permissions = [...new Set(['payroll.manage', 'hr.attendance', ...[...fs.readFileSync('AlgeriaPos.Domain/Authorization/PermissionCatalog.cs', 'utf8').matchAll(/public const string \w+ = "([^"]+)"/g)].map(m => m[1])])];
+const permissions = [...new Set(['payroll.manage', 'hr.attendance', ...[...fs.readFileSync('ParadiERP.Domain/Authorization/PermissionCatalog.cs', 'utf8').matchAll(/public const string \w+ = "([^"]+)"/g)].map(m => m[1])])];
 const user = { id: 'ui-admin', username: 'admin', fullName: 'Administrateur', role: 'Admin', permissions, capabilities: ['customers.create'], isActive: true, branchLocked: false };
 const server = http.createServer((req, res) => {
   const requested = new URL(req.url, 'http://localhost').pathname;
@@ -28,7 +28,7 @@ async function expectAttr(locator, name, value) {
   assert.equal(await locator.getAttribute(name), value);
 }
 // The word the back office prints beside a required field, per language (a .bo-req also says "optional").
-const requiredWord = Object.fromEntries([...fs.readFileSync('AlgeriaPos.WebUI/src/app/core/i18n/translations-backoffice.ts', 'utf8')
+const requiredWord = Object.fromEntries([...fs.readFileSync('ParadiERP.WebUI/src/app/core/i18n/translations-backoffice.ts', 'utf8')
   .matchAll(/'common.required': '([^']+)'/g)].map((m, i) => [['fr', 'ar', 'en'][i], m[1]]));
 async function main() {
   await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
@@ -38,7 +38,7 @@ async function main() {
   const pages = ['register', 'products', 'sales', 'sync', 'backoffice/inventory/products', 'backoffice/customers/list', 'backoffice/rentals/contracts/new', 'backoffice/rentals/settings', 'backoffice/finance/settings'];
   // Additional routes exercise empty/error states; populated financial workflows have dedicated suites.
   if (process.argv.includes('--all-routes')) {
-    const nav = fs.readFileSync('AlgeriaPos.WebUI/src/app/core/nav.ts', 'utf8');
+    const nav = fs.readFileSync('ParadiERP.WebUI/src/app/core/nav.ts', 'utf8');
     for (const match of nav.matchAll(/path: '([^']+)'/g)) {
       if (match[1].startsWith('/') || match[1].includes('subscription')) continue;
       const route = `backoffice/${match[1]}`;

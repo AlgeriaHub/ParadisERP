@@ -1,28 +1,28 @@
 # Single image: the API serves the built PWA, so a shop runs one container.
 FROM node:20-alpine AS web
 WORKDIR /web
-COPY AlgeriaPos.WebUI/package*.json ./
+COPY ParadiERP.WebUI/package*.json ./
 RUN npm ci
-COPY AlgeriaPos.WebUI/ ./
+COPY ParadiERP.WebUI/ ./
 RUN npm run build
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS api
 WORKDIR /src
-COPY Directory.Build.props AlgeriaPos.sln ./
+COPY Directory.Build.props ParadiERP.sln ./
 # Project files first, so the restore layer is reused until a dependency changes.
-COPY AlgeriaPos.Domain/AlgeriaPos.Domain.csproj AlgeriaPos.Domain/
-COPY AlgeriaPos.Application/AlgeriaPos.Application.csproj AlgeriaPos.Application/
-COPY AlgeriaPos.Infrastructure/AlgeriaPos.Infrastructure.csproj AlgeriaPos.Infrastructure/
-COPY AlgeriaPos.Migrations.SqlServer/AlgeriaPos.Migrations.SqlServer.csproj AlgeriaPos.Migrations.SqlServer/
-COPY AlgeriaPos.API/AlgeriaPos.API.csproj AlgeriaPos.API/
-RUN dotnet restore AlgeriaPos.API/AlgeriaPos.API.csproj
-COPY AlgeriaPos.Domain/ AlgeriaPos.Domain/
-COPY AlgeriaPos.Application/ AlgeriaPos.Application/
-COPY AlgeriaPos.Infrastructure/ AlgeriaPos.Infrastructure/
-COPY AlgeriaPos.Migrations.SqlServer/ AlgeriaPos.Migrations.SqlServer/
-COPY AlgeriaPos.API/ AlgeriaPos.API/
-COPY --from=web /web/dist/algeria-pos-web-ui/browser/ AlgeriaPos.API/wwwroot/
-RUN dotnet publish AlgeriaPos.API/AlgeriaPos.API.csproj -c Release -o /app --no-restore
+COPY ParadiERP.Domain/ParadiERP.Domain.csproj ParadiERP.Domain/
+COPY ParadiERP.Application/ParadiERP.Application.csproj ParadiERP.Application/
+COPY ParadiERP.Infrastructure/ParadiERP.Infrastructure.csproj ParadiERP.Infrastructure/
+COPY ParadiERP.Migrations.SqlServer/ParadiERP.Migrations.SqlServer.csproj ParadiERP.Migrations.SqlServer/
+COPY ParadiERP.API/ParadiERP.API.csproj ParadiERP.API/
+RUN dotnet restore ParadiERP.API/ParadiERP.API.csproj
+COPY ParadiERP.Domain/ ParadiERP.Domain/
+COPY ParadiERP.Application/ ParadiERP.Application/
+COPY ParadiERP.Infrastructure/ ParadiERP.Infrastructure/
+COPY ParadiERP.Migrations.SqlServer/ ParadiERP.Migrations.SqlServer/
+COPY ParadiERP.API/ ParadiERP.API/
+COPY --from=web /web/dist/paradierp-web-ui/browser/ ParadiERP.API/wwwroot/
+RUN dotnet publish ParadiERP.API/ParadiERP.API.csproj -c Release -o /app --no-restore
 
 # Debian rather than alpine or a chiselled base, on purpose: rental due dates and the
 # integration schedule convert through the container's tzdata, and the conversion falls back to
@@ -56,4 +56,4 @@ EXPOSE 5080
 # external monitor read.
 HEALTHCHECK --interval=30s --timeout=5s --start-period=90s --retries=3 \
     CMD curl -fsS http://127.0.0.1:5080/health || exit 1
-ENTRYPOINT ["dotnet", "AlgeriaPos.API.dll"]
+ENTRYPOINT ["dotnet", "ParadiERP.API.dll"]

@@ -95,7 +95,7 @@ Fixed during the checks (2026-10-26):
   yet" when loading failed instead of the error state with a retry.
 - The end-to-end drive sent a till sale without a cashier id (400); it now sends the signed-in user's.
 
-To run again: build `AlgeriaPos.API` (Release) and the web bundle; start the API on a fresh database with
+To run again: build `ParadiERP.API` (Release) and the web bundle; start the API on a fresh database with
 `Manufacturing__StockOperations=true` and `Bootstrap__AdminPassword` set; run
 `ADMIN_PASSWORD=... BASE=http://127.0.0.1:5198 node tests/e2e/manufacturing-phase2.cjs`. For SQL Server, the
 same against a fresh database on `deploy/sqlserver`, then `tests/e2e/provider-smoke.cjs` on another fresh one.

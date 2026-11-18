@@ -75,10 +75,10 @@ PIN hashes never leave the server, so a till cannot be used to brute-force an ad
 ### 1. API
 
 ```bash
-dotnet run --project AlgeriaPos.API
+dotnet run --project ParadiERP.API
 ```
 
-Migrations are committed (`AlgeriaPos.Infrastructure/Persistence/Migrations`) and applied
+Migrations are committed (`ParadiERP.Infrastructure/Persistence/Migrations`) and applied
 automatically on startup. Runs on `http://localhost:5080`. Swagger at `/swagger`. SQLite by
 default (`pos-dev.db`), seeded with a demo company (one main warehouse plus two selling
 branches, Alger-Centre and Oran), 10 products, 2 customers and terminals `C01` / `C02`
@@ -88,8 +88,8 @@ If you change the schema, add the migration to both sets — SQLite and SQL Serv
 
 ```bash
 dotnet tool install --global dotnet-ef      # if you don't have it
-dotnet ef migrations add <Name> -p AlgeriaPos.Infrastructure -s AlgeriaPos.Infrastructure -c PosDbContext -o Persistence/Migrations
-dotnet ef migrations add <Name> -p AlgeriaPos.Migrations.SqlServer -s AlgeriaPos.Migrations.SqlServer -c PosDbContext
+dotnet ef migrations add <Name> -p ParadiERP.Infrastructure -s ParadiERP.Infrastructure -c PosDbContext -o Persistence/Migrations
+dotnet ef migrations add <Name> -p ParadiERP.Migrations.SqlServer -s ParadiERP.Migrations.SqlServer -c PosDbContext
 ```
 
 Set `Bootstrap__AdminPassword` in your local environment before initializing a new demo database. It is required even in Development. For browser/API tests, pass the same password through `ADMIN_PASSWORD` (or the script-specific `POS_PASSWORD` / `POS_ADMIN_PASSWORD`). Do not commit the value. The mock API and its browser clients also share `ADMIN_PASSWORD`.
@@ -110,7 +110,7 @@ is empty, so an upgrade of a running deployment needs neither line.
 ### 2. PWA
 
 ```bash
-cd AlgeriaPos.WebUI
+cd ParadiERP.WebUI
 npm install
 npm start          # http://localhost:4200
 ```
@@ -127,12 +127,12 @@ terminal works offline.
 The API serves the PWA, so one process on one machine runs everything:
 
 ```bash
-cd AlgeriaPos.WebUI && npm run build
-cp -r dist/algeria-pos-web-ui/browser/* ../AlgeriaPos.API/wwwroot/
+cd ParadiERP.WebUI && npm run build
+cp -r dist/paradierp-web-ui/browser/* ../ParadiERP.API/wwwroot/
 
 cd ..
-dotnet publish AlgeriaPos.API -c Release -o out
-cd out && ASPNETCORE_URLS=http://0.0.0.0:5080 dotnet AlgeriaPos.API.dll
+dotnet publish ParadiERP.API -c Release -o out
+cd out && ASPNETCORE_URLS=http://0.0.0.0:5080 dotnet ParadiERP.API.dll
 ```
 
 Every till on the shop's LAN opens `http://<server-ip>:5080` and installs it from the browser
@@ -179,7 +179,7 @@ Two providers, and only two:
 For a verification run against a real SQL Server — migrations from empty and
 `tests/e2e/provider-smoke.cjs` — `deploy/sqlserver` starts SQL Server 2022 in Docker on
 `127.0.0.1:14333` (copy `.env.example` to `.env` first), and
-`AlgeriaPos.API/appsettings.Local.example.json` shows the connection. It wants about 2 GB of
+`ParadiERP.API/appsettings.Local.example.json` shows the connection. It wants about 2 GB of
 memory; stop it when the run is over.
 
 SQL Server replaced MySQL on 2026-10-04, when the owner chose SmarterASP.NET hosting. The system
@@ -265,14 +265,14 @@ separate refund API.
 ## Layout
 
 ```
-AlgeriaPos.Domain/          entities and core enums
-AlgeriaPos.Application/     contracts and application boundary
-AlgeriaPos.Infrastructure/  persistence, seeding, JWT, and sync engine
-AlgeriaPos.API/             host and minimal API endpoints
+ParadiERP.Domain/          entities and core enums
+ParadiERP.Application/     contracts and application boundary
+ParadiERP.Infrastructure/  persistence, seeding, JWT, and sync engine
+ParadiERP.API/             host and minimal API endpoints
 docs/                       overview and architecture decisions
-AlgeriaPos.Tests/           backend architecture tests
+ParadiERP.Tests/           backend architecture tests
 
-AlgeriaPos.WebUI/src/app/
+ParadiERP.WebUI/src/app/
   core/db.ts                Dexie/IndexedDB schema (catalog replica + sales outbox)
   core/sync.service.ts      delta pull, outbox drain, backoff
   core/admin.service.ts     back-office CRUD client (online-only, hits the server directly)
@@ -293,13 +293,13 @@ tests/e2e/                  Playwright offline-to-online cycle
 ## Tests
 
 ```bash
-cd AlgeriaPos.WebUI && npm test
+cd ParadiERP.WebUI && npm test
 ```
 
 The backend suite (xUnit, about 2,000 tests, many of them against a real in-process API on its own SQLite file):
 
 ```bash
-dotnet test AlgeriaPos.Tests              # one process, about 25 minutes
+dotnet test ParadiERP.Tests              # one process, about 25 minutes
 pwsh scripts/test-parallel.ps1            # three processes side by side, about 15 minutes
 pwsh scripts/test-parallel.ps1 -Processes 1   # one process, when memory is short
 ```
@@ -311,7 +311,7 @@ login, catalog pull, going offline, two sales, page reload, reconnect, automatic
 replay idempotency, and offline PIN unlock:
 
 ```bash
-cd AlgeriaPos.WebUI && npm run build
+cd ParadiERP.WebUI && npm run build
 node ../scripts/mock-api/server.js &
 node ../tests/e2e/offline-cycle.js
 ```

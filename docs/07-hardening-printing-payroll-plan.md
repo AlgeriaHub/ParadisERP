@@ -25,7 +25,7 @@ scouts disagreed, the disagreement is stated and the pick is given with its reas
 Phases 1–5 of the redesign are done, server and screens, and both providers were exercised at the
 current schema on 2026-09-23 (333 backend tests, 129 frontend). What is not done is everything
 around that core. **Payroll is a settings model with no home**: `PayrollSettings`, its validator,
-the DZ preset and `PayrollOwnership` are referenced by nothing outside `AlgeriaPos.Tests/Payroll`
+the DZ preset and `PayrollOwnership` are referenced by nothing outside `ParadiERP.Tests/Payroll`
 and one seeded account (`LedgerAccounts.PayrollExpense = "630"`, `LedgerEntities.cs:251`) that
 nothing posts to — the dead-wiring shape the memory warns about. **Printing does not exist beyond
 the 80 mm receipt**: the global rule at `styles.scss:731-753` hides `body *` for the whole SPA, so
@@ -84,7 +84,7 @@ Change:
   deleted, and a stale id cannot be written. **Nullable, backfilled `NULL` = "any terminal"**, so
   no existing account is locked out on upgrade — this is the migration-default lesson applied
   before the fact. Two migration sets, same name `AddUserBranch`
-  (`AlgeriaPos.Infrastructure/Persistence/Migrations`, `AlgeriaPos.Migrations.MySql`).
+  (`ParadiERP.Infrastructure/Persistence/Migrations`, `ParadiERP.Migrations.MySql`).
 * **The column binds cashiers only.** A Manager's or Admin's row may carry a `BranchId` (the users
   tab may have set it before a role change) and it is **ignored for scoping and for login** —
   `BranchScope.ForAsync` returns `null` for those roles before it reads anything, and the users tab
@@ -121,17 +121,17 @@ Change:
 
 Mechanics:
 
-* `AlgeriaPos.Infrastructure/Auth/BranchScope.cs` — `static Task<Guid?> ForAsync(ClaimsPrincipal
+* `ParadiERP.Infrastructure/Auth/BranchScope.cs` — `static Task<Guid?> ForAsync(ClaimsPrincipal
   user, PosDbContext db, CancellationToken ct)`: `null` for Manager/Admin; otherwise
   `db.Devices.Where(d => d.Code == user.FindFirstValue("device")).Select(d => (Guid?)d.BranchId)
   .FirstOrDefaultAsync()` falling back to `Guid.Empty` (matches nothing, never throws). An unknown
   or inactive device already fails token validation (`UserSessionValidator.cs:64`); the fallback is
   defence, covered by its own test.
-* A `BranchScopedAttribute` marker in `AlgeriaPos.API/Endpoints`, attached with
+* A `BranchScopedAttribute` marker in `ParadiERP.API/Endpoints`, attached with
   `.WithMetadata(...)`, so the endpoint inventory test can assert which any-authenticated routes
   are scoped instead of trusting a comment.
 * The query bodies of list/read/summary move into
-  `AlgeriaPos.Infrastructure/Sales/SalesQueries.cs` taking `Guid? scope`, the way `LedgerReports`
+  `ParadiERP.Infrastructure/Sales/SalesQueries.cs` taking `Guid? scope`, the way `LedgerReports`
   is separate from `LedgerEndpoints`, so `TillHarness` can test them without HTTP.
 * **Scope first, remove later.** The whitelist comments at `EndpointAuthorizationTests.cs:61-62`
   say the till needs `/api/sales` and `/api/reports/summary`; the shipped till does not call them
@@ -155,7 +155,7 @@ Mechanics:
   `logger.LogError(ex, "Sale {SaleId} from {Device} rejected; reference {Reference}", …)`. **Ids
   only in the log** — `SalePush` carries customer ids and payment references. The packages are
   `Microsoft.EntityFrameworkCore.Sqlite 8.0.11` and `Pomelo.EntityFrameworkCore.MySql 8.0.2`
-  (`AlgeriaPos.Infrastructure.csproj:19-20`). **To verify at build time:** the property names
+  (`ParadiERP.Infrastructure.csproj:19-20`). **To verify at build time:** the property names
   `SqliteException.SqliteErrorCode` and `MySqlException.Number`, and the values 19 and 1062, are
   this plan's expectation, not something checked against those exact package versions; the
   builder confirms them in the packages' own types before coding, or duplicates regress to
@@ -171,14 +171,14 @@ Mechanics:
 
 ### 2.5 Tests
 
-* `AlgeriaPos.Tests/Security/CashierBranchScopeTests.cs` (TillHarness, C01→Algiers, C02→Oran):
+* `ParadiERP.Tests/Security/CashierBranchScopeTests.cs` (TillHarness, C01→Algiers, C02→Oran):
   `A_cashier_sees_only_the_sales_its_terminal_s_branch_took`,
   `A_cashier_s_branchId_query_parameter_is_overridden_not_honoured`,
   `A_cashier_cannot_open_another_branch_s_sale_by_id`,
   `A_cashier_s_Z_report_names_no_other_branch`, `A_manager_still_sees_every_branch`,
   `An_unknown_device_claim_scopes_to_nothing_rather_than_everything`,
   `A_cashier_cannot_send_another_branch_s_receipt`.
-* `AlgeriaPos.Tests/Security/LoginTerminalBindingTests.cs` — **needs the HTTP test host
+* `ParadiERP.Tests/Security/LoginTerminalBindingTests.cs` — **needs the HTTP test host
   (backlog item 4)**, because the refusal lives in the login and SSO handlers and there is no
   service to call around them:
   `A_cashier_assigned_to_Oran_cannot_open_a_session_on_an_Algiers_till`,
@@ -187,7 +187,7 @@ Mechanics:
 * `EndpointAuthorizationTests`: `Every_route_a_till_may_read_is_branch_scoped_or_on_the_reviewed_list`;
   `Every_route_that_lists_stock_by_branch_either_needs_the_named_permission_or_scopes_to_the_caller`;
   `A_retroactive_extension_refusal_is_reachable_by_someone_or_not_expressed_at_all`.
-* `AlgeriaPos.Tests/Security/PushRejectionMessageTests.cs` (force a failure with
+* `ParadiERP.Tests/Security/PushRejectionMessageTests.cs` (force a failure with
   `DROP TABLE LedgerEntries` on the harness connection before the push):
   `A_rejected_sale_never_carries_the_database_s_own_words` (no "SQLite", "table", "constraint"),
   `A_duplicate_receipt_number_is_recognised_by_error_code_not_by_text`,
@@ -201,7 +201,7 @@ and nothing builds a `WebApplicationFactory`; every backend test drives services
 (`TillHarness`) or inspects endpoint metadata by reflection (`EndpointAuthorizationTests`). Any
 test above or in §5.11 and §6.0 that asserts a status code, a login, a policy or a startup throw
 is therefore preceded by **backlog item 4**: add `Microsoft.AspNetCore.Mvc.Testing` to
-`AlgeriaPos.Tests`, a `WebApplicationFactory<Program>` fixture on a SQLite file per test class
+`ParadiERP.Tests`, a `WebApplicationFactory<Program>` fixture on a SQLite file per test class
 with the single-company tenant configured in code, and `Program` made visible to the test
 assembly (`public partial class Program` or `InternalsVisibleTo`). The `CashierBranchScopeTests`
 and `PushRejectionMessageTests` above do **not** depend on it — they go through `SalesQueries`
@@ -577,7 +577,7 @@ whether issue/return notes print a driver, vehicle or site (none exists in the d
 
 ### 5.1 What exists, and what it means
 
-`AlgeriaPos.Application/Payroll`: `PayBasis {Daily, Monthly}`, `AttendanceMode {Recorded,
+`ParadiERP.Application/Payroll`: `PayBasis {Daily, Monthly}`, `AttendanceMode {Recorded,
 Declared}` (`PayrollSettings.cs:6-21`); `AllowanceDef` (fixed or % of base, `SubjectToCnas`,
 `SubjectToIrg`; `:42-63`); `OvertimeRuleDef` (band, multiplier; `:66-73`); `TaxBracket` (`:80-85`);
 `PayrollSettings` (rates, brackets, minimum wage, allowances, overtime, default attendance mode,
@@ -655,7 +655,7 @@ validator was written to catch.
   copy there is no platform operator with a screen, so **the operator's ownership is exercised by
   whoever controls the configuration**, not by the company Admin. `PayrollOwnership`'s refusal
   message ("set by the platform operator") stays true — the deployer is that operator here.
-* `AlgeriaPos.Infrastructure/Payroll/PayrollSettingsStore`: `ReadAsync()`,
+* `ParadiERP.Infrastructure/Payroll/PayrollSettingsStore`: `ReadAsync()`,
   `ApplyCompanyEditAsync(incoming, revision, by)` → `PayrollOwnership.ApplyCompanyEdit`,
   `ApplyStatutoryEditAsync(incoming, revision, reviewed, reason, by)`; a stale revision is a 409.
   **The statutory route accepts only statutory fields.** `PayrollOwnership.ApplyOperatorEdit`
@@ -693,7 +693,7 @@ that has to be a deliberate statement, not the absence of one.
   MissingFields: ["IncomeTaxBrackets"], FixableBy: "payroll.edit_statutory" }` when
   `NotConfigured`; compute answers 409 with that payload and the run stays Draft. `None` computes
   IRG = 0 with no warning. `Scale` applies `IncomeTax.Progressive(taxBase, brackets)` — **new
-  code**: nothing in `AlgeriaPos.Application/Payroll` computes tax today, only `TaxBracket` and its
+  code**: nothing in `ParadiERP.Application/Payroll` computes tax today, only `TaxBracket` and its
   validator exist. It is a pure static in `IncomeTax.cs`: walk the ordered brackets, tax the slice
   of `taxBase` inside each at its rate, the open-top bracket takes the remainder, round once at the
   end to `currencyDecimals`; a `taxBase ≤ 0` returns 0. Its tests use **synthetic brackets only**
@@ -717,7 +717,7 @@ Tests (`PayrollSettingsTests` extended): `A_scale_mode_with_no_brackets_is_rejec
 `Income_tax_is_progressive_over_the_configured_brackets` — **with obviously synthetic brackets**
 (e.g. 10 % to 1,000 then 50 %), so a test never becomes the place a "real" scale is asserted.
 
-### 5.4 Entities — `AlgeriaPos.Domain/HrEntities.cs`, none deriving from `SyncEntity`
+### 5.4 Entities — `ParadiERP.Domain/HrEntities.cs`, none deriving from `SyncEntity`
 
 The mechanism that keeps renting and the debtor book off the tills is the base type; one word in a
 class declaration would replicate salaries to every cashier's IndexedDB. A reflection test asserts
@@ -760,7 +760,7 @@ already on a non-Reversed run for the same period — a warning naming the other
 is left out.
 
 Document numbers `EMP-`, `ADV-`, `RUN-`, `WP-` come from a shared
-`AlgeriaPos.Infrastructure/Documents/DocumentNumbers.Next(prefix, count)` (`{prefix}-{n:D6}`) —
+`ParadiERP.Infrastructure/Documents/DocumentNumbers.Next(prefix, count)` (`{prefix}-{n:D6}`) —
 today the same one-liner is a `private static Numbered` in both `RentalDocuments.cs:1147` and
 `ReceivableDocuments.cs:702`, and a third copy is where the shapes start to drift. The helper is
 extracted first (backlog item 19) and the two existing callers switched with no behaviour change.
@@ -779,7 +779,7 @@ Recorded (clock pairs or per-day ticks) and Declared (a foreman's period totals)
 data; if the engine read both shapes every rule would be written twice, and the daily basis —
 which cannot run without days — would take its number from whichever path happened to be filled.
 
-* `AlgeriaPos.Application/Payroll/AttendanceSummarizer.cs`, pure:
+* `ParadiERP.Application/Payroll/AttendanceSummarizer.cs`, pure:
   `record AttendanceSummary(DaysPresent, PaidLeaveDays, UnpaidAbsenceDays,
   IReadOnlyDictionary<string, decimal> OvertimeHoursByRule, AttendanceSource {Declared, Recorded,
   None})`; `FromDeclaration(...)`, `FromDays(...)`, `PairClockEvents(events, TimeZoneInfo) →
@@ -800,7 +800,7 @@ Tests: `AttendanceSummaryTests` (`A_declared_total_and_a_recorded_month_reduce_t
 
 ### 5.6 The engine — pure functions, in this order
 
-`AlgeriaPos.Application/Payroll/PayrollEngine.cs`, checkable without a server, on the pattern of
+`ParadiERP.Application/Payroll/PayrollEngine.cs`, checkable without a server, on the pattern of
 `RentalFifo`. `EmployeeInput(EmployeeId, Basis, BaseRate, Allowances, AttendanceSummary,
 OpenAdvances, Adjustments)`; `Refusal(settings)`; `Compute(settings, inputs, currencyDecimals)`;
 `ComputeOne(...)`. Every element is rounded to `currencyDecimals` first and totals are built from
@@ -854,7 +854,7 @@ Tests (`PayrollEngineTests`, synthetic figures only):
 
 ### 5.7 The run — one document per branch per month
 
-`AlgeriaPos.Infrastructure/Payroll/PayrollDocuments`, on the pattern of `RentalDocuments`, every
+`ParadiERP.Infrastructure/Payroll/PayrollDocuments`, on the pattern of `RentalDocuments`, every
 write inside `db.BeginWriteScopeAsync` because `SubscriptionWriteFilter` already opened the
 transaction. **The filter holds the sync-counter row for the whole handler**, so compute must be
 short: bulk loads, in-memory arithmetic, no per-line `SaveChanges` — or every till pushing at
@@ -929,7 +929,7 @@ already created, say, `421` with another type (`LedgerEndpoints.cs:66-80` lets t
 `LedgerSources`: `PayrollRun = "payroll-run"`, `WagePayment = "wage-payment"`,
 `WageAdvance = "wage-advance"`, `PayrollStatutoryPayment = "payroll-statutory-payment"`.
 
-`AlgeriaPos.Infrastructure/Ledger/PayrollPosting.cs`, pure and static like `DocumentPosting`:
+`ParadiERP.Infrastructure/Ledger/PayrollPosting.cs`, pure and static like `DocumentPosting`:
 
 | Entry | Debit | Credit |
 |---|---|---|
@@ -998,7 +998,7 @@ existing label is what a movement written by `PayAsync` shows, not that a label 
 
 ### 5.11 Endpoints — `/api/hr`
 
-`AlgeriaPos.API/Endpoints/HrEndpoints.cs`, `app.MapHrEndpoints()` after receivables. Group
+`ParadiERP.API/Endpoints/HrEndpoints.cs`, `app.MapHrEndpoints()` after receivables. Group
 `/api/hr` `.WithTags("HR").AddEndpointFilter<SubscriptionWriteFilter>().RequireAuthorization(RequireRole(Manager, Admin))`;
 every sub-group additionally `RequireClaim(perm, ManagePayroll)` **except** the attendance sheet
 routes, which accept `ManagePayroll` **or** `EnterAttendance` (a `RequireAssertion` policy).
@@ -1091,7 +1091,7 @@ run computed, approved, paid; payslip preview; screenshots under `artifacts/desi
 
 Defaults have bitten four times. This phase is shaped so the class of bug cannot occur: **it adds
 tables and touches no existing one**. One migration `HrAndPayroll` scaffolded twice (SQLite in
-`AlgeriaPos.Infrastructure/Persistence/Migrations`, MySQL in `AlgeriaPos.Migrations.MySql/Migrations`),
+`ParadiERP.Infrastructure/Persistence/Migrations`, MySQL in `ParadiERP.Migrations.MySql/Migrations`),
 identical shape: Guid TEXT / `char(36) ascii_general_ci`; decimal TEXT (18,3) / `decimal(18,3)`;
 bool INTEGER / `tinyint(1)`; DateTime TEXT / `datetime(6)`; DateOnly TEXT / `date`; enums int; JSON
 TEXT / `longtext`. Every non-null column has a CLR default the entity sets (Status = Draft, IsActive
@@ -1344,7 +1344,7 @@ remaining piece is the shared numbering helper.
 | 1 | Bootstrap admin for the single-company path; EF command logging off in Production; image drops the SQLite default, logs provider, refuses SQLite in Production unless opted in | the most likely deployment mistake seeds demo credentials and ledger entries that can never be deleted; the others fill the disk and hide the wrong database | hours ×3 | done |
 | 2 | `deploy/prod/` compose (caddy + pos + mysql + backup), `Caddyfile`, `.env.example` (names only), `backup.sh`, `restore.sh`, `docs/07-production-runbook.md`, `tests/e2e/backup-restore.sh` | there is no backup or restore anywhere; five months of ledger would live on one volume | day | done * |
 | 3 | `/health` with a database check and a `HEALTHCHECK`; bounded startup wait | a green monitor with MySQL down; a crash loop on host reboot | hours ×2 | done |
-| 4 | HTTP test host: `Microsoft.AspNetCore.Mvc.Testing` in `AlgeriaPos.Tests`, a `WebApplicationFactory<Program>` fixture on SQLite with the single-company tenant configured in code, `Program` visible to the tests | nothing today can assert a status code, a login refusal, a policy or a startup throw; `LoginTerminalBindingTests` (§2.5), `HrEndpointTests` (§5.11) and the bootstrap tests (§6.0) all wait on it | hours | done |
+| 4 | HTTP test host: `Microsoft.AspNetCore.Mvc.Testing` in `ParadiERP.Tests`, a `WebApplicationFactory<Program>` fixture on SQLite with the single-company tenant configured in code, `Program` visible to the tests | nothing today can assert a status code, a login refusal, a policy or a startup throw; `LoginTerminalBindingTests` (§2.5), `HrEndpointTests` (§5.11) and the bootstrap tests (§6.0) all wait on it | hours | done |
 | 5 | Terminal binding (`User.BranchId`, both migration sets, users tab, login text) **together with** branch scoping of `/api/sales`, `/api/sales/{id}`, `/api/reports/summary`, `send-receipt` via `BranchScope` + `SalesQueries` + `BranchScoped` marker | a cashier token reads every branch's sales and Z-report; scoping alone is a speed bump while the cashier picks the device code | 2 days | done |
 | 6 | Push rejections: code + safe sentence to the till, full exception logged under a reference; `PushResultItem.Code`; UI fallback to `message` | the database's own words on the till and nothing in the server log | day | done |
 | 7 | Stop the blank 80 mm strip: scope the receipt rule to `html.print-receipt`, runtime `@page`, A4 default, dead `#report-print` | six Print buttons print nothing today; everything in §4 is invisible until this | hours | done * |

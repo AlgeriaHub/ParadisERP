@@ -141,7 +141,7 @@ rewriting work that already runs.
 3. **Sync:** a monotonic version cursor (`SyncEntity.Version`), batches of 500, and deletion by
    tombstone (`IsDeleted`). Every new entity **must decide** whether it replicates to tills.
 4. **Two databases:** every schema change is 2 migration sets (SQLite in Infrastructure,
-   MySQL in `AlgeriaPos.Migrations.MySql`). Both were first run live on 2026-09-23 (per
+   MySQL in `ParadiERP.Migrations.MySql`). Both were first run live on 2026-09-23 (per
    `docs/03-work-status.md`). A third set, SQL Server, existed when this was written and was
    removed that same day — one company per deployment, one migration set fewer per change.
 5. **IndexedDB is at version 5**, and upgrades reshape rows in place so an offline till keeps
@@ -675,7 +675,7 @@ the screen, and a change in the finance law is a setting change rather than a ne
 > or a CNAS declaration is wrong. The numbers come from the owner or their accountant and are
 > stored as reviewable settings.
 
-**Built (2026-09-23):** `AlgeriaPos.Application/Payroll` carries `PayrollSettings`, its validator
+**Built (2026-09-23):** `ParadiERP.Application/Payroll` carries `PayrollSettings`, its validator
 and an Algeria preset, with tests.
 
 * The preset states the **CNAS split — 9% employee, 26% employer** — which has been stable for

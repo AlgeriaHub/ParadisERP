@@ -143,8 +143,8 @@ References:
 ## Verification
 
 ```text
-dotnet test AlgeriaPos.Tests
-cd AlgeriaPos.WebUI
+dotnet test ParadiERP.Tests
+cd ParadiERP.WebUI
 npm test -- --watch=false --browsers=ChromeHeadless
 npm run build
 cd ..

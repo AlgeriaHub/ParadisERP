@@ -1,4 +1,4 @@
-// Real API smoke test. Run after: dotnet build AlgeriaPos.API
+// Real API smoke test. Run after: dotnet build ParadiERP.API
 // Uses isolated temporary databases; no existing company configuration is modified.
 const assert = require('node:assert/strict');
 const { spawn } = require('node:child_process');
@@ -44,7 +44,7 @@ const http = require('node:http');
     }).map(([key, value]) => [prefix + key, value])));
   }
   const configuration = process.env.BUILD_CONFIGURATION || 'Debug';
-  const dll = path.resolve(__dirname, `../../AlgeriaPos.API/bin/${configuration}/net8.0/AlgeriaPos.API.dll`);
+  const dll = path.resolve(__dirname, `../../ParadiERP.API/bin/${configuration}/net8.0/ParadiERP.API.dll`);
   const server = spawn('dotnet', [dll], { cwd: temp, env, windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'] });
   let logs = '';
   server.stdout.on('data', data => { logs = (logs + data).slice(-12000); });

@@ -5,13 +5,13 @@ const fs = require('node:fs');
 const path = require('node:path');
 const http = require('node:http');
 const assert = require('node:assert/strict');
-const root = path.resolve(process.argv[2] || 'AlgeriaPos.WebUI/dist/algeria-pos-web-ui/browser');
+const root = path.resolve(process.argv[2] || 'ParadiERP.WebUI/dist/paradierp-web-ui/browser');
 const output = path.resolve('artifacts/cart-sidebar-review', process.argv[5] || '');
 fs.mkdirSync(output, { recursive: true });
 const products = [{ id: 'product1', sku: 'LOC-001', barcode: '6130000000001', nameFr: 'Générateur de chantier', nameAr: 'مولد كهربائي', nameEn: 'Site generator', price: 500, taxRate: 0, unit: 'pcs', isActive: true, isRentable: true, trackStock: true, stockQty: 20, reorderLevel: 2, version: 1, isDeleted: false }];
 const branches = [{ id: 'branch1', nameFr: 'Agence centrale', nameAr: 'الفرع الرئيسي', nameEn: 'Main branch', isActive: true }];
 const customers = [{ id: 'customer1', code: 'DEMO-01', fullName: 'Client démonstration', kind: 'Person', balance: 0, creditLimit: 0 }];
-const permissions = [...new Set(['payroll.manage', 'hr.attendance', ...[...fs.readFileSync('AlgeriaPos.Domain/Authorization/PermissionCatalog.cs', 'utf8').matchAll(/public const string \w+ = "([^"]+)"/g)].map(m => m[1])])];
+const permissions = [...new Set(['payroll.manage', 'hr.attendance', ...[...fs.readFileSync('ParadiERP.Domain/Authorization/PermissionCatalog.cs', 'utf8').matchAll(/public const string \w+ = "([^"]+)"/g)].map(m => m[1])])];
 const user = { id: 'ui-admin', username: 'admin', fullName: 'Administrateur', role: 'Admin', permissions, capabilities: ['customers.create'], isActive: true, branchLocked: false };
 const server = http.createServer((req, res) => {
   const requested = new URL(req.url, 'http://localhost').pathname;

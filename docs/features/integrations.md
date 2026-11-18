@@ -17,7 +17,7 @@ them, and tills only learn the few facts they need.
 
 * Non-secret settings live in the platform database (`CompanyIntegrations.SettingsJson`).
 * The SMS token, SMTP password and webhook secret are encrypted with ASP.NET Data Protection
-  (purpose `AlgeriaPos.Integrations`) in the same row.
+  (purpose `ParadiERP.Integrations`) in the same row.
 * Secrets are **write-only**. `GET` returns only `hasSmsToken` / `hasSmtpPassword` /
   `hasWebhookSecret`; saving with an empty field keeps the stored value, and a *remove* flag
   clears it. Audit entries record which secret changed, never its value.
@@ -44,7 +44,7 @@ Tills receive a public view with login and every pull: `cardMode`, `requireCardR
 * `IntegrationOutboxWorker` (a background service, `IntegrationOutbox:IntervalSeconds`, default
   15) delivers pending events per company and retries with exponential backoff (1, 2, 4 … minutes,
   capped at 6 hours). Events stay queued while the webhook is disabled.
-* Request headers: `X-AlgeriaPos-Event` and `X-AlgeriaPos-Signature: sha256=<hex>`, the HMAC of
+* Request headers: `X-ParadiERP-Event` and `X-ParadiERP-Signature: sha256=<hex>`, the HMAC of
   the exact request body with the company's signing secret. Verify it before trusting a payload.
 * Payload: `{ type: "sale.accepted", companyId, sale: { …, lines: [...], payments: [...] } }`.
 

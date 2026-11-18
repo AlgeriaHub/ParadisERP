@@ -63,7 +63,7 @@ const stop = server => new Promise(resolve => server.close(resolve));
   for (let i = 0; i < 2; i++) for (const [key, value] of Object.entries({ Id: `company-${i}`, Hosts__0: `company-${i}.test`,
     ConnectionString: `Data Source=${path.join(temp, `company-${i}.db`)}`, BootstrapAdminPassword: password,
     Subscription__Status: i ? 'Suspended' : 'Active', Subscription__ExpiresAtUtc: '2099-01-01T00:00:00Z' })) env[`Tenancy__Companies__${i}__${key}`] = value;
-  const dll = path.resolve(__dirname, `../../AlgeriaPos.API/bin/${process.env.BUILD_CONFIGURATION || 'Debug'}/net8.0/AlgeriaPos.API.dll`);
+  const dll = path.resolve(__dirname, `../../ParadiERP.API/bin/${process.env.BUILD_CONFIGURATION || 'Debug'}/net8.0/ParadiERP.API.dll`);
   // A persistent key ring: portal-created companies' connection strings must decrypt after a restart.
   env.DataProtection__KeysPath = path.join(temp, 'keys');
   let child, logs = '', launchError;

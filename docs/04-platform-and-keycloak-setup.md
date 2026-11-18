@@ -111,7 +111,7 @@ container is not a production Keycloak deployment.
 ## Verification
 
 ```text
-dotnet build AlgeriaPos.API
+dotnet build ParadiERP.API
 node tests/e2e/sso-platform.cjs
 ```
 
