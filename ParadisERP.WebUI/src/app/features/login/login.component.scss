@@ -79,6 +79,33 @@
   min-inline-size: 0;
 }
 
+.erp-symbol-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.brand-badge-erp {
+  background: linear-gradient(135deg, #00FF44 0%, #00CC33 100%);
+  color: #04180A;
+  font-size: 0.72rem;
+  font-weight: 900;
+  padding: 0.15rem 0.38rem;
+  border-radius: 5px;
+  letter-spacing: 0.05em;
+  margin-inline-start: 4px;
+  box-shadow: 0 0 10px rgba(0, 255, 68, 0.4);
+  display: inline-block;
+  vertical-align: middle;
+}
+
 .logo {
   display: inline-grid;
   place-items: center;

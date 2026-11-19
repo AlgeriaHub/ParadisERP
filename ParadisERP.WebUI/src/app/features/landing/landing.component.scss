@@ -91,6 +91,33 @@
   font-weight: 800;
   font-size: 1.28rem;
   letter-spacing: -0.03em;
+  cursor: pointer;
+
+  .landing__logo-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.12));
+  }
+
+  &:hover .landing__logo-icon {
+    transform: scale(1.12);
+  }
+}
+
+.landing__brand-badge {
+  background: linear-gradient(135deg, #00FF44 0%, #00CC33 100%);
+  color: #04180A;
+  font-size: 0.72rem;
+  font-weight: 900;
+  padding: 0.18rem 0.42rem;
+  border-radius: 5px;
+  letter-spacing: 0.05em;
+  margin-inline-start: 4px;
+  box-shadow: 0 0 10px rgba(0, 255, 68, 0.35);
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .landing__brand-accent {

@@ -1,6 +1,15 @@
 <div class="platform">
   <header>
-    <div><h1>{{ text().title }}</h1><p>{{ text().intro }}</p></div>
+    <div style="display: flex; align-items: center; gap: 1rem;">
+      <svg width="36" height="36" viewBox="0 0 32 32" fill="none" style="flex: none;">
+        <rect x="0" y="0" width="12" height="14" rx="3" fill="#1E293B" stroke="rgba(0,0,0,0.15)" stroke-width="0.8"/>
+        <rect x="0" y="18" width="12" height="14" rx="3" fill="#0078D4"/>
+        <rect x="16" y="0" width="16" height="7.5" rx="2.5" fill="#00D035"/>
+        <rect x="16" y="12" width="11" height="7.5" rx="2.5" fill="#00E5FF"/>
+        <rect x="16" y="24.5" width="16" height="7.5" rx="2.5" fill="#7C3AED"/>
+      </svg>
+      <div><h1>{{ text().title }}</h1><p>{{ text().intro }}</p></div>
+    </div>
     <div class="tools">
       <select #langSelect [ngModel]="i18n.lang()" (ngModelChange)="onLangChange($event, langSelect)" aria-label="Language">
         @for (lang of langs; track lang.code) { <option [value]="lang.code">{{ lang.label }}</option> }
