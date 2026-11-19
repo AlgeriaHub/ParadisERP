@@ -24,7 +24,7 @@ export type Layout = 'till' | 'backoffice' | 'print' | 'landing' | 'bare';
 
 export function layoutFor(url: string): Layout {
   const path = url.split(/[?#]/)[0];
-  if (path === '/') return 'landing';
+  if (path === '/' || path === '/landing') return 'landing';
   if (/^\/print(\/|$)/.test(path)) return 'print';
   if (/^\/backoffice(\/|$)/.test(path)) return 'backoffice';
   if (/^\/(register|sales|products|sync)(\/|$)/.test(path)) return 'till';
