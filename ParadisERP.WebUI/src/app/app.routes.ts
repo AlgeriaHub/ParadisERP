@@ -35,7 +35,7 @@ const backofficeGuard: CanActivateFn = () => {
  * Root guard:
  * - On client workspaces (*.erp.paradistack.com except erp.paradistack.com), clients have NO landing page:
  *   redirects directly to '/login' (or '/register' if authenticated).
- * - On the general system (erp.paradistack.com or localhost), shows the LandingComponent.
+ * - On the general system (erp.paradistack.com), redirects directly to '/platform'.
  */
 const rootGuard: CanActivateFn = () => {
   const auth = inject(AuthService);
@@ -45,7 +45,7 @@ const rootGuard: CanActivateFn = () => {
   if (isClientWorkspace) {
     return auth.isAuthenticated() ? router.createUrlTree(['/register']) : router.createUrlTree(['/login']);
   }
-  return true;
+  return router.createUrlTree(['/platform']);
 };
 
 export const routes: Routes = [
@@ -55,7 +55,7 @@ export const routes: Routes = [
     path: '',
     pathMatch: 'full',
     canActivate: [rootGuard],
-    loadComponent: () => import('./features/landing/landing.component').then(m => m.LandingComponent),
+    loadComponent: () => import('./features/platform/platform.component').then(m => m.PlatformComponent),
   },
   {
     path: 'login',
