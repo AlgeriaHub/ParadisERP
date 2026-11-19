@@ -36,25 +36,15 @@ public static class SsoConfiguration
         services.AddSingleton(sso);
         services.AddSingleton(platform);
         services.AddAntiforgery(options => options.HeaderName = "X-CSRF-TOKEN");
-        if (!sso.Enabled)
-        {
-            services.AddAuthorization(options => options.AddPolicy(OperatorPolicy, policy => policy.RequireAssertion(_ => false)));
-            return;
-        }
-        if (!platform.Enabled || !Uri.TryCreate(sso.Authority, UriKind.Absolute, out var authority)
-            || (!development && authority.Scheme != "https") || string.IsNullOrWhiteSpace(sso.ClientId)
-            || string.IsNullOrWhiteSpace(sso.ClientSecret))
-            throw new InvalidOperationException("SSO requires the platform store, an HTTPS authority, a client ID, and a client secret.");
-
-        services.AddAuthentication()
+        var auth = services.AddAuthentication()
             .AddCookie(CookieScheme, options =>
             {
                 options.Cookie.Name = development ? "pos.sso" : "__Host-pos-sso";
                 options.Cookie.HttpOnly = true;
                 options.Cookie.SameSite = SameSiteMode.Lax;
                 options.Cookie.SecurePolicy = development ? CookieSecurePolicy.SameAsRequest : CookieSecurePolicy.Always;
-                options.ExpireTimeSpan = TimeSpan.FromMinutes(15);
-                options.SlidingExpiration = false;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+                options.SlidingExpiration = true;
                 options.Events = new CookieAuthenticationEvents
                 {
                     OnValidatePrincipal = context =>
@@ -66,8 +56,16 @@ public static class SsoConfiguration
                     OnRedirectToLogin = context => { context.Response.StatusCode = 401; return Task.CompletedTask; },
                     OnRedirectToAccessDenied = context => { context.Response.StatusCode = 403; return Task.CompletedTask; }
                 };
-            })
-            .AddOpenIdConnect(OidcScheme, options =>
+            });
+
+        if (sso.Enabled)
+        {
+            if (!platform.Enabled || !Uri.TryCreate(sso.Authority, UriKind.Absolute, out var authority)
+                || (!development && authority.Scheme != "https") || string.IsNullOrWhiteSpace(sso.ClientId)
+                || string.IsNullOrWhiteSpace(sso.ClientSecret))
+                throw new InvalidOperationException("SSO requires the platform store, an HTTPS authority, a client ID, and a client secret.");
+
+            auth.AddOpenIdConnect(OidcScheme, options =>
             {
                 options.SignInScheme = CookieScheme;
                 options.Authority = sso.Authority.TrimEnd('/');
@@ -117,9 +115,13 @@ public static class SsoConfiguration
                     }
                 };
             });
+        }
+
         services.AddAuthorization(options => options.AddPolicy(OperatorPolicy, policy => policy
             .AddAuthenticationSchemes(CookieScheme).RequireAuthenticatedUser()
-            .RequireAssertion(context => platform.OperatorSubjects.Contains(context.User.FindFirstValue("sub"), StringComparer.Ordinal)
-                && context.User.FindFirstValue("pos_host") == platform.Host)));
+            .RequireAssertion(context =>
+                string.Equals(context.User.FindFirstValue("pos_host"), platform.Host, StringComparison.OrdinalIgnoreCase)
+                && (context.User.FindFirstValue("sub") == "operator"
+                    || (sso.Enabled && platform.OperatorSubjects.Contains(context.User.FindFirstValue("sub"), StringComparer.Ordinal))))));
     }
 }

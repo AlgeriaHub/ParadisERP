@@ -8,10 +8,12 @@ using ParadisERP.Infrastructure.Platform;
 using ParadisERP.Infrastructure.Subscriptions;
 using ParadisERP.Infrastructure.Tenancy;
 using Microsoft.AspNetCore.Antiforgery;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 
 namespace ParadisERP.API.Endpoints;
 
+public record OperatorLoginRequest(string Username, string Password);
 public record UpdateSubscriptionRequest(SubscriptionOptions Settings, long Revision, string Reason);
 public record LinkIdentityRequest(string Subject, Guid UserId);
 public record UpdateRegionalRequest(RegionalSettings Settings, long Revision, string Reason);
@@ -22,6 +24,40 @@ public static class PlatformEndpoints
     public static void MapPlatformEndpoints(this IEndpointRouteBuilder app, PlatformOptions options)
     {
         if (!options.Enabled) return;
+        var publicGroup = app.MapGroup("/api/platform").WithTags("Platform");
+        publicGroup.MapPost("/login", async (OperatorLoginRequest request, HttpContext context) =>
+        {
+            var configuration = context.RequestServices.GetRequiredService<IConfiguration>();
+            var antiforgery = context.RequestServices.GetRequiredService<IAntiforgery>();
+            var opUser = configuration["Platform:OperatorUsername"] ?? configuration["Bootstrap:AdminUsername"] ?? "admin";
+            var opPass = configuration["Platform:OperatorPassword"] ?? configuration["Bootstrap:AdminPassword"] ?? "ParadisERPAdmin2026!";
+            if (string.IsNullOrWhiteSpace(request.Username)
+                || !string.Equals(request.Username.Trim(), opUser, StringComparison.OrdinalIgnoreCase)
+                || request.Password != opPass)
+            {
+                return Results.Problem("اسم المستخدم أو كلمة المرور غير صحيحة.", statusCode: StatusCodes.Status401Unauthorized);
+            }
+            var claims = new[]
+            {
+                new Claim("sub", "operator"),
+                new Claim("name", request.Username.Trim()),
+                new Claim("pos_host", options.Host.ToLowerInvariant()),
+                new Claim("role", "operator")
+            };
+            var identity = new ClaimsIdentity(claims, SsoConfiguration.CookieScheme, "name", "role");
+            await context.SignInAsync(SsoConfiguration.CookieScheme, new ClaimsPrincipal(identity));
+            return Results.Ok(new
+            {
+                name = request.Username.Trim(),
+                csrfToken = antiforgery.GetAndStoreTokens(context).RequestToken
+            });
+        }).DisableAntiforgery();
+        publicGroup.MapPost("/logout", async (HttpContext context) =>
+        {
+            await context.SignOutAsync(SsoConfiguration.CookieScheme);
+            return Results.NoContent();
+        }).DisableAntiforgery();
+
         var group = MapPlatformGroup(app);
         group.MapGet("/session", (HttpContext context, IAntiforgery antiforgery) => Results.Ok(new
         { name = context.User.FindFirstValue("name"), csrfToken = antiforgery.GetAndStoreTokens(context).RequestToken }));

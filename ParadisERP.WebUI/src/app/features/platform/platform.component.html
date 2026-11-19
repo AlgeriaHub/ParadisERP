@@ -8,9 +8,29 @@
       @if (name()) { <span>{{ name() }}</span><button type="button" class="btn-ghost" (click)="logout()">{{ text().logout }}</button> }
     </div>
   </header>
-  @if (error()) { <p class="notice danger" role="alert">{{ error() }}</p> }
+  @if (error() && !needsLogin()) { <p class="notice danger" role="alert">{{ error() }}</p> }
   @if (saved()) { <p class="notice ok" role="status">{{ text().saved }}</p> }
-  @if (needsLogin()) { <button type="button" class="btn-primary" (click)="signIn()">{{ text().signIn }}</button> }
+  @if (needsLogin()) {
+    <div class="operator-login-card">
+      <h2>{{ text().signIn }}</h2>
+      @if (loginError() || error()) { <p class="notice danger" role="alert">{{ loginError() || error() }}</p> }
+      <form (ngSubmit)="doLogin()">
+        <label>
+          <span>{{ i18n.lang() === 'ar' ? 'اسم المستخدم' : (i18n.lang() === 'fr' ? 'Nom d\'utilisateur' : 'Username') }}</span>
+          <input type="text" [ngModel]="operatorUsername()" (ngModelChange)="operatorUsername.set($event)" name="username" required autocomplete="username" />
+        </label>
+        <label>
+          <span>{{ i18n.lang() === 'ar' ? 'كلمة المرور' : (i18n.lang() === 'fr' ? 'Mot de passe' : 'Password') }}</span>
+          <input type="password" [ngModel]="operatorPassword()" (ngModelChange)="operatorPassword.set($event)" name="password" required autocomplete="current-password" autofocus />
+        </label>
+        <div class="actions">
+          <button type="submit" class="btn-primary" [disabled]="loggingIn() || !operatorPassword()">
+            {{ loggingIn() ? (i18n.lang() === 'ar' ? 'جاري تسجيل الدخول...' : (i18n.lang() === 'fr' ? 'Connexion en cours...' : 'Signing in...')) : text().signIn }}
+          </button>
+        </div>
+      </form>
+    </div>
+  }
   @if (busy() && !name() && !needsLogin()) {
     <p class="loading" role="status">
       <span class="loading__word">{{ text().loading }}</span>

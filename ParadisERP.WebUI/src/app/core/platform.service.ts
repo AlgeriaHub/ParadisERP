@@ -56,6 +56,11 @@ export class PlatformError extends Error { constructor(message: string, readonly
 @Injectable({ providedIn: 'root' })
 export class PlatformService {
   private csrf = '';
+  async login(username: string, password: string): Promise<{ name: string }> {
+    const session = await this.request<{ name: string; csrfToken: string }>('/login', 'POST', { username, password });
+    this.csrf = session.csrfToken;
+    return session;
+  }
   async session(): Promise<{ name: string }> {
     const session = await this.request<{ name: string; csrfToken: string }>('/session');
     this.csrf = session.csrfToken;
@@ -105,8 +110,9 @@ export class PlatformService {
     return this.request(`/companies/${encodeURIComponent(id)}/integrations/test-webhook`, 'POST');
   }
   async logout(): Promise<void> {
-    const response = await fetch('/api/auth/sso/logout', { method: 'POST', headers: { 'X-CSRF-TOKEN': this.csrf }, credentials: 'same-origin', signal: AbortSignal.timeout(10000) });
-    if (!response.ok && response.status !== 401) throw new PlatformError('Sign-out failed. Try again.', response.status);
+    try {
+      await this.request('/logout', 'POST');
+    } catch {}
     this.csrf = '';
   }
   private async request<T>(path: string, method = 'GET', body?: unknown, timeoutMs = 30000): Promise<T> {

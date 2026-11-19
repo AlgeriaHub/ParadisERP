@@ -46,6 +46,28 @@ export class PlatformComponent implements OnInit {
   readonly statuses = ['Trial', 'Active', 'Suspended', 'Cancelled', 'Unrestricted'];
   form: SubscriptionSettings | null = null;
   expiry = ''; reason = ''; subject = ''; userId = '';
+  readonly operatorUsername = signal('admin');
+  readonly operatorPassword = signal('');
+  readonly loginError = signal('');
+  readonly loggingIn = signal(false);
+
+  async doLogin(): Promise<void> {
+    if (!this.operatorPassword()) return;
+    this.loggingIn.set(true);
+    this.loginError.set('');
+    try {
+      const session = await this.api.login(this.operatorUsername(), this.operatorPassword());
+      this.name.set(session.name);
+      this.needsLogin.set(false);
+      this.error.set('');
+      this.operatorPassword.set('');
+      await this.reload();
+    } catch (err) {
+      this.loginError.set(err instanceof Error ? err.message : 'فشل تسجيل الدخول');
+    } finally {
+      this.loggingIn.set(false);
+    }
+  }
 
   async ngOnInit(): Promise<void> {
     this.busy.set(true);
